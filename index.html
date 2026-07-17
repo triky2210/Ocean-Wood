@@ -570,7 +570,27 @@
         }
     });
 
-    
+    // Make smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+                        if (icon) icon.textContent = 'menu';
+                    }
+                }
+            }
+        });
+    });
+
     // Modal Form Logic
     const inquiryModal = document.getElementById('inquiry-modal');
     const closeInquiryModal = document.getElementById('close-inquiry-modal');
@@ -660,27 +680,6 @@
         });
     }
 
-
-    // Make smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
-                        if (icon) icon.textContent = 'menu';
-                    }
-                }
-            }
-        });
-    });
 </script>
 
 <!-- Inquiry Modal Form -->

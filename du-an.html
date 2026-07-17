@@ -2,63 +2,11 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Dự Án Tiêu Biểu - Ocean Wood</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
-    // Project Loading Logic from Supabase
-    async function loadProjects() {
-        const grid = document.getElementById('projects-grid');
-        if (!grid) return;
-        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách dự án...</p></div>';
-
-        try {
-            let projects = [];
-            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-                const { data, error } = await supabaseClient.from('projects').select('*');
-                if (error) throw error;
-                projects = data;
-            } else {
-                // Mock projects data
-                projects = [
-                    { name: "Nhà ga T3 – Sân bay Tân Sơn Nhất", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM", location: "Hồ Chí Minh, Việt Nam" },
-                    { name: "Nhà máy Nhiệt điện Vũng Áng 2", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC", location: "Hà Tĩnh, Việt Nam" },
-                    { name: "Nhà máy Goertek – Bắc Ninh", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx", location: "Bắc Ninh, Việt Nam" },
-                    { name: "Nhà máy Điện tử BYD – Phú Thọ", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG", location: "Phú Thọ, Việt Nam" }
-                ];
-            }
-
-            if (projects.length === 0) {
-                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có dự án nào.</p></div>';
-                return;
-            }
-
-            grid.innerHTML = '';
-            projects.forEach(proj => {
-                grid.innerHTML += `
-                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="aspect-video relative overflow-hidden bg-surface-container-low">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
-                    </div>
-                    <div class="p-6 text-left">
-                        <span class="text-primary font-bold text-xs uppercase mb-1 block">${proj.location}</span>
-                        <h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors text-[18px] font-bold">${proj.name}</h3>
-                    </div>
-                </div>`;
-            });
-
-            // Re-bind modal buttons
-            bindInquiryButtons();
-
-        } catch (err) {
-            console.error("Lỗi khi tải dự án:", err);
-            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách dự án.</p></div>';
-        }
-    }
-
-    // Load initial projects
-    loadProjects();
-
-</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -152,61 +100,7 @@
                 },
             },
         }
-    
-    // Project Loading Logic from Supabase
-    async function loadProjects() {
-        const grid = document.getElementById('projects-grid');
-        if (!grid) return;
-        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách dự án...</p></div>';
-
-        try {
-            let projects = [];
-            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-                const { data, error } = await supabaseClient.from('projects').select('*');
-                if (error) throw error;
-                projects = data;
-            } else {
-                // Mock projects data
-                projects = [
-                    { name: "Nhà ga T3 – Sân bay Tân Sơn Nhất", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM", location: "Hồ Chí Minh, Việt Nam" },
-                    { name: "Nhà máy Nhiệt điện Vũng Áng 2", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC", location: "Hà Tĩnh, Việt Nam" },
-                    { name: "Nhà máy Goertek – Bắc Ninh", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx", location: "Bắc Ninh, Việt Nam" },
-                    { name: "Nhà máy Điện tử BYD – Phú Thọ", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG", location: "Phú Thọ, Việt Nam" }
-                ];
-            }
-
-            if (projects.length === 0) {
-                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có dự án nào.</p></div>';
-                return;
-            }
-
-            grid.innerHTML = '';
-            projects.forEach(proj => {
-                grid.innerHTML += `
-                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="aspect-video relative overflow-hidden bg-surface-container-low">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
-                    </div>
-                    <div class="p-6 text-left">
-                        <span class="text-primary font-bold text-xs uppercase mb-1 block">${proj.location}</span>
-                        <h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors text-[18px] font-bold">${proj.name}</h3>
-                    </div>
-                </div>`;
-            });
-
-            // Re-bind modal buttons
-            bindInquiryButtons();
-
-        } catch (err) {
-            console.error("Lỗi khi tải dự án:", err);
-            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách dự án.</p></div>';
-        }
-    }
-
-    // Load initial projects
-    loadProjects();
-
-</script>
+    </script>
 </head>
 <body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed antialiased">
 <!-- Top Navigation Bar -->
@@ -491,6 +385,96 @@
         });
     });
 
+    // Modal Form Logic
+    const inquiryModal = document.getElementById('inquiry-modal');
+    const closeInquiryModal = document.getElementById('close-inquiry-modal');
+    const inquiryForm = document.getElementById('inquiry-form');
+    const inquirySuccess = document.getElementById('inquiry-success');
+    const closeSuccessBtn = document.getElementById('close-success-btn');
+
+    function openModal() {
+        if (inquiryModal) {
+            inquiryModal.classList.remove('hidden');
+            inquiryForm.classList.remove('hidden');
+            inquirySuccess.classList.add('hidden');
+        }
+    }
+
+    function closeModal() {
+        if (inquiryModal) {
+            inquiryModal.classList.add('hidden');
+        }
+    }
+
+    // Bind open events to all consultation/inquiry buttons
+    function bindInquiryButtons() {
+        document.querySelectorAll('button, a').forEach(el => {
+            const text = el.textContent.trim().toLowerCase();
+            if (text.includes('báo giá') || text.includes('tư vấn ngay') || text.includes('tư vấn') || text.includes('liên hệ')) {
+                if (!el.getAttribute('href') || (!el.getAttribute('href').startsWith('#') && el.getAttribute('href') !== 'index.html#footer')) {
+                    el.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openModal();
+                    });
+                }
+            }
+        });
+    }
+    
+    // Bind initially
+    bindInquiryButtons();
+
+    if (closeInquiryModal) closeInquiryModal.addEventListener('click', closeModal);
+    if (closeSuccessBtn) closeSuccessBtn.addEventListener('click', closeModal);
+
+    if (inquiryModal) {
+        inquiryModal.addEventListener('click', (e) => {
+            if (e.target === inquiryModal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Handle Form Submit and upload to Supabase
+    if (inquiryForm) {
+        inquiryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-inquiry-btn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Đang gửi...';
+
+            const name = document.getElementById('inquiry-name').value;
+            const phone = document.getElementById('inquiry-phone').value;
+            const email = document.getElementById('inquiry-email').value;
+            const message = document.getElementById('inquiry-message').value;
+
+            try {
+                if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                    const { data, error } = await supabaseClient
+                        .from('inquiries')
+                        .insert([
+                            { name, phone, email, message }
+                        ]);
+                    if (error) throw error;
+                } else {
+                    console.warn("Supabase chưa được cấu hình. Đang mô phỏng lưu trữ.");
+                }
+
+                inquiryForm.classList.add('hidden');
+                inquirySuccess.classList.remove('hidden');
+                inquiryForm.reset();
+            } catch (err) {
+                console.error("Lỗi khi gửi báo giá:", err);
+                alert("Có lỗi xảy ra khi gửi thông tin. Vui lòng liên hệ hotline 0941 186 386 để được trợ giúp trực tiếp.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        });
+    }
+
+
     // Project Loading Logic from Supabase
     async function loadProjects() {
         const grid = document.getElementById('projects-grid');
@@ -545,4 +529,53 @@
     loadProjects();
 
 </script>
+
+<!-- Inquiry Modal Form -->
+<div id="inquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm transition-all duration-300">
+    <div class="bg-surface-white dark:bg-inverse-surface rounded-xl shadow-2xl border border-outline-variant/30 max-w-lg w-full mx-4 p-8 relative animate-fade-in-up">
+        <!-- Close button -->
+        <button id="close-inquiry-modal" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <!-- Header -->
+        <div class="mb-6 text-left">
+            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-2">Nhận Báo Giá & Tư Vấn</h3>
+            <p class="text-sm text-on-surface-variant">Vui lòng điền thông tin dưới đây, chuyên viên của Ocean Wood sẽ liên hệ lại với bạn trong vòng 15 phút.</p>
+        </div>
+        <!-- Form -->
+        <form id="inquiry-form" class="space-y-4 text-left">
+            <div>
+                <label for="inquiry-name" class="block font-label-sm text-sm text-on-surface mb-1">Họ và Tên *</label>
+                <input type="text" id="inquiry-name" required placeholder="Nguyễn Văn A" class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label for="inquiry-phone" class="block font-label-sm text-sm text-on-surface mb-1">Số điện thoại *</label>
+                <input type="tel" id="inquiry-phone" required placeholder="09xxxxxxxx" class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label for="inquiry-email" class="block font-label-sm text-sm text-on-surface mb-1">Email (Không bắt buộc)</label>
+                <input type="email" id="inquiry-email" placeholder="example@gmail.com" class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label for="inquiry-message" class="block font-label-sm text-sm text-on-surface mb-1">Sản phẩm quan tâm & Lời nhắn</label>
+                <textarea id="inquiry-message" rows="3" placeholder="Ví dụ: Tôi cần báo giá ván ép Poplar Marine dày 18mm..." class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all"></textarea>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" id="submit-inquiry-btn" class="w-full bg-primary text-on-primary py-3.5 rounded-lg font-bold hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
+                <span>Gửi Yêu Cầu Báo Giá</span>
+                <span class="material-symbols-outlined text-sm">send</span>
+            </button>
+        </form>
+        <!-- Success Screen -->
+        <div id="inquiry-success" class="hidden text-center py-8">
+            <span class="material-symbols-outlined text-6xl text-leaf-accent mb-4 block" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            <h4 class="font-headline-md text-primary dark:text-primary-fixed mb-2">Gửi Yêu Cầu Thành Công!</h4>
+            <p class="text-on-surface-variant font-body-md text-sm mb-6">Cảm ơn bạn đã quan tâm đến giải pháp gỗ của Ocean Wood. Chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
+            <button id="close-success-btn" class="bg-primary text-on-primary px-8 py-3 rounded-lg font-bold hover:opacity-90 transition-all mx-auto block">
+                Đóng
+            </button>
+        </div>
+    </div>
+</div>
+
 </body></html>
