@@ -502,12 +502,27 @@
                 return;
             }
 
+            // Deduplicate projects by name to avoid double entries
+            const uniqueProjects = [];
+            const seenNames = new Set();
+            for (const proj of projects) {
+                const normalizedName = proj.name
+                    .replace(/[\u2013\u2014]/g, "-") // normalize en-dash and em-dash to standard hyphen
+                    .replace(/\s+/g, " ")
+                    .trim()
+                    .toLowerCase();
+                if (!seenNames.has(normalizedName)) {
+                    seenNames.add(normalizedName);
+                    uniqueProjects.push(proj);
+                }
+            }
+
             grid.innerHTML = '';
-            projects.forEach(proj => {
+            uniqueProjects.forEach(proj => {
                 grid.innerHTML += `
                 <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="aspect-video relative overflow-hidden bg-surface-container-low">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
+                    <div class="aspect-video relative overflow-hidden bg-surface-container-low flex items-center justify-center">
+                        <img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
                     </div>
                     <div class="p-6 text-left">
                         <span class="text-primary font-bold text-xs uppercase mb-1 block">${proj.location}</span>
