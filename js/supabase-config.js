@@ -1,7 +1,6 @@
 // Khởi tạo kết nối Supabase Client
-// QUAN TRỌNG: Bạn hãy thay thế các giá trị dưới đây bằng thông số dự án Supabase của bạn
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://opjdsamkemqhwumvatbo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wamRzYW1rZW1xaHd1bXZhdGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNzIzOTIsImV4cCI6MjA5OTg0ODM5Mn0.Gmq2b_1SBIAroiwOwFAytAZTj4a_rRgWa8s3Yp_Vr0g';
 
 let supabaseClient = null;
 
