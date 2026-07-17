@@ -1,0 +1,10 @@
+# Exclude raw Google Stitch files and zip
+stitch_ocean_wood_corporate_website/
+*.zip
+
+# Exclude IDE/system configs
+.gemini/
+.agents/
+.vscode/
+.idea/
+*.log

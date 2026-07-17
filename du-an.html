@@ -1,0 +1,415 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dự Án Tiêu Biểu - Ocean Wood</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e1e8fd",
+                        "tertiary-fixed": "#dfe3e9",
+                        "on-surface-variant": "#414750",
+                        "on-primary-container": "#a5cbff",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "on-primary": "#ffffff",
+                        "leaf-accent": "#82C341",
+                        "ocean-gradient-start": "#007BB8",
+                        "on-tertiary-fixed-variant": "#43474c",
+                        "tertiary-container": "#50555a",
+                        "inverse-surface": "#293040",
+                        "on-primary-fixed": "#001c37",
+                        "surface-variant": "#dce2f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-container": "#c5c9cf",
+                        "error": "#ba1a1a",
+                        "primary-container": "#005696",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d3daef",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "on-secondary-fixed-variant": "#454748",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#dce2f7",
+                        "surface": "#f9f9ff",
+                        "secondary": "#5c5f60",
+                        "surface-white": "#FFFFFF",
+                        "primary-fixed": "#d2e4ff",
+                        "primary": "#005696",
+                        "surface-tint": "#005696",
+                        "tertiary": "#393e43",
+                        "surface-container": "#e9edff",
+                        "tertiary-fixed-dim": "#c3c7cd",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#626566",
+                        "on-primary-fixed-variant": "#004880",
+                        "on-secondary-fixed": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "text-muted": "#4B5563",
+                        "on-background": "#141b2b",
+                        "outline": "#727781",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-tertiary-fixed": "#171c20",
+                        "background": "#f9f9ff",
+                        "inverse-primary": "#a1c9ff",
+                        "on-surface": "#141b2b",
+                        "surface-container-low": "#f1f3ff",
+                        "secondary-container": "#e1e3e4",
+                        "secondary-fixed": "#e1e3e4",
+                        "outline-variant": "#c1c7d2",
+                        "ocean-gradient-end": "#003E6B"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap-lg": "120px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "section-gap-md": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed antialiased">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface-white/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300 ease-in-out">
+    <div class="flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed flex items-center hover:opacity-90 transition-opacity">
+                <img alt="Ocean Wood Logo" class="h-10 w-auto object-contain mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMO0cxgpNGnwDWlLBTfqCNboVj7MUBMVtsdmshCGXbD63rS9Np5M3Z_l0REv7nVAf2sspj_tUatBBPwNKycf1hE6NQCnY557tvcjD3IPHE5cM3vUuofJX_BvHp9H8NaLq80lMPkeBQble4jwYA4YniP0RjtPHyWWc2ul1hN8HZSl_SZC4smDT_eZei8-4laInYaI6mWAHXMzB2qgtIsw3BlEiMcS8t9ONr7yVTAjz2DA245vlM0CdukPRBWiQMttLXfO0">
+                <span class="hidden lg:inline text-primary">Ocean Wood</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-home" href="index.html">Trang Chủ</a>
+            <div class="group relative">
+                <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors flex items-center gap-1 py-6" id="nav-products" href="san-pham.html">
+                    Sản Phẩm
+                    <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">keyboard_arrow_down</span>
+                </a>
+                <!-- Mega Menu -->
+                <div class="absolute left-1/2 -translate-x-1/2 top-full w-[90vw] max-w-container-max bg-surface-white shadow-xl border border-outline-variant/30 rounded-xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div class="grid grid-cols-5 gap-8 text-left">
+                        <!-- Category 1 -->
+                        <div class="flex flex-col gap-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <img src="https://lh3.googleusercontent.com/aida/AP1WRLsaeLCQeeMw62NicAAC1shsCyT9zIZQ-X2Vq1Hjq69zs9PXgDYLgdyRkoQe9aKj2--IxBr7gIqDrMoPHXyiYTcTayKd9WSwNDhGflo-ldmUifM7aA5fW5NDf8u5AVX7HaseHtnd3EGdfDhxF6-GQ-QnkJ4I_WIVp1RjiVk7Wi8XtZwlfUXcNksoWHZGB4EgJbVawAqTOIO8yJc2h9Pmfg9e5UcsitLfksLcqMsAgQVveTfbeO9_RgZanU0z" alt="Ván Ép / Plywood" class="w-full h-full object-cover">
+                            </div>
+                            <h5 class="font-bold text-primary uppercase text-sm tracking-wider">Ván Ép / Plywood</h5>
+                            <ul class="space-y-2">
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Plywood Poplar Marine</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Plywood Poplar Carb P2</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Plywood Full Birch</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Pawlownia Flexible</a></li>
+                            </ul>
+                        </div>
+                        <!-- Category 2 -->
+                        <div class="flex flex-col gap-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <img src="https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT" alt="Plywood Phủ Veneer" class="w-full h-full object-cover">
+                            </div>
+                            <h5 class="font-bold text-primary uppercase text-sm tracking-wider">Plywood Phủ Veneer</h5>
+                            <ul class="space-y-2">
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Plywood Veneer - Ash</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Plywood Veneer - Oak</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Plywood Veneer - Walnut</a></li>
+                            </ul>
+                        </div>
+                        <!-- Category 3 -->
+                        <div class="flex flex-col gap-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <img src="https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09" alt="Plywood Phủ Melamine" class="w-full h-full object-cover">
+                            </div>
+                            <h5 class="font-bold text-primary uppercase text-sm tracking-wider">Plywood Phủ Melamine</h5>
+                            <ul class="space-y-2">
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">WL605EV - Natural Oak</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">WL007T - Xám Đậm</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">WL088T - Trắng</a></li>
+                            </ul>
+                        </div>
+                        <!-- Category 4 -->
+                        <div class="flex flex-col gap-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <img src="https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D" alt="Gỗ Cao Su Ghép" class="w-full h-full object-cover">
+                            </div>
+                            <h5 class="font-bold text-primary uppercase text-sm tracking-wider">Gỗ Cao Su Ghép</h5>
+                            <ul class="space-y-2">
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Gỗ Cao Su Ghép Finger</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Ván Ghép Thanh</a></li>
+                            </ul>
+                        </div>
+                        <!-- Category 5 -->
+                        <div class="flex flex-col gap-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <img src="https://lh3.googleusercontent.com/aida/AP1WRLufy363q0G-HQj4PHOKaO6UTBxy3IeG1q_Mxy7BLIwe4iBxM_CJ1kXC43_8sxMJQ_mUBbZdnaJXXQo_xGaJ-afeBjXzpGJsEOzGtEXOXUToDVxJJOqdXXC5WIMASKqxhLP5JHMEdDjSwzMEodg--N_rxL4LE4dzBkeKmHRhE_KsJDDF2DrN63r4yqQKERyq-DfUNdghH1Kz-tJaL7Ekg4ynOhImGp6qe__CgXgRczQeqAbVk7TQMLgpVIos" alt="Ván MDF - PB" class="w-full h-full object-cover">
+                            </div>
+                            <h5 class="font-bold text-primary uppercase text-sm tracking-wider">Ván MDF - PB</h5>
+                            <ul class="space-y-2">
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">MDF Chống Ẩm</a></li>
+                                <li class=""><a href="san-pham.html" class="text-sm text-on-surface-variant hover:text-primary transition-colors">Ván PB (Particle Board)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+                        <p class="text-sm text-on-surface-variant">Khám phá giải pháp vật liệu tối ưu cho mọi công trình.</p>
+                        <a href="san-pham.html" class="text-primary font-bold flex items-center gap-2 hover:underline">
+                            Xem toàn bộ sản phẩm <span class="material-symbols-outlined">arrow_right_alt</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a id="nav-projects" href="du-an.html" class="font-body-md text-body-md text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary">Dự Án</a>
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-about" href="index.html#gioi-thieu">Giới Thiệu</a>
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-contact" href="index.html#footer">Liên Hệ</a>
+        </div>
+        <button class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-all">
+            Nhận Báo Giá
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-primary flex items-center">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-surface-white dark:bg-inverse-surface pt-24 px-gutter flex flex-col gap-6 shadow-xl">
+    <a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold border-b border-outline-variant/30 pb-4" href="index.html">Trang Chủ</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="san-pham.html">Sản Phẩm</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="du-an.html">Dự Án</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html#gioi-thieu">Giới Thiệu</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html#footer">Liên Hệ</a>
+    <button class="bg-primary text-on-primary w-full py-4 rounded-lg font-semibold hover:opacity-90 transition-all mt-4">
+        Nhận Báo Giá
+    </button>
+</div>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[60vh] min-h-[400px] flex items-center justify-center bg-secondary">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A high-quality, professional photograph of a modern corporate office building (headquarters) for a wood industry company named 'Ocean Wood'. The building features sleek glass and high-end wood paneling accents. A prominent, elegant sign on the building facade displays the Ocean Wood logo (a stylized blue oval with 'Ocean Wood' text and a small green leaf sprout) as seen in https://lh3.googleusercontent.com/aida-public/AB6AXuA6sn2KuBd7YOnVHVJiige76UmiCZv0nOb45qNpxZrLTthz-qcfMlAIGBPhCb0LgLGbGdVBc5uEVALWGQOXSBKDd2uPh-oWZcylOr0lpg_fCm6e52o_Kv-CT2aybF1ujDO9mUCT1e6hnwWNc8AplAbZ7HJSiUQ7pDekcPzQ9lGalt0BGzlJckCEXC-0KWzq-6ftaGLJFSjDIURiFRYdyOgvR_TngIEY2NzgvA_wiVtl1hRlWKzU5ELzT42b-QET8js-zNg. The setting is bright and sunny with some greenery and palm trees in the foreground, similar to the vibe of a high-end showroom in Vietnam. 8k resolution, architectural photography style." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida/AP1WRLsWUtJy3Ig6Gq6Mf2QCrXvPVM7rzbC99jOWdAHyzz7xT__J9ucfiSJPAWtxZ5hjSW05a05RpSkHbkb68zR7sc2sj896fzIlvPUseh_g8e3Q6rCofgh8ZLDfm_aVWaNAZzNmPDNw9LR9YD3EV7-ZMlr5F1UHZOLKi3fltNESQR3Pb2vvnhFVRxPaQbgixsq_9OEv7YGGHH_I3rFsOKGCaXoODOy2_uIeGU75AQDRzlMwGTu2ahcDQtAYgoQ&quot;);"></div>
+<div class="absolute inset-0 bg-on-surface/50"></div>
+</div>
+<div class="relative z-10 text-center px-4 max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-surface-white mb-4">DỰ ÁN TIÊU BIỂU</h1>
+<p class="font-body-lg text-body-lg text-surface-variant">Khẳng định chất lượng qua từng công trình trọng điểm quốc gia và quốc tế.</p>
+</div>
+</section>
+<!-- Featured Projects Grid -->
+<section class="py-section-gap-md px-gutter max-w-container-max mx-auto">
+<div class="text-center mb-12">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Các Dự Án Nổi Bật</h2>
+<div class="w-24 h-1 bg-leaf-accent mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Project 1 -->
+<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Architectural rendering of Terminal T3 at Tan Son Nhat Airport in Ho Chi Minh City, Vietnam. The sprawling, modern terminal features a curved, multi-tiered roofline, a central open courtyard with greenery, and extensive glass facades. Surrounding infrastructure includes parking structures, roadways, and distant runways under a bright sky." src="https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM">
+</div>
+<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà ga T3 – Sân bay Tân Sơn Nhất</h3></div>
+</div>
+<!-- Project 2 -->
+<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Wide shot of Vung Ang 2 Thermal Power Plant situated along the coastline. The industrial complex features large blue-roofed buildings, towering red and white smokestacks, and extensive infrastructure including power lines and a cooling water reservoir. The sun is low, casting a warm glow over the scene." src="https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC">
+</div>
+<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà máy Nhiệt điện Vũng Áng 2</h3></div>
+</div>
+<!-- Project 3 -->
+<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Exterior view of the Goertek manufacturing plant in Bac Ninh. The building is large, modern, and primarily white with grey and green horizontal stripes. A prominent entrance sign reads 'Goertek' and 'Công ty TNHH Khoa Học Kỹ Thuật Goertek Vina'. People are seen walking near the entrance." src="https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx">
+</div>
+<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà máy Goertek – Bắc Ninh</h3></div>
+</div>
+<!-- Project 4 -->
+<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-contain bg-surface-container-low group-hover:scale-105 transition-transform duration-500" data-alt="Exterior view of the BYD electronic manufacturing facility in Phu Thọ. A massive, multi-story industrial building painted white with light blue bands. The red BYD logo is prominently displayed on the facade. Loading docks with blue roll-up doors line the ground level under a clear sky." src="https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG">
+</div>
+<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà máy Điện tử BYD – Phú Thọ</h3></div>
+</div>
+</div>
+</section>
+<!-- Partners Section -->
+
+</main>
+<!-- Footer -->
+<section class="py-16 bg-primary text-white overflow-hidden relative">
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[300px] absolute -right-20 -top-20" style="font-variation-settings: 'FILL' 1;">corporate_fare</span>
+</div>
+<div class="max-w-container-max mx-auto px-gutter flex flex-col md:flex-row items-center justify-between relative z-10">
+<div class="mb-8 md:mb-0">
+<h2 class="text-3xl md:text-4xl font-bold mb-4">Bạn đang tìm kiếm giải pháp gỗ cho dự án?</h2>
+<p class="text-lg opacity-80">Liên hệ ngay với đội ngũ chuyên gia của Ocean Wood để được tư vấn và nhận báo giá ưu đãi.</p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-6">
+<div class="flex items-center gap-4 bg-white/10 px-6 py-4 rounded-lg whitespace-nowrap">
+<span class="material-symbols-outlined text-3xl">phone_in_talk</span>
+<div>
+<div class="text-sm opacity-70">Hotline 24/7</div>
+<div class="text-xl font-bold">+84 941 186 386</div>
+</div>
+</div>
+<button class="bg-leaf-accent hover:bg-leaf-accent/90 text-on-primary px-10 py-5 rounded-lg font-bold text-lg shadow-lg transition-all transform hover:-translate-y-1 whitespace-nowrap">
+                    Liên Hệ Báo Giá
+                </button>
+</div>
+</div>
+</section><footer class="bg-surface-container-lowest dark:bg-inverse-surface w-full mt-section-gap-lg"><div class="grid grid-cols-1 md:grid-cols-4 gap-gutter py-section-gap-md px-gutter max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1"><div class="mb-6">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHuXTICy8YbPvJq7aINezoAv_tgXSoPd5JmeQYKKz2I6rFEKdEh7--s_x3rspwe1Ydk9mMsU2wtW3mZ8drzjX2RVK0j2CLZu5D_U5P0vFpZEt2o9VSz6wWzjN1xX4Ki6TUsfbPeUYe7EdG7zdbmoPCBWs88rW36gmtEPxZZig8dR9FHYkrHnEQ9ZIocZT0rHeKQhyFjisRw4JZfPUFoMs4MDC9De_8eBYIbR3Bviwiithy8dKitFsv6U3LZWoH9y1mgqY" alt="Ocean Wood Logo" class="h-12 w-auto object-contain">
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+    Đơn vị cung cấp giải pháp gỗ công nghiệp hàng đầu cho các dự án kiến trúc và nội thất hiện đại.
+</p>
+<div class="flex gap-4">
+    <a href="#" class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+        <span class="material-symbols-outlined">language</span>
+    </a>
+    <a href="#" class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+        <span class="material-symbols-outlined">mail</span>
+    </a>
+    <a href="#" class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+        <span class="material-symbols-outlined">phone</span>
+    </a>
+</div></div>
+<div>
+<h4 class="font-bold text-on-surface mb-6 uppercase text-sm tracking-widest">Sản Phẩm</h4>
+<ul class="space-y-4 font-body-md text-secondary dark:text-on-tertiary-container">
+<li class=""><a href="#" class="hover:text-primary transition-colors">Plywood</a></li>
+<li class=""><a href="#" class="hover:text-primary transition-colors">Veneer</a></li>
+<li class=""><a href="#" class="hover:text-primary transition-colors">Melamine</a></li>
+<li class="">Cửa (Door)</li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-6 uppercase text-sm tracking-widest">Công Ty</h4>
+<ul class="space-y-4 font-body-md text-secondary dark:text-on-tertiary-container">
+<li class=""><a href="#" class="hover:text-primary transition-colors">Our Story</a></li>
+<li class=""><a href="#" class="hover:text-primary transition-colors">Quality Standards</a></li>
+<li class=""><a href="#" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+<li class=""><a href="#" class="hover:text-primary transition-colors">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-6 uppercase text-sm tracking-widest">Liên Hệ</h4>
+<ul class="space-y-4 font-body-md text-secondary dark:text-on-tertiary-container"><li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">phone_in_talk</span>
+<span class="">0941 186 386</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span class="">oceanwood99@gmail.com</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="">110 Nguyễn Gia Thiều, phường Suối Hoa, tỉnh Bắc Ninh</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary">factory</span>
+<span class="">Lô CN-18, cụm CN JUTECH, xã Xuân Cẩm, tỉnh Bắc Ninh</span>
+</li></ul>
+</div>
+</div>
+<div class="border-t border-outline-variant/30 py-8">
+<div class="max-w-container-max mx-auto px-gutter text-center text-on-surface-variant font-body-md text-sm">
+                © 2024 Ocean Wood. All rights reserved. Office &amp; Warehouse: Binh Duong, Vietnam.
+            </div>
+</div></footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    // Toggle Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+            if (icon) {
+                icon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+            }
+        });
+    }
+
+    // Scroll Header effects
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header') || document.querySelector('nav');
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md', 'bg-surface-white/95', 'dark:bg-surface-dim/95');
+                header.classList.remove('bg-surface-white/80', 'dark:bg-surface-dim/80');
+            } else {
+                header.classList.remove('shadow-md', 'bg-surface-white/95', 'dark:bg-surface-dim/95');
+                header.classList.add('bg-surface-white/80', 'dark:bg-surface-dim/80');
+            }
+        }
+    });
+
+    // Make smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+                        if (icon) icon.textContent = 'menu';
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body></html>
