@@ -4,7 +4,61 @@
 <title>Dự Án Tiêu Biểu - Ocean Wood</title>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    // Project Loading Logic from Supabase
+    async function loadProjects() {
+        const grid = document.getElementById('projects-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách dự án...</p></div>';
+
+        try {
+            let projects = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                const { data, error } = await supabaseClient.from('projects').select('*');
+                if (error) throw error;
+                projects = data;
+            } else {
+                // Mock projects data
+                projects = [
+                    { name: "Nhà ga T3 – Sân bay Tân Sơn Nhất", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM", location: "Hồ Chí Minh, Việt Nam" },
+                    { name: "Nhà máy Nhiệt điện Vũng Áng 2", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC", location: "Hà Tĩnh, Việt Nam" },
+                    { name: "Nhà máy Goertek – Bắc Ninh", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx", location: "Bắc Ninh, Việt Nam" },
+                    { name: "Nhà máy Điện tử BYD – Phú Thọ", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG", location: "Phú Thọ, Việt Nam" }
+                ];
+            }
+
+            if (projects.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có dự án nào.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            projects.forEach(proj => {
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-video relative overflow-hidden bg-surface-container-low">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
+                    </div>
+                    <div class="p-6 text-left">
+                        <span class="text-primary font-bold text-xs uppercase mb-1 block">${proj.location}</span>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors text-[18px] font-bold">${proj.name}</h3>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải dự án:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách dự án.</p></div>';
+        }
+    }
+
+    // Load initial projects
+    loadProjects();
+
+</script>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -98,7 +152,61 @@
                 },
             },
         }
-    </script>
+    
+    // Project Loading Logic from Supabase
+    async function loadProjects() {
+        const grid = document.getElementById('projects-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách dự án...</p></div>';
+
+        try {
+            let projects = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                const { data, error } = await supabaseClient.from('projects').select('*');
+                if (error) throw error;
+                projects = data;
+            } else {
+                // Mock projects data
+                projects = [
+                    { name: "Nhà ga T3 – Sân bay Tân Sơn Nhất", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM", location: "Hồ Chí Minh, Việt Nam" },
+                    { name: "Nhà máy Nhiệt điện Vũng Áng 2", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC", location: "Hà Tĩnh, Việt Nam" },
+                    { name: "Nhà máy Goertek – Bắc Ninh", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx", location: "Bắc Ninh, Việt Nam" },
+                    { name: "Nhà máy Điện tử BYD – Phú Thọ", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG", location: "Phú Thọ, Việt Nam" }
+                ];
+            }
+
+            if (projects.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có dự án nào.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            projects.forEach(proj => {
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-video relative overflow-hidden bg-surface-container-low">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
+                    </div>
+                    <div class="p-6 text-left">
+                        <span class="text-primary font-bold text-xs uppercase mb-1 block">${proj.location}</span>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors text-[18px] font-bold">${proj.name}</h3>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải dự án:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách dự án.</p></div>';
+        }
+    }
+
+    // Load initial projects
+    loadProjects();
+
+</script>
 </head>
 <body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed antialiased">
 <!-- Top Navigation Bar -->
@@ -230,36 +338,7 @@
 <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Các Dự Án Nổi Bật</h2>
 <div class="w-24 h-1 bg-leaf-accent mx-auto"></div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<!-- Project 1 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-video relative overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Architectural rendering of Terminal T3 at Tan Son Nhat Airport in Ho Chi Minh City, Vietnam. The sprawling, modern terminal features a curved, multi-tiered roofline, a central open courtyard with greenery, and extensive glass facades. Surrounding infrastructure includes parking structures, roadways, and distant runways under a bright sky." src="https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM">
-</div>
-<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà ga T3 – Sân bay Tân Sơn Nhất</h3></div>
-</div>
-<!-- Project 2 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-video relative overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Wide shot of Vung Ang 2 Thermal Power Plant situated along the coastline. The industrial complex features large blue-roofed buildings, towering red and white smokestacks, and extensive infrastructure including power lines and a cooling water reservoir. The sun is low, casting a warm glow over the scene." src="https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC">
-</div>
-<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà máy Nhiệt điện Vũng Áng 2</h3></div>
-</div>
-<!-- Project 3 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-video relative overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Exterior view of the Goertek manufacturing plant in Bac Ninh. The building is large, modern, and primarily white with grey and green horizontal stripes. A prominent entrance sign reads 'Goertek' and 'Công ty TNHH Khoa Học Kỹ Thuật Goertek Vina'. People are seen walking near the entrance." src="https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx">
-</div>
-<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà máy Goertek – Bắc Ninh</h3></div>
-</div>
-<!-- Project 4 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-video relative overflow-hidden">
-<img class="w-full h-full object-contain bg-surface-container-low group-hover:scale-105 transition-transform duration-500" data-alt="Exterior view of the BYD electronic manufacturing facility in Phu Thọ. A massive, multi-story industrial building painted white with light blue bands. The red BYD logo is prominently displayed on the facade. Loading docks with blue roll-up doors line the ground level under a clear sky." src="https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG">
-</div>
-<div class="p-4"><h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Nhà máy Điện tử BYD – Phú Thọ</h3></div>
-</div>
-</div>
+<div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
 </section>
 <!-- Partners Section -->
 
@@ -411,5 +490,59 @@
             }
         });
     });
+
+    // Project Loading Logic from Supabase
+    async function loadProjects() {
+        const grid = document.getElementById('projects-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách dự án...</p></div>';
+
+        try {
+            let projects = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                const { data, error } = await supabaseClient.from('projects').select('*');
+                if (error) throw error;
+                projects = data;
+            } else {
+                // Mock projects data
+                projects = [
+                    { name: "Nhà ga T3 – Sân bay Tân Sơn Nhất", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM", location: "Hồ Chí Minh, Việt Nam" },
+                    { name: "Nhà máy Nhiệt điện Vũng Áng 2", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC", location: "Hà Tĩnh, Việt Nam" },
+                    { name: "Nhà máy Goertek – Bắc Ninh", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx", location: "Bắc Ninh, Việt Nam" },
+                    { name: "Nhà máy Điện tử BYD – Phú Thọ", image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG", location: "Phú Thọ, Việt Nam" }
+                ];
+            }
+
+            if (projects.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có dự án nào.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            projects.forEach(proj => {
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-video relative overflow-hidden bg-surface-container-low">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${proj.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${proj.name}">
+                    </div>
+                    <div class="p-6 text-left">
+                        <span class="text-primary font-bold text-xs uppercase mb-1 block">${proj.location}</span>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors text-[18px] font-bold">${proj.name}</h3>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải dự án:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách dự án.</p></div>';
+        }
+    }
+
+    // Load initial projects
+    loadProjects();
+
 </script>
 </body></html>

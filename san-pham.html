@@ -1,4 +1,459 @@
-<!DOCTYPE html><html lang="vi" class="scroll-smooth" style=""><head><title>Sản Phẩm - Ocean Wood</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><meta charset="utf-8"><script id="tailwind-config">try{try{
+<!DOCTYPE html><html lang="vi" class="scroll-smooth" style=""><head><title>Sản Phẩm - Ocean Wood</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    // Product Loading Logic from Supabase
+    async function loadProducts(categoryFilter = null) {
+        const grid = document.getElementById('products-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách sản phẩm...</p></div>';
+
+        try {
+            let products = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                let query = supabaseClient.from('products').select('*');
+                if (categoryFilter) {
+                    query = query.eq('category', categoryFilter);
+                }
+                const { data, error } = await query;
+                if (error) throw error;
+                products = data;
+            } else {
+                // Mock products data for local preview / fallback
+                products = [
+                    {
+                        name: "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+                        description: "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+                        badge: "Bestseller",
+                        specs: { "Chất liệu": "Gỗ Poplar tự nhiên", "Tiêu chuẩn": "CARB P2 / FSC", "Keo dán": "WBP Phenolic" }
+                    },
+                    {
+                        name: "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+                        description: "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
+                        badge: "CARB P2",
+                        specs: { "Nồng độ Formaldehyde": "< 0.05 ppm", "Tiêu chuẩn": "EPA TSCA Title VI", "Cốt gỗ": "Bạch Dương dẻo dai" }
+                    },
+                    {
+                        name: "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
+                        category: "veneer",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+                        description: "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
+                        badge: "Premium",
+                        specs: { "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm", "Độ dày": "12mm - 18mm", "Chà nhám": "Hai mặt mịn" }
+                    },
+                    {
+                        name: "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
+                        category: "melamine",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+                        description: "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
+                        badge: "New",
+                        specs: { "Mã màu": "WL605EV - Walnut", "Chống xước": "Đạt chuẩn AC3", "Ứng dụng": "Tủ quần áo, kệ tivi" }
+                    },
+                    {
+                        name: "Gỗ Cao Su Ghép Finger Joint",
+                        category: "rubber",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
+                        description: "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
+                        badge: "Eco-Friendly",
+                        specs: { "Kiểu ghép": "Mộng nổi (Finger joint)", "Độ ẩm": "10% - 12%", "Keo ghép": "D4 chống nước" }
+                    }
+                ];
+
+                if (categoryFilter) {
+                    products = products.filter(p => p.category === categoryFilter);
+                }
+            }
+
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có sản phẩm nào thuộc danh mục này.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded">${p.badge}</div>` : '';
+                
+                let specsHtml = '';
+                if (p.specs) {
+                    const entries = typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs;
+                    Object.entries(entries).slice(0, 3).forEach(([key, val]) => {
+                        specsHtml += `<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-leaf-accent" style="font-variation-settings: 'FILL' 1;">check_circle</span> <span><strong>${key}:</strong> ${val}</span></li>`;
+                    });
+                }
+
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-square relative overflow-hidden bg-surface-container-low">
+                        <img alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
+                        ${badgeHtml}
+                    </div>
+                    <div class="p-6 text-left">
+                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider">${p.category}</div>
+                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2">${p.name}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20">
+                            ${specsHtml}
+                        </ul>
+                        <button class="w-full py-3 border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2">
+                            Yêu Cầu Báo Giá <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons to newly created buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải sản phẩm:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách sản phẩm.</p></div>';
+        }
+    }
+
+    // Sidebar Filter Actions
+    function initSidebarFilters() {
+        const filterButtons = document.querySelectorAll('aside button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.className = "w-full text-left px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors flex justify-between items-center group";
+                    const chevron = b.querySelector('.material-symbols-outlined');
+                    if (chevron) {
+                        chevron.className = "material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity";
+                        chevron.textContent = "chevron_right";
+                    }
+                });
+
+                btn.className = "w-full text-left px-4 py-3 bg-primary text-on-primary rounded-lg font-semibold flex justify-between items-center group transition-all";
+                const chevron = btn.querySelector('.material-symbols-outlined');
+                if (chevron) {
+                    chevron.className = "material-symbols-outlined group-hover:translate-x-1 transition-transform";
+                    chevron.textContent = "arrow_forward";
+                }
+
+                const catText = btn.textContent.trim().toLowerCase();
+                let category = null;
+                if (catText.includes('ván ép') || catText.includes('plywood')) category = 'plywood';
+                else if (catText.includes('veneer')) category = 'veneer';
+                else if (catText.includes('melamine')) category = 'melamine';
+                else if (catText.includes('cao su')) category = 'rubber';
+                else if (catText.includes('mdf')) category = 'mdf';
+
+                loadProducts(category);
+            });
+        });
+    }
+
+    // Load initial products
+    loadProducts();
+    initSidebarFilters();
+
+</script>
+<script src="js/supabase-config.js">
+    // Product Loading Logic from Supabase
+    async function loadProducts(categoryFilter = null) {
+        const grid = document.getElementById('products-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách sản phẩm...</p></div>';
+
+        try {
+            let products = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                let query = supabaseClient.from('products').select('*');
+                if (categoryFilter) {
+                    query = query.eq('category', categoryFilter);
+                }
+                const { data, error } = await query;
+                if (error) throw error;
+                products = data;
+            } else {
+                // Mock products data for local preview / fallback
+                products = [
+                    {
+                        name: "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+                        description: "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+                        badge: "Bestseller",
+                        specs: { "Chất liệu": "Gỗ Poplar tự nhiên", "Tiêu chuẩn": "CARB P2 / FSC", "Keo dán": "WBP Phenolic" }
+                    },
+                    {
+                        name: "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+                        description: "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
+                        badge: "CARB P2",
+                        specs: { "Nồng độ Formaldehyde": "< 0.05 ppm", "Tiêu chuẩn": "EPA TSCA Title VI", "Cốt gỗ": "Bạch Dương dẻo dai" }
+                    },
+                    {
+                        name: "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
+                        category: "veneer",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+                        description: "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
+                        badge: "Premium",
+                        specs: { "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm", "Độ dày": "12mm - 18mm", "Chà nhám": "Hai mặt mịn" }
+                    },
+                    {
+                        name: "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
+                        category: "melamine",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+                        description: "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
+                        badge: "New",
+                        specs: { "Mã màu": "WL605EV - Walnut", "Chống xước": "Đạt chuẩn AC3", "Ứng dụng": "Tủ quần áo, kệ tivi" }
+                    },
+                    {
+                        name: "Gỗ Cao Su Ghép Finger Joint",
+                        category: "rubber",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
+                        description: "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
+                        badge: "Eco-Friendly",
+                        specs: { "Kiểu ghép": "Mộng nổi (Finger joint)", "Độ ẩm": "10% - 12%", "Keo ghép": "D4 chống nước" }
+                    }
+                ];
+
+                if (categoryFilter) {
+                    products = products.filter(p => p.category === categoryFilter);
+                }
+            }
+
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có sản phẩm nào thuộc danh mục này.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded">${p.badge}</div>` : '';
+                
+                let specsHtml = '';
+                if (p.specs) {
+                    const entries = typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs;
+                    Object.entries(entries).slice(0, 3).forEach(([key, val]) => {
+                        specsHtml += `<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-leaf-accent" style="font-variation-settings: 'FILL' 1;">check_circle</span> <span><strong>${key}:</strong> ${val}</span></li>`;
+                    });
+                }
+
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-square relative overflow-hidden bg-surface-container-low">
+                        <img alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
+                        ${badgeHtml}
+                    </div>
+                    <div class="p-6 text-left">
+                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider">${p.category}</div>
+                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2">${p.name}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20">
+                            ${specsHtml}
+                        </ul>
+                        <button class="w-full py-3 border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2">
+                            Yêu Cầu Báo Giá <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons to newly created buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải sản phẩm:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách sản phẩm.</p></div>';
+        }
+    }
+
+    // Sidebar Filter Actions
+    function initSidebarFilters() {
+        const filterButtons = document.querySelectorAll('aside button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.className = "w-full text-left px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors flex justify-between items-center group";
+                    const chevron = b.querySelector('.material-symbols-outlined');
+                    if (chevron) {
+                        chevron.className = "material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity";
+                        chevron.textContent = "chevron_right";
+                    }
+                });
+
+                btn.className = "w-full text-left px-4 py-3 bg-primary text-on-primary rounded-lg font-semibold flex justify-between items-center group transition-all";
+                const chevron = btn.querySelector('.material-symbols-outlined');
+                if (chevron) {
+                    chevron.className = "material-symbols-outlined group-hover:translate-x-1 transition-transform";
+                    chevron.textContent = "arrow_forward";
+                }
+
+                const catText = btn.textContent.trim().toLowerCase();
+                let category = null;
+                if (catText.includes('ván ép') || catText.includes('plywood')) category = 'plywood';
+                else if (catText.includes('veneer')) category = 'veneer';
+                else if (catText.includes('melamine')) category = 'melamine';
+                else if (catText.includes('cao su')) category = 'rubber';
+                else if (catText.includes('mdf')) category = 'mdf';
+
+                loadProducts(category);
+            });
+        });
+    }
+
+    // Load initial products
+    loadProducts();
+    initSidebarFilters();
+
+</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+    // Product Loading Logic from Supabase
+    async function loadProducts(categoryFilter = null) {
+        const grid = document.getElementById('products-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách sản phẩm...</p></div>';
+
+        try {
+            let products = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                let query = supabaseClient.from('products').select('*');
+                if (categoryFilter) {
+                    query = query.eq('category', categoryFilter);
+                }
+                const { data, error } = await query;
+                if (error) throw error;
+                products = data;
+            } else {
+                // Mock products data for local preview / fallback
+                products = [
+                    {
+                        name: "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+                        description: "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+                        badge: "Bestseller",
+                        specs: { "Chất liệu": "Gỗ Poplar tự nhiên", "Tiêu chuẩn": "CARB P2 / FSC", "Keo dán": "WBP Phenolic" }
+                    },
+                    {
+                        name: "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+                        description: "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
+                        badge: "CARB P2",
+                        specs: { "Nồng độ Formaldehyde": "< 0.05 ppm", "Tiêu chuẩn": "EPA TSCA Title VI", "Cốt gỗ": "Bạch Dương dẻo dai" }
+                    },
+                    {
+                        name: "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
+                        category: "veneer",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+                        description: "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
+                        badge: "Premium",
+                        specs: { "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm", "Độ dày": "12mm - 18mm", "Chà nhám": "Hai mặt mịn" }
+                    },
+                    {
+                        name: "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
+                        category: "melamine",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+                        description: "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
+                        badge: "New",
+                        specs: { "Mã màu": "WL605EV - Walnut", "Chống xước": "Đạt chuẩn AC3", "Ứng dụng": "Tủ quần áo, kệ tivi" }
+                    },
+                    {
+                        name: "Gỗ Cao Su Ghép Finger Joint",
+                        category: "rubber",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
+                        description: "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
+                        badge: "Eco-Friendly",
+                        specs: { "Kiểu ghép": "Mộng nổi (Finger joint)", "Độ ẩm": "10% - 12%", "Keo ghép": "D4 chống nước" }
+                    }
+                ];
+
+                if (categoryFilter) {
+                    products = products.filter(p => p.category === categoryFilter);
+                }
+            }
+
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có sản phẩm nào thuộc danh mục này.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded">${p.badge}</div>` : '';
+                
+                let specsHtml = '';
+                if (p.specs) {
+                    const entries = typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs;
+                    Object.entries(entries).slice(0, 3).forEach(([key, val]) => {
+                        specsHtml += `<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-leaf-accent" style="font-variation-settings: 'FILL' 1;">check_circle</span> <span><strong>${key}:</strong> ${val}</span></li>`;
+                    });
+                }
+
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-square relative overflow-hidden bg-surface-container-low">
+                        <img alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
+                        ${badgeHtml}
+                    </div>
+                    <div class="p-6 text-left">
+                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider">${p.category}</div>
+                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2">${p.name}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20">
+                            ${specsHtml}
+                        </ul>
+                        <button class="w-full py-3 border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2">
+                            Yêu Cầu Báo Giá <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons to newly created buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải sản phẩm:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách sản phẩm.</p></div>';
+        }
+    }
+
+    // Sidebar Filter Actions
+    function initSidebarFilters() {
+        const filterButtons = document.querySelectorAll('aside button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.className = "w-full text-left px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors flex justify-between items-center group";
+                    const chevron = b.querySelector('.material-symbols-outlined');
+                    if (chevron) {
+                        chevron.className = "material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity";
+                        chevron.textContent = "chevron_right";
+                    }
+                });
+
+                btn.className = "w-full text-left px-4 py-3 bg-primary text-on-primary rounded-lg font-semibold flex justify-between items-center group transition-all";
+                const chevron = btn.querySelector('.material-symbols-outlined');
+                if (chevron) {
+                    chevron.className = "material-symbols-outlined group-hover:translate-x-1 transition-transform";
+                    chevron.textContent = "arrow_forward";
+                }
+
+                const catText = btn.textContent.trim().toLowerCase();
+                let category = null;
+                if (catText.includes('ván ép') || catText.includes('plywood')) category = 'plywood';
+                else if (catText.includes('veneer')) category = 'veneer';
+                else if (catText.includes('melamine')) category = 'melamine';
+                else if (catText.includes('cao su')) category = 'rubber';
+                else if (catText.includes('mdf')) category = 'mdf';
+
+                loadProducts(category);
+            });
+        });
+    }
+
+    // Load initial products
+    loadProducts();
+    initSidebarFilters();
+
+</script><meta charset="utf-8"><script id="tailwind-config">try{try{
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -91,7 +546,158 @@
                 },
             },
         }
-    }catch(_e){}}catch(_e){}</script></head><body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+    }catch(_e){}}catch(_e){}
+    // Product Loading Logic from Supabase
+    async function loadProducts(categoryFilter = null) {
+        const grid = document.getElementById('products-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách sản phẩm...</p></div>';
+
+        try {
+            let products = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                let query = supabaseClient.from('products').select('*');
+                if (categoryFilter) {
+                    query = query.eq('category', categoryFilter);
+                }
+                const { data, error } = await query;
+                if (error) throw error;
+                products = data;
+            } else {
+                // Mock products data for local preview / fallback
+                products = [
+                    {
+                        name: "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+                        description: "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+                        badge: "Bestseller",
+                        specs: { "Chất liệu": "Gỗ Poplar tự nhiên", "Tiêu chuẩn": "CARB P2 / FSC", "Keo dán": "WBP Phenolic" }
+                    },
+                    {
+                        name: "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+                        description: "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
+                        badge: "CARB P2",
+                        specs: { "Nồng độ Formaldehyde": "< 0.05 ppm", "Tiêu chuẩn": "EPA TSCA Title VI", "Cốt gỗ": "Bạch Dương dẻo dai" }
+                    },
+                    {
+                        name: "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
+                        category: "veneer",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+                        description: "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
+                        badge: "Premium",
+                        specs: { "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm", "Độ dày": "12mm - 18mm", "Chà nhám": "Hai mặt mịn" }
+                    },
+                    {
+                        name: "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
+                        category: "melamine",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+                        description: "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
+                        badge: "New",
+                        specs: { "Mã màu": "WL605EV - Walnut", "Chống xước": "Đạt chuẩn AC3", "Ứng dụng": "Tủ quần áo, kệ tivi" }
+                    },
+                    {
+                        name: "Gỗ Cao Su Ghép Finger Joint",
+                        category: "rubber",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
+                        description: "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
+                        badge: "Eco-Friendly",
+                        specs: { "Kiểu ghép": "Mộng nổi (Finger joint)", "Độ ẩm": "10% - 12%", "Keo ghép": "D4 chống nước" }
+                    }
+                ];
+
+                if (categoryFilter) {
+                    products = products.filter(p => p.category === categoryFilter);
+                }
+            }
+
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có sản phẩm nào thuộc danh mục này.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded">${p.badge}</div>` : '';
+                
+                let specsHtml = '';
+                if (p.specs) {
+                    const entries = typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs;
+                    Object.entries(entries).slice(0, 3).forEach(([key, val]) => {
+                        specsHtml += `<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-leaf-accent" style="font-variation-settings: 'FILL' 1;">check_circle</span> <span><strong>${key}:</strong> ${val}</span></li>`;
+                    });
+                }
+
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-square relative overflow-hidden bg-surface-container-low">
+                        <img alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
+                        ${badgeHtml}
+                    </div>
+                    <div class="p-6 text-left">
+                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider">${p.category}</div>
+                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2">${p.name}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20">
+                            ${specsHtml}
+                        </ul>
+                        <button class="w-full py-3 border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2">
+                            Yêu Cầu Báo Giá <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons to newly created buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải sản phẩm:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách sản phẩm.</p></div>';
+        }
+    }
+
+    // Sidebar Filter Actions
+    function initSidebarFilters() {
+        const filterButtons = document.querySelectorAll('aside button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.className = "w-full text-left px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors flex justify-between items-center group";
+                    const chevron = b.querySelector('.material-symbols-outlined');
+                    if (chevron) {
+                        chevron.className = "material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity";
+                        chevron.textContent = "chevron_right";
+                    }
+                });
+
+                btn.className = "w-full text-left px-4 py-3 bg-primary text-on-primary rounded-lg font-semibold flex justify-between items-center group transition-all";
+                const chevron = btn.querySelector('.material-symbols-outlined');
+                if (chevron) {
+                    chevron.className = "material-symbols-outlined group-hover:translate-x-1 transition-transform";
+                    chevron.textContent = "arrow_forward";
+                }
+
+                const catText = btn.textContent.trim().toLowerCase();
+                let category = null;
+                if (catText.includes('ván ép') || catText.includes('plywood')) category = 'plywood';
+                else if (catText.includes('veneer')) category = 'veneer';
+                else if (catText.includes('melamine')) category = 'melamine';
+                else if (catText.includes('cao su')) category = 'rubber';
+                else if (catText.includes('mdf')) category = 'mdf';
+
+                loadProducts(category);
+            });
+        });
+    }
+
+    // Load initial products
+    loadProducts();
+    initSidebarFilters();
+
+</script></head><body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
 <!-- Top Navigation Bar -->
 <header class="fixed top-0 w-full z-50 bg-surface-white/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300 ease-in-out">
     <div class="flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto">
@@ -283,118 +889,9 @@
 </select>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-<!-- Product Card 1 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-square relative overflow-hidden">
-<img alt="Plywood Poplar Marine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y">
-<div class="absolute top-4 left-4 flex flex-col gap-2">
-<span class="bg-primary text-on-primary px-3 py-1 rounded font-label-sm text-[11px]">MARINE GRADE</span>
-<span class="bg-leaf-accent text-on-primary px-3 py-1 rounded font-label-sm text-[11px]">TCVN</span>
-</div>
-</div>
-<div class="p-6">
-<p class="text-primary font-label-sm mb-2 uppercase tracking-wider">Ván ép / Plywood</p>
-<h3 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">Plywood Poplar Marine</h3>
-<p class="text-on-surface-variant font-body-md mb-6 line-clamp-2">Ván ép chịu nước cực tốt, chuyên dụng cho đóng tàu và các công trình ngoài trời tiếp xúc trực tiếp với độ ẩm cao.</p>
-<a class="inline-flex items-center gap-2 text-primary font-bold group/btn" href="#">
-<span class="">Xem chi tiết</span>
-<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-square relative overflow-hidden">
-<img alt="Plywood Poplar Carb P2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLs7VqVSZypnpc3wIRlgyYDCXXFZhhRBwo1oFca2-jCsMTgAdLtfSwAjoSxY15vitKq4p0JdmI4eRHTS_FuIGLYhux-Ji7RbP9iX9mj7gsSBTZfcRGuHgUGLn3Ky7SlaBvbYGixxQiXUox0Cn-am3d8uhSIrEBNANVkXAVCSFDUZD-1SbsE5c9dQpCulTDOCbzlL8fOcG2zgNSsuVrr78OPZPe5QYs3iOcYxnsCBdD4GT8eazid-XT4Y5wY">
-<div class="absolute top-4 left-4">
-<span class="bg-leaf-accent text-on-primary px-3 py-1 rounded font-label-sm text-[11px]">CARB P2 COMPLIANT</span>
-</div>
-</div>
-<div class="p-6">
-<p class="text-primary font-label-sm mb-2 uppercase tracking-wider">Ván ép / Plywood</p>
-<h3 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">Plywood Poplar Carb P2</h3>
-<p class="text-on-surface-variant font-body-md mb-6 line-clamp-2">Sản phẩm đạt tiêu chuẩn khí thải thấp, an toàn cho sức khỏe người sử dụng và môi trường sống trong nhà.</p>
-<a class="inline-flex items-center gap-2 text-primary font-bold group/btn" href="#">
-<span class="">Xem chi tiết</span>
-<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-square relative overflow-hidden">
-<img alt="Plywood Full Birch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLuf6BisjUM_G23rtPwPdu5wZR7x5ixv9WF__WXA4G2KqIJgtrBgv5BZVO0m97KKBGQ1mTy7Fs9FxgnMTWBv1V09pOFyfYnogD1e1X6ZDJyKKbH__5PneM0yciL_MAPEYPpVKn5ZAve0D8Zugsic3nyK8rn57mPnhxxofvUwWKg4H7h84lSI0xtggX5v16WJubRwvYQeUWk342b2Lc7PaduTRnG0_YXP6zHRK42Z-8H0_0ZKYchgiGZEP5MG">
-<div class="absolute top-4 left-4">
-<span class="bg-primary text-on-primary px-3 py-1 rounded font-label-sm text-[11px]">PREMIUM BIRCH</span>
-</div>
-</div>
-<div class="p-6">
-<p class="text-primary font-label-sm mb-2 uppercase tracking-wider">Ván ép / Plywood</p>
-<h3 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">Plywood Full Birch</h3>
-<p class="text-on-surface-variant font-body-md mb-6 line-clamp-2">Cấu tạo từ 100% gỗ bạch dương, cho bề mặt mịn màng và độ cứng vượt trội, lý tưởng cho đồ nội thất cao cấp.</p>
-<a class="inline-flex items-center gap-2 text-primary font-bold group/btn" href="#">
-<span class="">Xem chi tiết</span>
-<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-square relative overflow-hidden">
-<img alt="Plywood Veneer Ash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLvWJu0elwWzZ-rm2ytYWmmeKoJORdDNZBw2-EaB-rHR1CNivsB2RWi9auvxV_V-z6MXFHCpNAPaRhuFBu7eFOkY6yX7-BM5mTapYfiREA-EnLaDR0aWB4f3zB1_qkcxYVvIcn7OATAztstA3wpgMqz3owYHuKBigvlVGnlTmtwkOVSK5EniL-mRIMHe-OdKiecxi0o9V8wa7ICoLa2skjMGH9kMk7FYcQTu40ymhSXJq8PWOlLXoU_6SJXp">
-<div class="absolute top-4 left-4">
-<span class="bg-primary text-on-primary px-3 py-1 rounded font-label-sm text-[11px]">WHITE ASH VENEER</span>
-</div>
-</div>
-<div class="p-6">
-<p class="text-primary font-label-sm mb-2 uppercase tracking-wider">Phủ Veneer</p>
-<h3 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">Plywood Veneer Ash</h3>
-<p class="text-on-surface-variant font-body-md mb-6 line-clamp-2">Ván ép cốt gỗ tự nhiên phủ lớp Veneer gỗ Tần Bì với vân gỗ sáng, sang trọng và độ bền cao.</p>
-<a class="inline-flex items-center gap-2 text-primary font-bold group/btn" href="#">
-<span class="">Xem chi tiết</span>
-<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Product Card 5 -->
-<div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-<div class="aspect-square relative overflow-hidden">
-<img alt="Plywood Veneer Oak" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT">
-<div class="absolute top-4 left-4">
-<span class="bg-primary text-on-primary px-3 py-1 rounded font-label-sm text-[11px]">RED OAK VENEER</span>
-</div>
-</div>
-<div class="p-6">
-<p class="text-primary font-label-sm mb-2 uppercase tracking-wider">Phủ Veneer</p>
-<h3 class="font-headline-md text-headline-md mb-2 group-hover:text-primary transition-colors">Plywood Veneer Oak</h3>
-<p class="text-on-surface-variant font-body-md mb-6 line-clamp-2">Sự kết hợp hoàn hảo giữa độ ổn định của ván ép và vẻ đẹp tự nhiên đẳng cấp của gỗ Sồi đỏ.</p>
-<a class="inline-flex items-center gap-2 text-primary font-bold group/btn" href="#">
-<span class="">Xem chi tiết</span>
-<span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-</a>
-</div>
-</div>
-<!-- Empty State / Upcoming -->
-<div class="flex flex-col items-center justify-center border-2 border-dashed border-outline-variant/50 rounded-lg p-10 bg-surface-container-lowest/50 text-center">
-<span class="material-symbols-outlined text-[48px] text-outline-variant mb-4">more_horiz</span>
-<h3 class="font-headline-md text-on-surface-variant">Sản phẩm mới</h3>
-<p class="font-body-md text-on-surface-variant/60 max-w-[200px]">Đang được cập nhật liên tục vào hệ thống</p>
-</div>
-</div>
-<!-- Pagination -->
-<div class="mt-12 flex justify-center items-center gap-4">
-<button class="w-10 h-10 flex items-center justify-center rounded border border-outline-variant hover:border-primary hover:text-primary transition-colors disabled:opacity-30" disabled="">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-<button class="w-10 h-10 flex items-center justify-center rounded bg-primary text-on-primary font-bold">1</button>
-<button class="w-10 h-10 flex items-center justify-center rounded border border-outline-variant hover:border-primary hover:text-primary transition-colors">2</button>
-<button class="w-10 h-10 flex items-center justify-center rounded border border-outline-variant hover:border-primary hover:text-primary transition-colors">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
-</div>
-</div>
+<div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+            </div>
+        </div>
 </section>
 <!-- Technical-->
 <section class="bg-primary py-12 text-on-primary overflow-hidden">
@@ -523,6 +1020,97 @@
         }
     });
 
+    
+    // Modal Form Logic
+    const inquiryModal = document.getElementById('inquiry-modal');
+    const closeInquiryModal = document.getElementById('close-inquiry-modal');
+    const inquiryForm = document.getElementById('inquiry-form');
+    const inquirySuccess = document.getElementById('inquiry-success');
+    const closeSuccessBtn = document.getElementById('close-success-btn');
+
+    function openModal() {
+        if (inquiryModal) {
+            inquiryModal.classList.remove('hidden');
+            inquiryForm.classList.remove('hidden');
+            inquirySuccess.classList.add('hidden');
+        }
+    }
+
+    function closeModal() {
+        if (inquiryModal) {
+            inquiryModal.classList.add('hidden');
+        }
+    }
+
+    // Bind open events to all consultation/inquiry buttons
+    function bindInquiryButtons() {
+        document.querySelectorAll('button, a').forEach(el => {
+            const text = el.textContent.trim().toLowerCase();
+            if (text.includes('báo giá') || text.includes('tư vấn ngay') || text.includes('tư vấn') || text.includes('liên hệ')) {
+                if (!el.getAttribute('href') || (!el.getAttribute('href').startsWith('#') && el.getAttribute('href') !== 'index.html#footer')) {
+                    el.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openModal();
+                    });
+                }
+            }
+        });
+    }
+    
+    // Bind initially
+    bindInquiryButtons();
+
+    if (closeInquiryModal) closeInquiryModal.addEventListener('click', closeModal);
+    if (closeSuccessBtn) closeSuccessBtn.addEventListener('click', closeModal);
+
+    if (inquiryModal) {
+        inquiryModal.addEventListener('click', (e) => {
+            if (e.target === inquiryModal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Handle Form Submit and upload to Supabase
+    if (inquiryForm) {
+        inquiryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-inquiry-btn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Đang gửi...';
+
+            const name = document.getElementById('inquiry-name').value;
+            const phone = document.getElementById('inquiry-phone').value;
+            const email = document.getElementById('inquiry-email').value;
+            const message = document.getElementById('inquiry-message').value;
+
+            try {
+                if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                    const { data, error } = await supabaseClient
+                        .from('inquiries')
+                        .insert([
+                            { name, phone, email, message }
+                        ]);
+                    if (error) throw error;
+                } else {
+                    console.warn("Supabase chưa được cấu hình. Đang mô phỏng lưu trữ.");
+                }
+
+                inquiryForm.classList.add('hidden');
+                inquirySuccess.classList.remove('hidden');
+                inquiryForm.reset();
+            } catch (err) {
+                console.error("Lỗi khi gửi báo giá:", err);
+                alert("Có lỗi xảy ra khi gửi thông tin. Vui lòng liên hệ hotline 0941 186 386 để được trợ giúp trực tiếp.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        });
+    }
+
+
     // Make smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -543,5 +1131,205 @@
             }
         });
     });
+
+    // Product Loading Logic from Supabase
+    async function loadProducts(categoryFilter = null) {
+        const grid = document.getElementById('products-grid');
+        if (!grid) return;
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách sản phẩm...</p></div>';
+
+        try {
+            let products = [];
+            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                let query = supabaseClient.from('products').select('*');
+                if (categoryFilter) {
+                    query = query.eq('category', categoryFilter);
+                }
+                const { data, error } = await query;
+                if (error) throw error;
+                products = data;
+            } else {
+                // Mock products data for local preview / fallback
+                products = [
+                    {
+                        name: "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+                        description: "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+                        badge: "Bestseller",
+                        specs: { "Chất liệu": "Gỗ Poplar tự nhiên", "Tiêu chuẩn": "CARB P2 / FSC", "Keo dán": "WBP Phenolic" }
+                    },
+                    {
+                        name: "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+                        category: "plywood",
+                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+                        description: "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
+                        badge: "CARB P2",
+                        specs: { "Nồng độ Formaldehyde": "< 0.05 ppm", "Tiêu chuẩn": "EPA TSCA Title VI", "Cốt gỗ": "Bạch Dương dẻo dai" }
+                    },
+                    {
+                        name: "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
+                        category: "veneer",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+                        description: "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
+                        badge: "Premium",
+                        specs: { "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm", "Độ dày": "12mm - 18mm", "Chà nhám": "Hai mặt mịn" }
+                    },
+                    {
+                        name: "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
+                        category: "melamine",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+                        description: "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
+                        badge: "New",
+                        specs: { "Mã màu": "WL605EV - Walnut", "Chống xước": "Đạt chuẩn AC3", "Ứng dụng": "Tủ quần áo, kệ tivi" }
+                    },
+                    {
+                        name: "Gỗ Cao Su Ghép Finger Joint",
+                        category: "rubber",
+                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
+                        description: "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
+                        badge: "Eco-Friendly",
+                        specs: { "Kiểu ghép": "Mộng nổi (Finger joint)", "Độ ẩm": "10% - 12%", "Keo ghép": "D4 chống nước" }
+                    }
+                ];
+
+                if (categoryFilter) {
+                    products = products.filter(p => p.category === categoryFilter);
+                }
+            }
+
+            if (products.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant font-medium">Hiện tại chưa có sản phẩm nào thuộc danh mục này.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded">${p.badge}</div>` : '';
+                
+                let specsHtml = '';
+                if (p.specs) {
+                    const entries = typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs;
+                    Object.entries(entries).slice(0, 3).forEach(([key, val]) => {
+                        specsHtml += `<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-leaf-accent" style="font-variation-settings: 'FILL' 1;">check_circle</span> <span><strong>${key}:</strong> ${val}</span></li>`;
+                    });
+                }
+
+                grid.innerHTML += `
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <div class="aspect-square relative overflow-hidden bg-surface-container-low">
+                        <img alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
+                        ${badgeHtml}
+                    </div>
+                    <div class="p-6 text-left">
+                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider">${p.category}</div>
+                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2">${p.name}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">${p.description || ''}</p>
+                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20">
+                            ${specsHtml}
+                        </ul>
+                        <button class="w-full py-3 border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2">
+                            Yêu Cầu Báo Giá <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                </div>`;
+            });
+
+            // Re-bind modal buttons to newly created buttons
+            bindInquiryButtons();
+
+        } catch (err) {
+            console.error("Lỗi khi tải sản phẩm:", err);
+            grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-error">Đã xảy ra lỗi khi tải danh sách sản phẩm.</p></div>';
+        }
+    }
+
+    // Sidebar Filter Actions
+    function initSidebarFilters() {
+        const filterButtons = document.querySelectorAll('aside button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.className = "w-full text-left px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-medium transition-colors flex justify-between items-center group";
+                    const chevron = b.querySelector('.material-symbols-outlined');
+                    if (chevron) {
+                        chevron.className = "material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity";
+                        chevron.textContent = "chevron_right";
+                    }
+                });
+
+                btn.className = "w-full text-left px-4 py-3 bg-primary text-on-primary rounded-lg font-semibold flex justify-between items-center group transition-all";
+                const chevron = btn.querySelector('.material-symbols-outlined');
+                if (chevron) {
+                    chevron.className = "material-symbols-outlined group-hover:translate-x-1 transition-transform";
+                    chevron.textContent = "arrow_forward";
+                }
+
+                const catText = btn.textContent.trim().toLowerCase();
+                let category = null;
+                if (catText.includes('ván ép') || catText.includes('plywood')) category = 'plywood';
+                else if (catText.includes('veneer')) category = 'veneer';
+                else if (catText.includes('melamine')) category = 'melamine';
+                else if (catText.includes('cao su')) category = 'rubber';
+                else if (catText.includes('mdf')) category = 'mdf';
+
+                loadProducts(category);
+            });
+        });
+    }
+
+    // Load initial products
+    loadProducts();
+    initSidebarFilters();
+
 </script>
+
+<!-- Inquiry Modal Form -->
+<div id="inquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/60 backdrop-blur-sm transition-all duration-300">
+    <div class="bg-surface-white dark:bg-inverse-surface rounded-xl shadow-2xl border border-outline-variant/30 max-w-lg w-full mx-4 p-8 relative animate-fade-in-up">
+        <!-- Close button -->
+        <button id="close-inquiry-modal" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <!-- Header -->
+        <div class="mb-6 text-left">
+            <h3 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-2">Nhận Báo Giá & Tư Vấn</h3>
+            <p class="text-sm text-on-surface-variant">Vui lòng điền thông tin dưới đây, chuyên viên của Ocean Wood sẽ liên hệ lại với bạn trong vòng 15 phút.</p>
+        </div>
+        <!-- Form -->
+        <form id="inquiry-form" class="space-y-4 text-left">
+            <div>
+                <label for="inquiry-name" class="block font-label-sm text-sm text-on-surface mb-1">Họ và Tên *</label>
+                <input type="text" id="inquiry-name" required placeholder="Nguyễn Văn A" class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label for="inquiry-phone" class="block font-label-sm text-sm text-on-surface mb-1">Số điện thoại *</label>
+                <input type="tel" id="inquiry-phone" required placeholder="09xxxxxxxx" class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label for="inquiry-email" class="block font-label-sm text-sm text-on-surface mb-1">Email (Không bắt buộc)</label>
+                <input type="email" id="inquiry-email" placeholder="example@gmail.com" class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label for="inquiry-message" class="block font-label-sm text-sm text-on-surface mb-1">Sản phẩm quan tâm & Lời nhắn</label>
+                <textarea id="inquiry-message" rows="3" placeholder="Ví dụ: Tôi cần báo giá ván ép Poplar Marine dày 18mm..." class="w-full border-outline-variant rounded bg-surface border px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all"></textarea>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" id="submit-inquiry-btn" class="w-full bg-primary text-on-primary py-3.5 rounded-lg font-bold hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
+                <span>Gửi Yêu Cầu Báo Giá</span>
+                <span class="material-symbols-outlined text-sm">send</span>
+            </button>
+        </form>
+        <!-- Success Screen -->
+        <div id="inquiry-success" class="hidden text-center py-8">
+            <span class="material-symbols-outlined text-6xl text-leaf-accent mb-4 block" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            <h4 class="font-headline-md text-primary dark:text-primary-fixed mb-2">Gửi Yêu Cầu Thành Công!</h4>
+            <p class="text-on-surface-variant font-body-md text-sm mb-6">Cảm ơn bạn đã quan tâm đến giải pháp gỗ của Ocean Wood. Chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
+            <button id="close-success-btn" class="bg-primary text-on-primary px-8 py-3 rounded-lg font-bold hover:opacity-90 transition-all mx-auto block">
+                Đóng
+            </button>
+        </div>
+    </div>
+</div>
+
 </body></html>
