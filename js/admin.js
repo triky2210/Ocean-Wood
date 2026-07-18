@@ -23,6 +23,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Load Mega Menu dynamically on page load (for all visitors)
         loadMegaMenu();
+        // Load About Us Slideshow
+        initAboutSlideshow();
 
         const footerText = Array.from(document.querySelectorAll('footer *')).find(el => 
             el.children.length === 0 && (el.textContent.includes('©') || el.textContent.includes('rights reserved') || el.textContent.includes('All rights reserved'))
@@ -44,6 +46,97 @@
             startAdminMode();
         }
     });
+
+    // Initialize About Us Slideshow Player
+    function initAboutSlideshow() {
+        const container = document.getElementById('about-slideshow');
+        if (!container) return;
+
+        let slides = [];
+        try {
+            slides = JSON.parse(container.getAttribute('data-slides') || '[]');
+        } catch (e) {
+            console.error("Error parsing data-slides:", e);
+        }
+
+        if (slides.length === 0) return;
+
+        const slidesContainer = container.querySelector('.slides-container');
+        const dotsContainer = container.querySelector('.slides-dots');
+        if (!slidesContainer || !dotsContainer) return;
+
+        // Render slides
+        slidesContainer.innerHTML = slides.map((url, idx) => `
+            <div class="slide-item absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-700 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}" style="background-image: url('${url}');"></div>
+        `).join('');
+
+        // Render dots
+        dotsContainer.innerHTML = slides.map((_, idx) => `
+            <button class="slide-dot w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white'}" data-slide-idx="${idx}"></button>
+        `).join('');
+
+        let currentIdx = 0;
+        let intervalId = null;
+
+        function goToSlide(idx) {
+            const slideItems = container.querySelectorAll('.slide-item');
+            const dots = container.querySelectorAll('.slide-dot');
+            if (slideItems.length === 0) return;
+
+            currentIdx = (idx + slideItems.length) % slideItems.length;
+
+            slideItems.forEach((slide, sIdx) => {
+                if (sIdx === currentIdx) {
+                    slide.classList.remove('opacity-0', 'z-0');
+                    slide.classList.add('opacity-100', 'z-10');
+                } else {
+                    slide.classList.remove('opacity-100', 'z-10');
+                    slide.classList.add('opacity-0', 'z-0');
+                }
+            });
+
+            dots.forEach((dot, dIdx) => {
+                if (dIdx === currentIdx) {
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-white', 'scale-125');
+                } else {
+                    dot.classList.remove('bg-white', 'scale-125');
+                    dot.classList.add('bg-white/50');
+                }
+            });
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            intervalId = setInterval(() => {
+                goToSlide(currentIdx + 1);
+            }, 4000);
+        }
+
+        function stopAutoSlide() {
+            if (intervalId) clearInterval(intervalId);
+        }
+
+        dotsContainer.querySelectorAll('.slide-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(dot.getAttribute('data-slide-idx'));
+                goToSlide(idx);
+                startAutoSlide();
+            });
+        });
+
+        startAutoSlide();
+
+        container.aboutSlideshow = {
+            goToSlide,
+            startAutoSlide,
+            stopAutoSlide,
+            destroy: () => {
+                stopAutoSlide();
+            }
+        };
+    }
 
     // Load Mega Menu dynamic loader
     function loadMegaMenu() {
@@ -236,8 +329,8 @@
 
         // 3. Make background-image elements editable
         section.querySelectorAll('[style*="background-image"]').forEach(bgEl => {
-            // Skip product/project cards, admin UI, mega-menu
-            if (bgEl.closest('.product-card') || bgEl.closest('.project-card') || bgEl.closest('.admin-bar') || bgEl.closest('.admin-modal') || bgEl.closest('#mega-menu-grid')) {
+            // Skip product/project cards, admin UI, mega-menu, and slideshow slides!
+            if (bgEl.closest('.product-card') || bgEl.closest('.project-card') || bgEl.closest('.admin-bar') || bgEl.closest('.admin-modal') || bgEl.closest('#mega-menu-grid') || bgEl.closest('#about-slideshow')) {
                 return;
             }
             if (bgEl.parentElement.classList.contains('admin-image-container')) return;
@@ -259,6 +352,23 @@
                 });
             });
         });
+
+        // 4. If section contains about-slideshow, add slideshow manager overlay
+        if (section.querySelector('#about-slideshow')) {
+            const slideshow = section.querySelector('#about-slideshow');
+            if (!slideshow.querySelector('.admin-slideshow-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.className = 'admin-slideshow-overlay';
+                overlay.innerHTML = '<span><span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle; margin-right: 4px;">photo_library</span> Quản lý slide ảnh</span>';
+                slideshow.appendChild(overlay);
+
+                overlay.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openSlideshowManagerModal(slideshow);
+                });
+            }
+        }
 
         showToast("Đã bật chế độ chỉnh sửa cho phần này.");
     }
@@ -283,6 +393,10 @@
                 wrapper.remove();
             }
         });
+
+        // 3. Remove slideshow overlay
+        const ssOverlay = section.querySelector('.admin-slideshow-overlay');
+        if (ssOverlay) ssOverlay.remove();
 
         showToast("Đã đóng chế độ chỉnh sửa phần này.");
     }
@@ -893,6 +1007,9 @@
         // 2. Temporarily remove admin elements
         const adminBar = document.querySelector('.admin-bar');
         const adminCss = document.getElementById('admin-css');
+        
+        // Remove slideshow overlays
+        document.querySelectorAll('.admin-slideshow-overlay').forEach(el => el.remove());
         const addProjectBtn = document.getElementById('admin-add-project-btn');
         const addProductBtn = document.getElementById('admin-add-product-btn');
         const blockEditBtns = document.querySelectorAll('.admin-block-edit-btn');
@@ -974,6 +1091,114 @@
         .finally(() => {
             pubBtn.disabled = false;
             pubBtn.innerHTML = originalText;
+        });
+    }
+
+    // Slideshow Manager Modal
+    function openSlideshowManagerModal(slideshow) {
+        let slides = [];
+        try {
+            slides = JSON.parse(slideshow.getAttribute('data-slides') || '[]');
+        } catch (e) {
+            console.error("Error parsing data-slides:", e);
+        }
+
+        const modal = createModalContainer();
+        modal.innerHTML = `
+            <div class="admin-modal-content" style="max-width: 550px; width: 90vw;">
+                <h3 class="text-xl font-bold text-primary mb-4" style="font-size: 18px; margin-bottom: 16px; border-bottom: 1px solid #E5E7EB; padding-bottom: 8px;">Quản Lý Slideshow Về Chúng Tôi</h3>
+                <div id="slideshow-list-container" style="display: flex; flex-direction: column; gap: 12px; max-height: 50vh; overflow-y: auto; padding-right: 8px; margin-bottom: 16px;">
+                    <!-- Slides list loaded here -->
+                </div>
+                <div style="display: flex; justify-content: space-between; border-top: 1px solid #E5E7EB; padding-top: 16px;">
+                    <button type="button" id="ss-add-btn" style="background:#82C341; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:4px;">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">add_circle</span> Thêm ảnh slide
+                    </button>
+                    <div style="display:flex; gap:8px;">
+                        <button type="button" id="ss-cancel-btn" style="background:transparent; color:#6B7280; border:1px solid #D1D5DB; padding:8px 16px; border-radius:6px; cursor:pointer;">Hủy</button>
+                        <button type="button" id="ss-save-btn" style="background:#005696; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Lưu slide</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const listContainer = modal.querySelector('#slideshow-list-container');
+
+        function renderSlides() {
+            if (slides.length === 0) {
+                listContainer.innerHTML = `<p style="text-align:center; color:#6B7280; padding:16px;">Không có hình ảnh nào. Vui lòng thêm ảnh mới.</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = slides.map((url, idx) => `
+                <div class="ss-item-row" data-idx="${idx}" style="display:flex; gap:12px; align-items:center; border:1px solid #E5E7EB; padding:10px; border-radius:8px; background:#F9FAFB;">
+                    <img src="${url}" style="width: 80px; height: 50px; object-fit: cover; border: 1px solid #D1D5DB; border-radius:4px; background:white;">
+                    <div style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; color:#4B5563;">
+                        ${url.split('/').pop().substring(0, 30)}
+                    </div>
+                    <div style="display:flex; gap:4px;">
+                        <button type="button" class="ss-move-up" style="background:transparent; border:none; cursor:pointer; color:#4B5563; display:flex; align-items:center;" title="Di chuyển lên" ${idx === 0 ? 'disabled style="opacity:0.3; cursor:default;"' : ''}>
+                            <span class="material-symbols-outlined" style="font-size:18px;">arrow_upward</span>
+                        </button>
+                        <button type="button" class="ss-move-down" style="background:transparent; border:none; cursor:pointer; color:#4B5563; display:flex; align-items:center;" title="Di chuyển xuống" ${idx === slides.length - 1 ? 'disabled style="opacity:0.3; cursor:default;"' : ''}>
+                            <span class="material-symbols-outlined" style="font-size:18px;">arrow_downward</span>
+                        </button>
+                        <button type="button" class="ss-delete" style="background:transparent; border:none; cursor:pointer; color:#EF4444; display:flex; align-items:center;" title="Xóa ảnh này">
+                            <span class="material-symbols-outlined" style="font-size:18px;">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            listContainer.querySelectorAll('.ss-item-row').forEach(row => {
+                const idx = parseInt(row.getAttribute('data-idx'));
+
+                const btnUp = row.querySelector('.ss-move-up');
+                if (btnUp && idx > 0) {
+                    btnUp.addEventListener('click', () => {
+                        const temp = slides[idx];
+                        slides[idx] = slides[idx - 1];
+                        slides[idx - 1] = temp;
+                        renderSlides();
+                    });
+                }
+
+                const btnDown = row.querySelector('.ss-move-down');
+                if (btnDown && idx < slides.length - 1) {
+                    btnDown.addEventListener('click', () => {
+                        const temp = slides[idx];
+                        slides[idx] = slides[idx + 1];
+                        slides[idx + 1] = temp;
+                        renderSlides();
+                    });
+                }
+
+                row.querySelector('.ss-delete').addEventListener('click', () => {
+                    slides.splice(idx, 1);
+                    renderSlides();
+                });
+            });
+        }
+
+        renderSlides();
+
+        modal.querySelector('#ss-add-btn').addEventListener('click', () => {
+            chooseAndUploadImage(url => {
+                slides.push(url);
+                renderSlides();
+            });
+        });
+
+        modal.querySelector('#ss-cancel-btn').addEventListener('click', () => modal.remove());
+
+        modal.querySelector('#ss-save-btn').addEventListener('click', () => {
+            slideshow.setAttribute('data-slides', JSON.stringify(slides));
+            if (slideshow.aboutSlideshow) {
+                slideshow.aboutSlideshow.destroy();
+            }
+            initAboutSlideshow();
+            modal.remove();
+            showToast("Đã lưu và cập nhật Slideshow!");
         });
     }
 })();

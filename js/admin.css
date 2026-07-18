@@ -200,3 +200,20 @@
     from { transform: translateY(-20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
+/* About Slideshow styles */
+#about-slideshow:hover .admin-slideshow-overlay {
+    opacity: 1;
+}
+.admin-slideshow-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 25;
+    cursor: pointer;
+}
