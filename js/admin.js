@@ -21,11 +21,15 @@
 
     // Double-click on footer copyright to toggle admin mode
     document.addEventListener('DOMContentLoaded', () => {
-        const footerText = document.querySelector('footer p');
+        const footerText = Array.from(document.querySelectorAll('footer *')).find(el => 
+            el.children.length === 0 && (el.textContent.includes('©') || el.textContent.includes('rights reserved') || el.textContent.includes('All rights reserved'))
+        );
         if (footerText) {
             footerText.style.cursor = 'pointer';
+            footerText.title = "Nhấp đúp chuột để bật/tắt Chế độ Quản trị";
             footerText.addEventListener('dblclick', () => {
-                if (isAdmin) {
+                const isCurrentlyAdmin = sessionStorage.getItem('adminMode') === 'true';
+                if (isCurrentlyAdmin) {
                     window.location.search = '?admin=false';
                 } else {
                     window.location.search = '?admin=true';
