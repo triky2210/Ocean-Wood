@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="vi" class="scroll-smooth" style=""><head><title>Sản Phẩm - Ocean Wood</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><meta charset="utf-8"><script id="tailwind-config">try{try{
+<script src="js/supabase-config.js"></script><script src="js/admin.js"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><meta charset="utf-8"><script id="tailwind-config">try{try{
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -498,7 +498,7 @@
         });
     }
 
-    // Handle Form Submit and upload to Supabase
+    // Handle Form Submit
     if (inquiryForm) {
         inquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -513,7 +513,7 @@
             const message = document.getElementById('inquiry-message').value;
 
             try {
-                if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+                if (typeof supabaseClient !== 'undefined' && typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
                     const { data, error } = await supabaseClient
                         .from('inquiries')
                         .insert([
@@ -537,71 +537,30 @@
         });
     }
 
-
-    // Product Loading Logic from Supabase
+    // Product Loading Logic from JSON
     async function loadProducts(categoryFilter = null) {
         const grid = document.getElementById('products-grid');
         if (!grid) return;
         grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-on-surface-variant animate-pulse font-medium">Đang tải danh sách sản phẩm...</p></div>';
 
         try {
-            let products = [];
-            if (supabaseClient && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-                let query = supabaseClient.from('products').select('*');
-                if (categoryFilter) {
-                    query = query.eq('category', categoryFilter);
-                }
-                const { data, error } = await query;
-                if (error) throw error;
-                products = data;
-            } else {
-                // Mock products data for local preview / fallback
-                products = [
-                    {
-                        name: "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
-                        category: "plywood",
-                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
-                        description: "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
-                        badge: "Bestseller",
-                        specs: { "Chất liệu": "Gỗ Poplar tự nhiên", "Tiêu chuẩn": "CARB P2 / FSC", "Keo dán": "WBP Phenolic" }
-                    },
-                    {
-                        name: "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
-                        category: "plywood",
-                        image_url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
-                        description: "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
-                        badge: "CARB P2",
-                        specs: { "Nồng độ Formaldehyde": "< 0.05 ppm", "Tiêu chuẩn": "EPA TSCA Title VI", "Cốt gỗ": "Bạch Dương dẻo dai" }
-                    },
-                    {
-                        name: "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
-                        category: "veneer",
-                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
-                        description: "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
-                        badge: "Premium",
-                        specs: { "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm", "Độ dày": "12mm - 18mm", "Chà nhám": "Hai mặt mịn" }
-                    },
-                    {
-                        name: "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
-                        category: "melamine",
-                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
-                        description: "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
-                        badge: "New",
-                        specs: { "Mã màu": "WL605EV - Walnut", "Chống xước": "Đạt chuẩn AC3", "Ứng dụng": "Tủ quần áo, kệ tivi" }
-                    },
-                    {
-                        name: "Gỗ Cao Su Ghép Finger Joint",
-                        category: "rubber",
-                        image_url: "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
-                        description: "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
-                        badge: "Eco-Friendly",
-                        specs: { "Kiểu ghép": "Mộng nổi (Finger joint)", "Độ ẩm": "10% - 12%", "Keo ghép": "D4 chống nước" }
-                    }
-                ];
+            const response = await fetch('js/products.json?' + new Date().getTime());
+            let products = await response.json();
 
-                if (categoryFilter) {
-                    products = products.filter(p => p.category === categoryFilter);
+            // Deduplicate products by name to avoid double entries
+            const uniqueProducts = [];
+            const seenNames = new Set();
+            for (const p of products) {
+                const normalizedName = p.name.trim().toLowerCase();
+                if (!seenNames.has(normalizedName)) {
+                    seenNames.add(normalizedName);
+                    uniqueProducts.push(p);
                 }
+            }
+            products = uniqueProducts;
+
+            if (categoryFilter) {
+                products = products.filter(p => p.category === categoryFilter);
             }
 
             if (products.length === 0) {
@@ -611,7 +570,7 @@
 
             grid.innerHTML = '';
             products.forEach(p => {
-                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded">${p.badge}</div>` : '';
+                const badgeHtml = p.badge ? `<div class="absolute top-4 left-4 bg-primary text-white text-[10px] px-2 py-1 uppercase font-bold tracking-widest rounded product-badge">${p.badge}</div>` : '';
                 
                 let specsHtml = '';
                 if (p.specs) {
@@ -622,16 +581,16 @@
                 }
 
                 grid.innerHTML += `
-                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="aspect-square relative overflow-hidden bg-surface-container-low">
-                        <img alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
+                <div class="group bg-surface-white border border-outline-variant/30 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 relative product-card" data-product-id="${p.id}">
+                    <div class="aspect-square relative overflow-hidden bg-surface-container-low flex items-center justify-center">
+                        <img alt="${p.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 product-image" src="${p.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}">
                         ${badgeHtml}
                     </div>
                     <div class="p-6 text-left">
-                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider">${p.category}</div>
-                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2">${p.name}</h4>
-                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">${p.description || ''}</p>
-                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20">
+                        <div class="text-primary font-label-sm mb-2 uppercase text-xs tracking-wider product-category" data-raw-category="${p.category}">${p.category}</div>
+                        <h4 class="font-headline-md text-on-surface mb-3 text-[18px] font-bold leading-snug h-12 line-clamp-2 product-name">${p.name}</h4>
+                        <p class="text-on-surface-variant text-sm mb-4 line-clamp-2 product-description">${p.description || ''}</p>
+                        <ul class="text-on-surface-variant font-body-md text-sm space-y-2 mb-6 h-20 product-specs" data-raw-specs='${JSON.stringify(p.specs || {})}'>
                             ${specsHtml}
                         </ul>
                         <button class="w-full py-3 border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2">
@@ -643,6 +602,11 @@
 
             // Re-bind modal buttons to newly created buttons
             bindInquiryButtons();
+
+            // Re-bind admin actions if admin script is loaded
+            if (typeof initAdminMode === 'function') {
+                initAdminMode();
+            }
 
         } catch (err) {
             console.error("Lỗi khi tải sản phẩm:", err);

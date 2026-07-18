@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+    "category": "plywood",
+    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+    "description": "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+    "badge": "Bestseller",
+    "specs": {
+      "Chất liệu": "Gỗ Poplar tự nhiên",
+      "Tiêu chuẩn": "CARB P2 / FSC",
+      "Keo dán": "WBP Phenolic"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+    "category": "plywood",
+    "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+    "description": "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
+    "badge": "CARB P2",
+    "specs": {
+      "Nồng độ Formaldehyde": "< 0.05 ppm",
+      "Tiêu chuẩn": "EPA TSCA Title VI",
+      "Cốt gỗ": "Bạch Dương dẻo dai"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Plywood Phủ Veneer Sồi (Oak Veneer Plywood)",
+    "category": "veneer",
+    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+    "description": "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
+    "badge": "Premium",
+    "specs": {
+      "Bề mặt": "Sồi đỏ/Sồi trắng 0.6mm",
+      "Độ dày": "12mm - 18mm",
+      "Chà nhám": "Hai mặt mịn"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Plywood Phủ Melamine Óc Chó (Walnut Melamine)",
+    "category": "melamine",
+    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+    "description": "Bề mặt Melamine giả vân gỗ Óc Chó chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
+    "badge": "New",
+    "specs": {
+      "Mã màu": "WL605EV - Walnut",
+      "Chống xước": "Đạt chuẩn AC3",
+      "Ứng dụng": "Tủ quần áo, kệ tivi"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Gỗ Cao Su Ghép Finger Joint",
+    "category": "rubber",
+    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
+    "description": "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
+    "badge": "Eco-Friendly",
+    "specs": {
+      "Kiểu ghép": "Mộng nổi (Finger joint)",
+      "Độ ẩm": "10% - 12%",
+      "Keo ghép": "D4 chống nước"
+    }
+  }
+]
