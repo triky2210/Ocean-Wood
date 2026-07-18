@@ -1637,19 +1637,22 @@
                             
                             <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
                                 <label style="font-weight:600; font-size:12px; color:#4B5563; display:flex; justify-content:space-between; align-items:center;">
-                                    <span>Nội dung bài viết (HTML) *</span>
-                                    <div style="display:flex; gap:4px;" class="formatting-toolbar">
-                                        <button type="button" id="format-b" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 8px; font-weight:700; cursor:pointer;" title="Chữ Đậm">B</button>
-                                        <button type="button" id="format-i" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 8px; font-style:italic; cursor:pointer;" title="Chữ Nghiêng">I</button>
-                                        <button type="button" id="format-h2" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; font-size:11px; cursor:pointer;" title="Tiêu đề H2">H2</button>
-                                        <button type="button" id="format-h3" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; font-size:11px; cursor:pointer;" title="Tiêu đề H3">H3</button>
-                                        <button type="button" id="format-list" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Tạo Danh Sách"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">format_list_bulleted</span></button>
-                                        <button type="button" id="format-img" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Chèn Ảnh"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">image</span></button>
-                                        <button type="button" id="format-preview-toggle" class="format-btn" style="background:#e9edff; border:1px solid #005696; color:#005696; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; cursor:pointer;" title="Bật/Tắt Xem Trước">Xem trước</button>
+                                    <span>Nội dung bài viết *</span>
+                                    <div style="display:flex; gap:4px; align-items:center;" class="formatting-toolbar">
+                                        <button type="button" id="wysiwyg-b" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 8px; font-weight:700; cursor:pointer; font-size:12px;" title="Chữ Đậm">B</button>
+                                        <button type="button" id="wysiwyg-i" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 8px; font-style:italic; cursor:pointer; font-size:12px;" title="Chữ Nghiêng">I</button>
+                                        <button type="button" id="wysiwyg-h2" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; font-size:11px; cursor:pointer;" title="Tiêu đề H2">H2</button>
+                                        <button type="button" id="wysiwyg-h3" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; font-size:11px; cursor:pointer;" title="Tiêu đề H3">H3</button>
+                                        <button type="button" id="wysiwyg-list" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Danh sách đầu dòng"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">format_list_bulleted</span></button>
+                                        <button type="button" id="wysiwyg-img" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Chèn Ảnh"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">image</span></button>
+                                        <button type="button" id="wysiwyg-clear" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Xóa định dạng"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">format_clear</span></button>
+                                        <button type="button" id="wysiwyg-mode-toggle" class="format-btn" style="background:#e9edff; border:1px solid #005696; color:#005696; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; cursor:pointer;" title="Chuyển sang chế độ Mã HTML">Xem mã HTML</button>
                                     </div>
                                 </label>
-                                <textarea id="art-content-input" rows="8" placeholder="Soạn thảo nội dung bài viết bằng mã HTML hoặc văn bản thường..." style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none; resize:vertical; font-family:monospace; line-height:1.4;">${art.content}</textarea>
-                                <div id="art-content-preview" class="rich-content" style="display:none; border: 1px dashed #005696; padding: 12px; border-radius: 6px; background: #FAFBFD; max-height: 250px; overflow-y: auto; margin-top:8px;"></div>
+                                <div id="art-wysiwyg-editor" class="rich-content" contenteditable="true" style="border:1px solid #c1c7d2; padding:12px; border-radius:6px; font-size:15px; outline:none; min-height:250px; max-height:350px; overflow-y:auto; background:white; line-height:1.6; margin-top:4px;">
+                                    ${art.content || '<p><br></p>'}
+                                </div>
+                                <textarea id="art-html-editor" rows="10" placeholder="Soạn thảo nội dung bài viết bằng mã HTML..." style="display:none; border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none; resize:vertical; font-family:monospace; line-height:1.4; margin-top:4px; width:100%;"></textarea>
                             </div>
                             
                             <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
@@ -1668,7 +1671,8 @@
                     const titleInput = modal.querySelector('#art-title-input');
                     const idInput = modal.querySelector('#art-id-input');
                     const excerptInput = modal.querySelector('#art-excerpt-input');
-                    const contentInput = modal.querySelector('#art-content-input');
+                    const wysiwygEditor = modal.querySelector('#art-wysiwyg-editor');
+                    const htmlEditor = modal.querySelector('#art-html-editor');
                     const tagsInput = modal.querySelector('#art-tags-input');
                     const authorInput = modal.querySelector('#art-author-input');
                     const dateInput = modal.querySelector('#art-date-input');
@@ -1689,42 +1693,90 @@
                         });
                     }
 
-                    // Formatting Text Selection Helper
-                    function applyFormatting(before, after) {
-                        const start = contentInput.selectionStart;
-                        const end = contentInput.selectionEnd;
-                        const text = contentInput.value;
-                        const selected = text.substring(start, end);
-                        const replacement = before + selected + after;
-                        contentInput.value = text.substring(0, start) + replacement + text.substring(end);
-                        contentInput.focus();
-                        contentInput.setSelectionRange(start + before.length, start + before.length + selected.length);
-                    }
+                    let isHtmlMode = false;
+                    const modeToggleBtn = modal.querySelector('#wysiwyg-mode-toggle');
 
-                    modal.querySelector('#format-b').addEventListener('click', () => applyFormatting('<strong>', '</strong>'));
-                    modal.querySelector('#format-i').addEventListener('click', () => applyFormatting('<em>', '</em>'));
-                    modal.querySelector('#format-h2').addEventListener('click', () => applyFormatting('<h2>', '</h2>'));
-                    modal.querySelector('#format-h3').addEventListener('click', () => applyFormatting('<h3>', '</h3>'));
-                    modal.querySelector('#format-list').addEventListener('click', () => applyFormatting('<ul>\n  <li>', '</li>\n  <li>Dòng 2</li>\n</ul>'));
-                    modal.querySelector('#format-img').addEventListener('click', () => {
-                        chooseAndUploadImage(url => {
-                            applyFormatting(`<img src="${url}" alt="Mô tả ảnh">`, '');
-                        });
+                    // Toggle HTML/Visual editor modes
+                    modeToggleBtn.addEventListener('click', () => {
+                        if (!isHtmlMode) {
+                            htmlEditor.value = wysiwygEditor.innerHTML;
+                            wysiwygEditor.style.display = 'none';
+                            htmlEditor.style.display = 'block';
+                            modeToggleBtn.innerText = "Xem trực quan";
+                            modeToggleBtn.style.background = "#fffbeb";
+                            modeToggleBtn.style.color = "#d97706";
+                            modeToggleBtn.style.borderColor = "#d97706";
+                            modal.querySelectorAll('.formatting-toolbar button:not(#wysiwyg-mode-toggle)').forEach(btn => btn.style.opacity = '0.3');
+                        } else {
+                            wysiwygEditor.innerHTML = htmlEditor.value;
+                            htmlEditor.style.display = 'none';
+                            wysiwygEditor.style.display = 'block';
+                            modeToggleBtn.innerText = "Xem mã HTML";
+                            modeToggleBtn.style.background = "#e9edff";
+                            modeToggleBtn.style.color = "#005696";
+                            modeToggleBtn.style.borderColor = "#005696";
+                            modal.querySelectorAll('.formatting-toolbar button:not(#wysiwyg-mode-toggle)').forEach(btn => btn.style.opacity = '1');
+                        }
+                        isHtmlMode = !isHtmlMode;
                     });
 
-                    // Live Preview Toggle
-                    const previewBox = modal.querySelector('#art-content-preview');
-                    const previewToggle = modal.querySelector('#format-preview-toggle');
-                    previewToggle.addEventListener('click', () => {
-                        const isHidden = previewBox.style.display === 'none';
-                        if (isHidden) {
-                            previewBox.innerHTML = contentInput.value;
-                            previewBox.style.display = 'block';
-                            previewToggle.innerText = "Ẩn xem trước";
-                        } else {
-                            previewBox.style.display = 'none';
-                            previewToggle.innerText = "Xem trước";
+                    // Save Selection range helper for image upload selection restore
+                    let savedRange = null;
+                    function saveSelection() {
+                        const sel = window.getSelection();
+                        if (sel.getRangeAt && sel.rangeCount) {
+                            savedRange = sel.getRangeAt(0);
                         }
+                    }
+                    function restoreSelection() {
+                        if (savedRange) {
+                            const sel = window.getSelection();
+                            sel.removeAllRanges();
+                            sel.addRange(savedRange);
+                        }
+                    }
+
+                    // Rich Text Command Handlers
+                    modal.querySelector('#wysiwyg-b').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        document.execCommand('bold', false, null);
+                    });
+                    modal.querySelector('#wysiwyg-i').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        document.execCommand('italic', false, null);
+                    });
+                    modal.querySelector('#wysiwyg-h2').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        document.execCommand('formatBlock', false, '<h2>');
+                    });
+                    modal.querySelector('#wysiwyg-h3').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        document.execCommand('formatBlock', false, '<h3>');
+                    });
+                    modal.querySelector('#wysiwyg-list').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        document.execCommand('insertUnorderedList', false, null);
+                    });
+                    modal.querySelector('#wysiwyg-clear').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        document.execCommand('removeFormat', false, null);
+                    });
+                    modal.querySelector('#wysiwyg-img').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (isHtmlMode) return;
+                        wysiwygEditor.focus();
+                        saveSelection();
+                        chooseAndUploadImage(url => {
+                            restoreSelection();
+                            wysiwygEditor.focus();
+                            document.execCommand('insertImage', false, url);
+                        });
                     });
 
                     // Back
@@ -1735,7 +1787,7 @@
                         const title = titleInput.value.trim();
                         const id = idInput.value.trim();
                         const excerpt = excerptInput.value.trim();
-                        const content = contentInput.value.trim();
+                        const content = isHtmlMode ? htmlEditor.value.trim() : wysiwygEditor.innerHTML.trim();
                         const tags = tagsInput.value.split(',').map(t => t.trim()).filter(t => t.length > 0);
                         const date = dateInput.value.trim();
                         const author = authorInput.value.trim();
