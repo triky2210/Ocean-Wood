@@ -3,24 +3,24 @@
     "id": 1,
     "name": "Nhà ga T3 – Sân bay Tân Sơn Nhất",
     "location": "Hồ Chí Minh, Việt Nam",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLsl1GYxLR-q51eChO8oApcptEwiELM0HiVSL7AGRE_WQ4E8ENdZ8A-0yPt2sqTHny5uASQ5cWhlI3ucqgRZGzASs52gfeM03JRWDkNHFbFMlKH6erbUBoJihvf09qd0dBB3DHeV6h0LRkbcl7aoFQJseGUmRvRuW0S1-8q9jBPDVPDFeYjMbh8cp-NKP3j94QV2J1TOB-Ghdr9tOFlohIHu8on3yqgltsTFor863nQHKS4wpXg3YMo3OZM"
+    "image_url": "images/project_airport_t3.png"
   },
   {
     "id": 2,
     "name": "Nhà máy Nhiệt điện Vũng Áng 2",
     "location": "Hà Tĩnh, Việt Nam",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLvcJvLRmNv2Kp-stgTm8zWIMGKhHsFRr6ccFzlWpHMDMkJaYlxCqn_knXE7005ZRFub0zP7UIpObwDIb6uqm6YneqH0Y3O_REOiSZwOEAIqV0wzqDRjYEcM35nlKgcAtDhv8FUfyfNM6K8Y9HcmcrhQPnYIpUROVpWKoBMzIE4-7hNL4EOqMkPbSiHzY7NZMQvDiH1mGPUnwvaiLiSHgFngGrhUe10Cn5Cc0VZVcTSn7NgaKQ2LNZ4-IMJC"
+    "image_url": "images/project_thermal_plant.png"
   },
   {
     "id": 3,
     "name": "Nhà máy Goertek – Bắc Ninh",
     "location": "Bắc Ninh, Việt Nam",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLs5ccnv3sFdXNr4aSWnxCSbdmd8uYkj-vRDTITNQ2ZrXxOiQjY79SWIwVGAPt6_HMq8FW53VWQZA6jJWP5DLvPt3kGGtI5z5WGMNBksZ1pZXKLY54rNWZua1FMQSwBJrNGC_QLOUmloG5RJz1qdHyZbHz2vvxjHuHn2Hru1lz-JhIVB4UB73SZKrzOugE6f06NAuaCKi4mdEohvbp6pc6gXhk6I69Lq29fHqbsBSxgrG1DA3gD74bjtlqFx"
+    "image_url": "images/project_goertek_factory.png"
   },
   {
     "id": 4,
     "name": "Nhà máy Điện tử BYD – Phú Thọ",
     "location": "Phú Thọ, Việt Nam",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLvixscqTsS1-bQ9ilKKlXLi4GVzpeA0HgngOoJRVP_HSaWvifNsctU2pswnyAlWWNGKG3ytfaF7TQ7hm5tdOOog_89cd8zWPex8K22T2N7kVF29UnOg1atw_WcnCziInZYEDBgF-Oo9ftg-xzXoi8PubsBFXFWKjBE8rdZPD_SgfIEW5yOFVCLDmh5L2p2KKQEmPHNSouuFsrgwPs8H1kOvSfM2HyxC8nUXpENOlVfbMD-Q7PFMxuP18rTG"
+    "image_url": "images/project_byd_factory.png"
   }
 ]
