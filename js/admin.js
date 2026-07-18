@@ -1649,7 +1649,7 @@
                                 <textarea id="art-excerpt-input" rows="2" placeholder="Tóm tắt hiển thị trên danh sách bài viết..." style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none; resize:vertical; font-family:inherit;">${art.excerpt}</textarea>
                             </div>
                             
-                            <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
+                            <div id="wysiwyg-editor-wrapper" style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
                                 <label style="font-weight:600; font-size:12px; color:#4B5563; display:flex; justify-content:space-between; align-items:center;">
                                     <span>Nội dung bài viết *</span>
                                     <div style="display:flex; gap:4px; align-items:center;" class="formatting-toolbar">
@@ -1660,6 +1660,7 @@
                                         <button type="button" id="wysiwyg-list" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Danh sách đầu dòng"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">format_list_bulleted</span></button>
                                         <button type="button" id="wysiwyg-img" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Chèn Ảnh"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">image</span></button>
                                         <button type="button" id="wysiwyg-clear" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Xóa định dạng"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">format_clear</span></button>
+                                        <button type="button" id="wysiwyg-fullscreen" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Phóng to"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">fullscreen</span></button>
                                         <button type="button" id="wysiwyg-mode-toggle" class="format-btn" style="background:#e9edff; border:1px solid #005696; color:#005696; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; cursor:pointer;" title="Chuyển sang chế độ Mã HTML">Xem mã HTML</button>
                                     </div>
                                 </label>
@@ -1791,6 +1792,58 @@
                             wysiwygEditor.focus();
                             document.execCommand('insertImage', false, url);
                         });
+                    });
+
+                    // Fullscreen toggle logic
+                    const wrapper = modal.querySelector('#wysiwyg-editor-wrapper');
+                    const fullscreenBtn = modal.querySelector('#wysiwyg-fullscreen');
+                    const fsIcon = fullscreenBtn.querySelector('.material-symbols-outlined');
+                    let isFullscreen = false;
+
+                    fullscreenBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        isFullscreen = !isFullscreen;
+                        if (isFullscreen) {
+                            wrapper.style.position = 'fixed';
+                            wrapper.style.top = '0';
+                            wrapper.style.left = '0';
+                            wrapper.style.width = '100vw';
+                            wrapper.style.height = '100vh';
+                            wrapper.style.background = '#f9f9ff';
+                            wrapper.style.zIndex = '9999';
+                            wrapper.style.padding = '24px';
+                            wrapper.style.margin = '0';
+                            
+                            wysiwygEditor.style.maxHeight = 'calc(100vh - 140px)';
+                            wysiwygEditor.style.height = 'calc(100vh - 140px)';
+                            htmlEditor.style.height = 'calc(100vh - 140px)';
+                            
+                            fsIcon.textContent = 'fullscreen_exit';
+                            fullscreenBtn.title = "Thu nhỏ";
+                            fullscreenBtn.style.background = "#e9edff";
+                            fullscreenBtn.style.color = "#005696";
+                            fullscreenBtn.style.borderColor = "#005696";
+                        } else {
+                            wrapper.style.position = '';
+                            wrapper.style.top = '';
+                            wrapper.style.left = '';
+                            wrapper.style.width = '';
+                            wrapper.style.height = '';
+                            wrapper.style.background = '';
+                            wrapper.style.zIndex = '';
+                            wrapper.style.padding = '';
+                            wrapper.style.margin = '';
+                            
+                            wysiwygEditor.style.maxHeight = '350px';
+                            wysiwygEditor.style.height = '';
+                            htmlEditor.style.height = '';
+                            
+                            fsIcon.textContent = 'fullscreen';
+                            fullscreenBtn.title = "Phóng to";
+                            fullscreenBtn.style.background = "#f3f4f6";
+                            fullscreenBtn.style.color = "";
+                            fullscreenBtn.style.borderColor = "#d1d5db";
+                        }
                     });
 
                     // Back
