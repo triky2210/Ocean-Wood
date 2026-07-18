@@ -1,6 +1,6 @@
 /**
  * Ocean Wood - Visual CMS Editor
- * Handles inline text/image edits per section and JSON product/project database updates.
+ * Handles inline text/image edits per section, dynamic menu loading, and JSON product/project database updates.
  */
 
 (function () {
@@ -21,6 +21,9 @@
 
     // Double-click on footer copyright to toggle admin mode
     document.addEventListener('DOMContentLoaded', () => {
+        // Load Mega Menu dynamically on page load (for all visitors)
+        loadMegaMenu();
+
         const footerText = Array.from(document.querySelectorAll('footer *')).find(el => 
             el.children.length === 0 && (el.textContent.includes('©') || el.textContent.includes('rights reserved') || el.textContent.includes('All rights reserved'))
         );
@@ -41,6 +44,37 @@
             startAdminMode();
         }
     });
+
+    // Load Mega Menu dynamic loader
+    function loadMegaMenu() {
+        const grid = document.getElementById('mega-menu-grid');
+        if (!grid) return;
+
+        fetch('js/menu.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(menu => {
+                const numColumns = menu.length;
+                // Automatically set grid columns based on group counts to look balanced
+                grid.style.gridTemplateColumns = `repeat(${numColumns}, minmax(0, 1fr))`;
+                
+                grid.innerHTML = menu.map(group => `
+                    <div class="flex flex-col gap-4" data-group-id="${group.id}">
+                        <div class="aspect-video rounded-lg overflow-hidden relative bg-gray-100">
+                            <img src="${group.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${group.title}" class="w-full h-full object-cover">
+                        </div>
+                        <h5 class="font-bold text-primary uppercase text-sm tracking-wider">${group.title}</h5>
+                        <ul class="space-y-2">
+                            ${group.links.map(link => `
+                                <li><a href="${link.url || 'san-pham.html'}" class="text-sm text-on-surface-variant hover:text-primary transition-colors">${link.name}</a></li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+            })
+            .catch(err => {
+                console.error("Error loading mega menu:", err);
+            });
+    }
 
     // Main function to bootstrap admin editor
     function startAdminMode() {
@@ -90,6 +124,9 @@
             <button class="admin-btn-save">
                 <span class="material-symbols-outlined" style="font-size: 18px;">save</span> Lưu Thay Đổi
             </button>
+            <button class="admin-btn-menu" style="background:#005696; color:white; border:none;">
+                <span class="material-symbols-outlined" style="font-size: 18px;">menu</span> Sửa Menu Sản Phẩm
+            </button>
             <button class="admin-btn-publish">
                 <span class="material-symbols-outlined" style="font-size: 18px;">cloud_upload</span> Đăng lên GitHub
             </button>
@@ -102,6 +139,7 @@
 
         // Bind events
         bar.querySelector('.admin-btn-save').addEventListener('click', saveCurrentPage);
+        bar.querySelector('.admin-btn-menu').addEventListener('click', openMenuManagerModal);
         bar.querySelector('.admin-btn-publish').addEventListener('click', publishToGithub);
         bar.querySelector('.admin-btn-exit').addEventListener('click', () => {
             window.location.search = '?admin=false';
@@ -158,7 +196,8 @@
         const textSelectors = 'h1, h2, h3, h4, h5, h6, p, span, li, a';
         section.querySelectorAll(textSelectors).forEach(el => {
             // Skip elements inside product or project cards (they are database items edited by form modals)
-            if (el.closest('.product-card') || el.closest('.project-card') || el.closest('.admin-bar') || el.closest('.admin-modal') || el.closest('#inquiry-modal')) {
+            // Skip elements inside the mega-menu (which is handled by the dedicated Menu Modal)
+            if (el.closest('.product-card') || el.closest('.project-card') || el.closest('.admin-bar') || el.closest('.admin-modal') || el.closest('#inquiry-modal') || el.closest('#mega-menu-grid')) {
                 return;
             }
             // Skip icons and buttons
@@ -171,8 +210,8 @@
 
         // 2. Make image elements editable
         section.querySelectorAll('img').forEach(img => {
-            // Skip product/project cards, admin UI and small icons
-            if (img.closest('.product-card') || img.closest('.project-card') || img.closest('.admin-bar') || img.closest('.admin-modal') || img.height <= 20) {
+            // Skip product/project cards, admin UI, mega-menu, and small icons
+            if (img.closest('.product-card') || img.closest('.project-card') || img.closest('.admin-bar') || img.closest('.admin-modal') || img.closest('#mega-menu-grid') || img.height <= 20) {
                 return;
             }
             if (img.parentElement.classList.contains('admin-image-container')) return;
@@ -623,6 +662,159 @@
                 saveJsonData('js/products.json', updated, () => {
                     showToast("Đã xóa sản phẩm!");
                     if (typeof loadProducts === 'function') loadProducts();
+                });
+            });
+    }
+
+    // MEGA MENU: Edit Modal Manager
+    function openMenuManagerModal() {
+        fetch('js/menu.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(menu => {
+                const modal = createModalContainer();
+                modal.innerHTML = `
+                    <div class="admin-modal-content" style="max-width: 850px; width: 95vw;">
+                        <h3 class="text-xl font-bold text-primary mb-4" style="font-size: 18px; margin-bottom: 16px; border-bottom: 1px solid #E5E7EB; padding-bottom: 8px;">Quản Lý Nhóm Sản Phẩm & Mega Menu</h3>
+                        <div id="menu-groups-container" style="display: flex; flex-direction: column; gap: 24px; max-height: 60vh; overflow-y: auto; padding-right: 8px; margin-bottom: 16px;">
+                            <!-- Groups list loaded here -->
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px solid #E5E7EB; padding-top: 16px;">
+                            <button type="button" id="menu-add-group-btn" style="background:#82C341; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:4px;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">add_circle</span> Thêm nhóm sản phẩm
+                            </button>
+                            <div style="display:flex; gap:8px;">
+                                <button type="button" id="menu-cancel-btn" style="background:transparent; color:#6B7280; border:1px solid #D1D5DB; padding:8px 16px; border-radius:6px; cursor:pointer;">Hủy</button>
+                                <button type="button" id="menu-save-btn" style="background:#005696; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Lưu Menu</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                const container = modal.querySelector('#menu-groups-container');
+
+                function renderGroups() {
+                    container.innerHTML = menu.map((group, groupIdx) => {
+                        const links = group.links || [];
+                        const linksHtml = links.map((link, linkIdx) => `
+                            <div class="link-row" data-link-idx="${linkIdx}" style="display:flex; gap:8px; align-items:center; margin-bottom: 6px;">
+                                <input type="text" class="link-name" placeholder="Tên sản phẩm (Ví dụ: Tủ bếp)" value="${link.name}" style="flex: 2; border: 1px solid #c1c7d2; padding: 6px; border-radius: 4px; font-size:13px;">
+                                <input type="text" class="link-url" placeholder="Đường dẫn liên kết (Mặc định: san-pham.html)" value="${link.url || 'san-pham.html'}" style="flex: 3; border: 1px solid #c1c7d2; padding: 6px; border-radius: 4px; font-size:13px;">
+                                <button type="button" class="link-delete-btn" style="background:transparent; color:#EF4444; border:none; cursor:pointer; padding: 2px;" title="Xóa liên kết">
+                                    <span class="material-symbols-outlined" style="font-size:18px; vertical-align: middle;">remove_circle</span>
+                                </button>
+                            </div>
+                        `).join('');
+
+                        return `
+                            <div class="menu-group-card" data-idx="${groupIdx}" style="border: 1px solid #D1D5DB; border-radius: 8px; padding: 16px; background: #F9FAFB; position: relative;">
+                                <button type="button" class="group-delete-btn" style="position: absolute; top: 12px; right: 12px; background: transparent; color: #EF4444; border: none; cursor: pointer;" title="Xóa nhóm này">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                                <div style="display: grid; grid-template-columns: 120px 1fr; gap: 16px; margin-bottom: 12px;">
+                                    <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+                                        <img class="group-img-preview" src="${group.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" style="width: 100px; height: 60px; object-fit: cover; border: 1px solid #D1D5DB; border-radius:4px; background:white;">
+                                        <button type="button" class="group-upload-btn" style="background:#E5E7EB; color:#374151; border:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600; cursor:pointer; margin-top:4px;">Đổi ảnh</button>
+                                        <input type="hidden" class="group-img-url" value="${group.image_url || ''}">
+                                    </div>
+                                    <div style="display:flex; flex-direction:column; gap:8px;">
+                                        <label style="font-weight: 600; font-size: 13px;">Tên nhóm sản phẩm (Ví dụ: Ván Ép / Plywood) *</label>
+                                        <input type="text" class="group-title" required value="${group.title}" style="width:100%; border: 1px solid #c1c7d2; padding: 8px; border-radius: 4px; font-size:14px;">
+                                    </div>
+                                </div>
+                                <div style="margin-top: 12px; border-top: 1px dashed #D1D5DB; padding-top: 12px;">
+                                    <label style="font-weight: 600; font-size: 13px; display:block; margin-bottom: 8px;">Danh sách sản phẩm trong nhóm:</label>
+                                    <div class="group-links-container">
+                                        ${linksHtml}
+                                    </div>
+                                    <button type="button" class="group-add-link-btn" style="background:transparent; color:#005696; border:none; padding:6px 0; font-weight:600; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:2px; margin-top:4px;">
+                                        <span class="material-symbols-outlined" style="font-size:16px;">add</span> Thêm sản phẩm cụ thể
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    // Attach events to newly rendered inputs/buttons
+                    container.querySelectorAll('.menu-group-card').forEach(card => {
+                        const gIdx = parseInt(card.getAttribute('data-idx'));
+
+                        // Delete whole group
+                        card.querySelector('.group-delete-btn').addEventListener('click', () => {
+                            if (confirm(`Bạn có chắc muốn xóa nhóm "${menu[gIdx].title || 'này'}" và toàn bộ sản phẩm bên trong?`)) {
+                                menu.splice(gIdx, 1);
+                                renderGroups();
+                            }
+                        });
+
+                        // Image upload for group
+                        card.querySelector('.group-upload-btn').addEventListener('click', () => {
+                            chooseAndUploadImage(url => {
+                                card.querySelector('.group-img-preview').src = url;
+                                card.querySelector('.group-img-url').value = url;
+                                menu[gIdx].image_url = url;
+                            });
+                        });
+
+                        // Sync Title
+                        card.querySelector('.group-title').addEventListener('input', (e) => {
+                            menu[gIdx].title = e.target.value;
+                        });
+
+                        // Sync Links Input Values
+                        card.querySelectorAll('.link-row').forEach(row => {
+                            const lIdx = parseInt(row.getAttribute('data-link-idx'));
+                            row.querySelector('.link-name').addEventListener('input', (e) => {
+                                menu[gIdx].links[lIdx].name = e.target.value;
+                            });
+                            row.querySelector('.link-url').addEventListener('input', (e) => {
+                                menu[gIdx].links[lIdx].url = e.target.value;
+                            });
+                            row.querySelector('.link-delete-btn').addEventListener('click', () => {
+                                menu[gIdx].links.splice(lIdx, 1);
+                                renderGroups();
+                            });
+                        });
+
+                        // Add link to group
+                        card.querySelector('.group-add-link-btn').addEventListener('click', () => {
+                            if (!menu[gIdx].links) menu[gIdx].links = [];
+                            menu[gIdx].links.push({ name: '', url: 'san-pham.html' });
+                            renderGroups();
+                        });
+                    });
+                }
+
+                renderGroups();
+
+                // Add new group
+                modal.querySelector('#menu-add-group-btn').addEventListener('click', () => {
+                    const newId = menu.length > 0 ? Math.max(...menu.map(g => g.id)) + 1 : 1;
+                    menu.push({
+                        id: newId,
+                        title: 'Nhóm sản phẩm mới',
+                        image_url: '',
+                        links: []
+                    });
+                    renderGroups();
+                });
+
+                // Cancel
+                modal.querySelector('#menu-cancel-btn').addEventListener('click', () => modal.remove());
+
+                // Save
+                modal.querySelector('#menu-save-btn').addEventListener('click', () => {
+                    // Check validation
+                    const emptyTitle = menu.some(g => !g.title || g.title.trim() === '');
+                    if (emptyTitle) {
+                        alert("Vui lòng điền đầy đủ tên cho tất cả các nhóm sản phẩm!");
+                        return;
+                    }
+
+                    saveJsonData('js/menu.json', menu, () => {
+                        modal.remove();
+                        showToast("Đã lưu cấu hình menu sản phẩm thành công!");
+                        loadMegaMenu();
+                    });
                 });
             });
     }
