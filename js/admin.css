@@ -55,7 +55,40 @@
     color: white;
 }
 
-/* Editable outlines */
+/* Section level edit button */
+.admin-block-edit-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: #1F2937;
+    border: 1px solid #E5E7EB;
+    border-radius: 9999px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 49;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.admin-block-edit-btn:hover {
+    background: #F3F4F6;
+    color: #005696;
+    transform: scale(1.1);
+}
+.admin-block-edit-btn.active {
+    background: #82C341;
+    color: white;
+    border-color: #82C341;
+}
+.admin-relative-block {
+    position: relative !important;
+}
+
+/* Editable outlines (active only during section editing) */
 [contenteditable="true"] {
     outline: 2px dashed #82C341 !important;
     outline-offset: 4px;

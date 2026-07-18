@@ -1,6 +1,6 @@
 /**
  * Ocean Wood - Visual CMS Editor
- * Handles inline text/image edits and JSON product/project database updates.
+ * Handles inline text/image edits per section and JSON product/project database updates.
  */
 
 (function () {
@@ -58,8 +58,8 @@
         // Render Floating Admin Control Bar
         renderAdminBar();
 
-        // Setup static elements editing (Text and static images)
-        setupStaticEditing();
+        // Setup static elements editing (Text and static images) on a per-section level
+        setupSectionBasedEditing();
 
         // Setup dynamic elements editing (Products and Projects)
         window.initAdminMode = setupDynamicEditing; // Export to global scope so grids can re-trigger on reload
@@ -108,36 +108,73 @@
         });
     }
 
-    // Setup Inline Static Text and Image editing
-    function setupStaticEditing() {
-        // 1. Text elements inside Header, Main, and Footer
+    // Section-based inline editing logic
+    function setupSectionBasedEditing() {
+        // Query all major sections: header, footer, and main blocks
+        const sections = document.querySelectorAll('main > section, main > div, header, footer');
+        
+        sections.forEach(section => {
+            // Skip admin UI elements
+            if (section.closest('.admin-bar') || section.closest('.admin-modal') || section.id === 'mobile-menu') {
+                return;
+            }
+
+            // Ensure section has relative positioning for the edit button
+            section.classList.add('admin-relative-block');
+
+            // Skip if the block already has an edit button
+            if (section.querySelector('.admin-block-edit-btn')) return;
+
+            // Create edit button for this block/section
+            const editBtn = document.createElement('button');
+            editBtn.className = 'admin-block-edit-btn';
+            editBtn.title = 'Chỉnh sửa phần này';
+            editBtn.innerHTML = '<span class="material-symbols-outlined">edit</span>';
+            section.appendChild(editBtn);
+
+            editBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isEditing = editBtn.classList.contains('active');
+                if (isEditing) {
+                    // Turn off editing for this block
+                    disableSectionEditing(section, editBtn);
+                } else {
+                    // Turn on editing for this block
+                    enableSectionEditing(section, editBtn);
+                }
+            });
+        });
+    }
+
+    // Enable editing in a specific section
+    function enableSectionEditing(section, editBtn) {
+        editBtn.classList.add('active');
+        editBtn.innerHTML = '<span class="material-symbols-outlined">check</span>';
+        editBtn.title = 'Hoàn tất sửa phần này';
+
+        // 1. Make text elements editable
         const textSelectors = 'h1, h2, h3, h4, h5, h6, p, span, li, a';
-        document.querySelectorAll(textSelectors).forEach(el => {
+        section.querySelectorAll(textSelectors).forEach(el => {
             // Skip elements inside product or project cards (they are database items edited by form modals)
             if (el.closest('.product-card') || el.closest('.project-card') || el.closest('.admin-bar') || el.closest('.admin-modal') || el.closest('#inquiry-modal')) {
                 return;
             }
-            
-            // Skip SVG, Icons and buttons
+            // Skip icons and buttons
             if (el.classList.contains('material-symbols-outlined') || el.tagName === 'BUTTON' || el.closest('button')) {
                 return;
             }
-            
-            // Skip navigation menu overlay itself
-            if (el.id === 'mobile-menu') return;
 
-            // Make editable
             el.setAttribute('contenteditable', 'true');
         });
 
-        // 2. Static Image elements
-        document.querySelectorAll('img').forEach(img => {
-            // Skip images inside product/project cards or dynamic headers/footers
-            if (img.closest('.product-card') || img.closest('.project-card') || img.closest('.admin-bar') || img.closest('.admin-modal') || img.h <= 20) {
+        // 2. Make image elements editable
+        section.querySelectorAll('img').forEach(img => {
+            // Skip product/project cards, admin UI and small icons
+            if (img.closest('.product-card') || img.closest('.project-card') || img.closest('.admin-bar') || img.closest('.admin-modal') || img.height <= 20) {
                 return;
             }
-
-            // Wrap image in editable container if not already wrapped
             if (img.parentElement.classList.contains('admin-image-container')) return;
 
             const wrapper = document.createElement('div');
@@ -157,6 +194,32 @@
                 });
             });
         });
+
+        showToast("Đã bật chế độ chỉnh sửa cho phần này.");
+    }
+
+    // Disable editing in a specific section
+    function disableSectionEditing(section, editBtn) {
+        editBtn.classList.remove('active');
+        editBtn.innerHTML = '<span class="material-symbols-outlined">edit</span>';
+        editBtn.title = 'Chỉnh sửa phần này';
+
+        // 1. Remove contenteditable
+        section.querySelectorAll('[contenteditable="true"]').forEach(el => {
+            el.removeAttribute('contenteditable');
+        });
+
+        // 2. Unwrap images
+        section.querySelectorAll('.admin-image-container').forEach(wrapper => {
+            const img = wrapper.querySelector('img');
+            const parent = wrapper.parentNode;
+            if (img && parent) {
+                parent.insertBefore(img, wrapper);
+                wrapper.remove();
+            }
+        });
+
+        showToast("Đã đóng chế độ chỉnh sửa phần này.");
     }
 
     // Helper: Select image file and upload to local server
@@ -592,9 +655,21 @@
         saveBtn.disabled = true;
         saveBtn.innerHTML = 'Đang lưu...';
 
-        // 1. Temporarily disable contenteditable to clean HTML
-        document.querySelectorAll('[contenteditable="true"]').forEach(el => {
-            el.removeAttribute('contenteditable');
+        // 1. Disable editing in all sections to clean HTML
+        document.querySelectorAll('main > section, main > div, header, footer').forEach(section => {
+            // Remove contenteditable
+            section.querySelectorAll('[contenteditable="true"]').forEach(el => {
+                el.removeAttribute('contenteditable');
+            });
+            // Unwrap images
+            section.querySelectorAll('.admin-image-container').forEach(wrapper => {
+                const img = wrapper.querySelector('img');
+                const parent = wrapper.parentNode;
+                if (img && parent) {
+                    parent.insertBefore(img, wrapper);
+                    wrapper.remove();
+                }
+            });
         });
 
         // 2. Temporarily remove admin elements
@@ -602,24 +677,16 @@
         const adminCss = document.getElementById('admin-css');
         const addProjectBtn = document.getElementById('admin-add-project-btn');
         const addProductBtn = document.getElementById('admin-add-product-btn');
+        const blockEditBtns = document.querySelectorAll('.admin-block-edit-btn');
         
         if (adminBar) adminBar.remove();
         if (adminCss) adminCss.remove();
         if (addProjectBtn) addProjectBtn.remove();
         if (addProductBtn) addProductBtn.remove();
+        blockEditBtns.forEach(btn => btn.remove());
 
         // Remove card overlay controls
         document.querySelectorAll('.admin-card-controls').forEach(ctrl => ctrl.remove());
-
-        // Unwrap static images
-        document.querySelectorAll('.admin-image-container').forEach(wrapper => {
-            const img = wrapper.querySelector('img');
-            const parent = wrapper.parentNode;
-            if (img && parent) {
-                parent.insertBefore(img, wrapper);
-                wrapper.remove();
-            }
-        });
 
         // Grab cleaned HTML string
         // Get the filename from pathname
@@ -628,13 +695,10 @@
             filename = 'index.html';
         }
 
-        // Clean out double spaces or styling classes injected by tailwind runtime if any,
-        // but Simple outerHTML is standard.
-        const cleanedHtml = "<!DOCTYPE html>" + document.documentElement.outerHTML;
+        const cleanedHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
         // Restore admin layout for editing immediately after capturing the HTML
         if (isAdmin) {
-            // Restore immediately on local UI so user keeps editing
             setTimeout(startAdminMode, 100);
         }
 
