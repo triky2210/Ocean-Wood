@@ -111,7 +111,7 @@
     // Section-based inline editing logic
     function setupSectionBasedEditing() {
         // Query all major sections: header, footer, and main blocks
-        const sections = document.querySelectorAll('main > section, main > div, header, footer');
+        const sections = document.querySelectorAll('main > section, main > div, body > section, header, footer');
         
         sections.forEach(section => {
             // Skip admin UI elements
@@ -656,7 +656,7 @@
         saveBtn.innerHTML = 'Đang lưu...';
 
         // 1. Disable editing in all sections to clean HTML
-        document.querySelectorAll('main > section, main > div, header, footer').forEach(section => {
+        document.querySelectorAll('main > section, main > div, body > section, header, footer').forEach(section => {
             // Remove contenteditable
             section.querySelectorAll('[contenteditable="true"]').forEach(el => {
                 el.removeAttribute('contenteditable');
