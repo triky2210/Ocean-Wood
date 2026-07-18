@@ -234,6 +234,32 @@
             });
         });
 
+        // 3. Make background-image elements editable
+        section.querySelectorAll('[style*="background-image"]').forEach(bgEl => {
+            // Skip product/project cards, admin UI, mega-menu
+            if (bgEl.closest('.product-card') || bgEl.closest('.project-card') || bgEl.closest('.admin-bar') || bgEl.closest('.admin-modal') || bgEl.closest('#mega-menu-grid')) {
+                return;
+            }
+            if (bgEl.parentElement.classList.contains('admin-image-container')) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'admin-image-container display-inline-block w-full h-full';
+            bgEl.parentNode.insertBefore(wrapper, bgEl);
+            wrapper.appendChild(bgEl);
+
+            const overlay = document.createElement('div');
+            overlay.className = 'admin-image-overlay';
+            overlay.innerHTML = '<span><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">image</span> Thay Ảnh</span>';
+            wrapper.appendChild(overlay);
+
+            overlay.addEventListener('click', () => {
+                chooseAndUploadImage(uploadedUrl => {
+                    bgEl.style.backgroundImage = `url("${uploadedUrl}")`;
+                    showToast("Đã cập nhật ảnh nền thành công!");
+                });
+            });
+        });
+
         showToast("Đã bật chế độ chỉnh sửa cho phần này.");
     }
 
@@ -248,12 +274,12 @@
             el.removeAttribute('contenteditable');
         });
 
-        // 2. Unwrap images
+        // 2. Unwrap images (both img and background-image divs)
         section.querySelectorAll('.admin-image-container').forEach(wrapper => {
-            const img = wrapper.querySelector('img');
+            const child = wrapper.firstElementChild;
             const parent = wrapper.parentNode;
-            if (img && parent) {
-                parent.insertBefore(img, wrapper);
+            if (child && parent) {
+                parent.insertBefore(child, wrapper);
                 wrapper.remove();
             }
         });
@@ -853,12 +879,12 @@
             section.querySelectorAll('[contenteditable="true"]').forEach(el => {
                 el.removeAttribute('contenteditable');
             });
-            // Unwrap images
+            // Unwrap images (both img and background-image divs)
             section.querySelectorAll('.admin-image-container').forEach(wrapper => {
-                const img = wrapper.querySelector('img');
+                const child = wrapper.firstElementChild;
                 const parent = wrapper.parentNode;
-                if (img && parent) {
-                    parent.insertBefore(img, wrapper);
+                if (child && parent) {
+                    parent.insertBefore(child, wrapper);
                     wrapper.remove();
                 }
             });

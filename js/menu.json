@@ -4,10 +4,22 @@
     "title": "Ván Ép / Plywood",
     "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLsaeLCQeeMw62NicAAC1shsCyT9zIZQ-X2Vq1Hjq69zs9PXgDYLgdyRkoQe9aKj2--IxBr7gIqDrMoPHXyiYTcTayKd9WSwNDhGflo-ldmUifM7aA5fW5NDf8u5AVX7HaseHtnd3EGdfDhxF6-GQ-QnkJ4I_WIVp1RjiVk7Wi8XtZwlfUXcNksoWHZGB4EgJbVawAqTOIO8yJc2h9Pmfg9e5UcsitLfksLcqMsAgQVveTfbeO9_RgZanU0z",
     "links": [
-      { "name": "Plywood Poplar Marine", "url": "san-pham.html" },
-      { "name": "Plywood Poplar Carb P2", "url": "san-pham.html" },
-      { "name": "Plywood Full Birch", "url": "san-pham.html" },
-      { "name": "Pawlownia Flexible", "url": "san-pham.html" }
+      {
+        "name": "Plywood Poplar Marine",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "Plywood Poplar Carb P2",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "Plywood Full Birch",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "Pawlownia Flexible",
+        "url": "san-pham.html"
+      }
     ]
   },
   {
@@ -15,9 +27,18 @@
     "title": "Plywood Phủ Veneer",
     "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
     "links": [
-      { "name": "Plywood Veneer - Ash", "url": "san-pham.html" },
-      { "name": "Plywood Veneer - Oak", "url": "san-pham.html" },
-      { "name": "Plywood Veneer - Walnut", "url": "san-pham.html" }
+      {
+        "name": "Plywood Veneer - Ash",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "Plywood Veneer - Oak",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "Plywood Veneer - Walnut",
+        "url": "san-pham.html"
+      }
     ]
   },
   {
@@ -25,27 +46,42 @@
     "title": "Plywood Phủ Melamine",
     "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
     "links": [
-      { "name": "WL605EV - Natural Oak", "url": "san-pham.html" },
-      { "name": "WL007T - Xám Đậm", "url": "san-pham.html" },
-      { "name": "WL088T - Trắng", "url": "san-pham.html" }
+      {
+        "name": "WL605EV - Natural Oak",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "WL007T - Xám Đậm",
+        "url": "san-pham.html"
+      },
+      {
+        "name": "WL088T - Trắng",
+        "url": "san-pham.html"
+      }
     ]
   },
   {
     "id": 4,
     "title": "Ván Ép Phủ Phim",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
-    "links": [
-      { "name": "Gỗ Cao Su Ghép Finger", "url": "san-pham.html" },
-      { "name": "Ván Ghép Thanh", "url": "san-pham.html" }
-    ]
+    "image_url": "images/ván_phủ_phim_1784345348.png",
+    "links": []
   },
   {
     "id": 5,
     "title": "Cửa Gỗ",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLufy363q0G-HQj4PHOKaO6UTBxy3IeG1q_Mxy7BLIwe4iBxM_CJ1kXC43_8sxMJQ_mUBbZdnaJXXQo_xGaJ-afeBjXzpGJsEOzGtEXOXUToDVxJJOqdXXC5WIMASKqxhLP5JHMEdDjSwzMEodg--N_rxL4LE4dzBkeKmHRhE_KsJDDF2DrN63r4yqQKERyq-DfUNdghH1Kz-tJaL7Ekg4ynOhImGp6qe__CgXgRczQeqAbVk7TQMLgpVIos",
-    "links": [
-      { "name": "MDF Chống Ẩm", "url": "san-pham.html" },
-      { "name": "Ván PB (Particle Board)", "url": "san-pham.html" }
-    ]
+    "image_url": "images/Expand_image_highlighting_door_202607181049_1784346630.jpeg",
+    "links": []
+  },
+  {
+    "id": 6,
+    "title": "Nội thất",
+    "image_url": "images/nội_thất_1784345664.png",
+    "links": []
+  },
+  {
+    "id": 7,
+    "title": "Ngoại thất",
+    "image_url": "images/ngoại_thất_1784346623.png",
+    "links": []
   }
 ]
