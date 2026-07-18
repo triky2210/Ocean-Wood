@@ -1273,11 +1273,25 @@
     }
 
     // News Manager Modal implementation
-    function openNewsManagerModal() {
+    function openNewsManagerModal(directEditSlug) {
         fetch('js/news.json?' + new Date().getTime())
             .then(res => res.json())
             .then(news => {
                 let activeCatIdx = 0;
+                let directEditCatIdx = -1;
+                let directEditArtIdx = -1;
+
+                if (typeof directEditSlug === 'string') {
+                    news.forEach((cat, cIdx) => {
+                        cat.articles.forEach((art, aIdx) => {
+                            if (art.id === directEditSlug) {
+                                directEditCatIdx = cIdx;
+                                directEditArtIdx = aIdx;
+                            }
+                        });
+                    });
+                }
+
                 const modal = createModalContainer();
                 
                 function renderMainView() {
@@ -1820,12 +1834,22 @@
                     });
                 }
 
-                // Initial render call
-                renderMainView();
+                // Initial render call: check if we should jump straight to editing a specific article
+                if (directEditCatIdx !== -1 && directEditArtIdx !== -1) {
+                    activeCatIdx = directEditCatIdx;
+                    renderEditArticleView(directEditCatIdx, directEditArtIdx);
+                } else {
+                    renderMainView();
+                }
             })
             .catch(err => {
                 console.error("Lỗi nạp tin tức quản trị:", err);
                 alert("Lỗi tải cơ sở dữ liệu tin tức!");
             });
     }
+
+    // Export inline edit helper globally
+    window.editArticleInline = function(slugId) {
+        openNewsManagerModal(slugId);
+    };
 })();

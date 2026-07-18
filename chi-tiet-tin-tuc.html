@@ -261,7 +261,7 @@
             <h1 id="article-title" class="font-display-lg text-[28px] md:text-[36px] text-primary mb-4 leading-tight">
                 Đang tải tiêu đề bài viết...
             </h1>
-            <div class="flex items-center gap-4 text-xs text-on-surface-variant font-medium border-b border-outline-variant/20 pb-6">
+            <div class="flex items-center gap-4 text-xs text-on-surface-variant font-medium border-b border-outline-variant/20 pb-6 flex-wrap">
                 <span class="flex items-center gap-1">
                     <span class="material-symbols-outlined text-[16px] text-primary">calendar_month</span>
                     <span id="article-date">--/--/----</span>
@@ -270,6 +270,13 @@
                 <span class="flex items-center gap-1">
                     <span class="material-symbols-outlined text-[16px] text-primary">person</span>
                     <span>Tác giả: <strong id="article-author" class="text-on-surface">---</strong></span>
+                </span>
+                <!-- Inline Edit Button Container -->
+                <span id="admin-edit-btn-container" class="hidden">
+                    <span>•</span>
+                    <button id="inline-edit-article-btn" class="inline-flex items-center gap-1 text-primary hover:text-leaf-accent font-bold transition-colors cursor-pointer bg-primary/5 hover:bg-primary/10 px-2.5 py-1 rounded border border-primary/20">
+                        <span class="material-symbols-outlined text-[14px]">edit</span> Sửa bài viết
+                    </button>
                 </span>
             </div>
         </header>
@@ -426,6 +433,23 @@
                     `).join('');
                 } else {
                     tagsContainer.innerHTML = '<span class="text-xs text-on-surface-variant">Không có từ khóa.</span>';
+                }
+
+                // Show Edit Button if in Admin Mode
+                const isAdmin = sessionStorage.getItem('adminMode') === 'true';
+                if (isAdmin) {
+                    const editContainer = document.getElementById('admin-edit-btn-container');
+                    const editBtn = document.getElementById('inline-edit-article-btn');
+                    if (editContainer && editBtn) {
+                        editContainer.classList.remove('hidden');
+                        editBtn.addEventListener('click', () => {
+                            if (window.editArticleInline) {
+                                window.editArticleInline(articleId);
+                            } else {
+                                alert("Đang kích hoạt chế độ chỉnh sửa. Vui lòng thử lại sau giây lát!");
+                            }
+                        });
+                    }
                 }
 
                 // Render related articles (same category, excluding current)
