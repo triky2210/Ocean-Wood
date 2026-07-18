@@ -23,6 +23,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Load Mega Menu dynamically on page load (for all visitors)
         loadMegaMenu();
+        // Load News Mega Menu dynamically on page load (for all visitors)
+        loadNewsMegaMenu();
         // Load About Us Slideshow
         initAboutSlideshow();
 
@@ -220,6 +222,9 @@
             <button class="admin-btn-menu" style="background:#005696; color:white; border:none;">
                 <span class="material-symbols-outlined" style="font-size: 18px;">menu</span> Sửa Menu Sản Phẩm
             </button>
+            <button class="admin-btn-news" style="background:#5C5F60; color:white; border:none;">
+                <span class="material-symbols-outlined" style="font-size: 18px;">newspaper</span> Quản lý Tin Tức
+            </button>
             <button class="admin-btn-publish">
                 <span class="material-symbols-outlined" style="font-size: 18px;">cloud_upload</span> Đăng lên GitHub
             </button>
@@ -233,6 +238,7 @@
         // Bind events
         bar.querySelector('.admin-btn-save').addEventListener('click', saveCurrentPage);
         bar.querySelector('.admin-btn-menu').addEventListener('click', openMenuManagerModal);
+        bar.querySelector('.admin-btn-news').addEventListener('click', openNewsManagerModal);
         bar.querySelector('.admin-btn-publish').addEventListener('click', publishToGithub);
         bar.querySelector('.admin-btn-exit').addEventListener('click', () => {
             window.location.search = '?admin=false';
@@ -1200,5 +1206,574 @@
             modal.remove();
             showToast("Đã lưu và cập nhật Slideshow!");
         });
+    }
+
+    // Load News Mega Menu for all visitors
+    function loadNewsMegaMenu() {
+        const grids = document.querySelectorAll('#news-mega-menu-grid');
+        if (grids.length === 0) return;
+
+        fetch('js/news.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(categories => {
+                const html = categories.map(cat => {
+                    const count = cat.articles.length;
+                    const topArticles = cat.articles.slice(0, 4);
+                    const linksHtml = topArticles.map(art => `
+                        <li>
+                            <a href="chi-tiet-tin-tuc.html?id=${art.id}" class="text-sm text-on-surface-variant hover:text-primary transition-colors line-clamp-1 py-0.5 block">
+                                ${art.title}
+                            </a>
+                        </li>
+                    `).join('');
+
+                    return `
+                        <div class="flex flex-col gap-3" data-category-id="${cat.id}">
+                            <a href="tin-tuc.html?category=${cat.id}" class="aspect-[16/10] rounded-lg overflow-hidden relative bg-gray-100 block group/item">
+                                <img src="${cat.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" alt="${cat.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover/item:scale-105">
+                                <div class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/40 to-transparent"></div>
+                                <span class="absolute left-3 bottom-2 text-[10px] font-semibold uppercase tracking-wider text-white">
+                                    ${count} bài viết
+                                </span>
+                            </a>
+                            <h5 class="font-bold text-primary uppercase text-xs tracking-wider">
+                                <a href="tin-tuc.html?category=${cat.id}" class="hover:text-leaf-accent transition-colors">${cat.title}</a>
+                            </h5>
+                            <ul class="space-y-1">
+                                ${linksHtml}
+                            </ul>
+                        </div>
+                    `;
+                }).join('');
+
+                grids.forEach(grid => {
+                    grid.innerHTML = html;
+                });
+            })
+            .catch(err => {
+                console.error("Error loading news mega menu:", err);
+            });
+    }
+
+    // Helper: Slugify Vietnamese text
+    function slugify(text) {
+        return text.toString().toLowerCase().trim()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove accents
+            .replace(/[đĐ]/g, 'd')
+            .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+            .replace(/\s+/g, '-') // collapse whitespace
+            .replace(/-+/g, '-'); // collapse dashes
+    }
+
+    // Helper: Format Date to Vietnamese text
+    function getFormattedDate() {
+        const d = new Date();
+        const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+        return `${d.getDate()} tháng ${months[d.getMonth()]}, ${d.getFullYear()}`;
+    }
+
+    // News Manager Modal implementation
+    function openNewsManagerModal() {
+        fetch('js/news.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(news => {
+                let activeCatIdx = 0;
+                const modal = createModalContainer();
+                
+                function renderMainView() {
+                    modal.innerHTML = `
+                        <div class="admin-modal-content" style="max-width: 850px; width: 95vw;">
+                            <h3 class="text-xl font-bold text-primary mb-4" style="font-size: 18px; margin-bottom: 16px; border-bottom: 1px solid #E5E7EB; padding-bottom: 8px;">Quản Lý Tin Tức & Bài Viết</h3>
+                            
+                            <div style="display: grid; grid-template-columns: 240px 1fr; gap: 20px; max-height: 60vh; min-height: 40vh;">
+                                <!-- Left Column: Categories -->
+                                <div style="border-right: 1px solid #E5E7EB; padding-right: 16px; display:flex; flex-direction:column; justify-content:space-between;">
+                                    <div>
+                                        <h4 style="font-weight:700; font-size:14px; color:#374151; margin-bottom:12px;">Chuyên mục</h4>
+                                        <div id="modal-cat-list" style="display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:45vh;">
+                                            <!-- Render Categories list -->
+                                        </div>
+                                    </div>
+                                    <button type="button" id="modal-add-cat-btn" style="background:#82C341; color:white; border:none; padding:8px 12px; border-radius:6px; font-weight:600; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center; gap:4px; margin-top:12px;">
+                                        <span class="material-symbols-outlined" style="font-size: 16px;">add_circle</span> Thêm chuyên mục
+                                    </button>
+                                </div>
+                                
+                                <!-- Right Column: Articles -->
+                                <div style="display:flex; flex-direction:column; justify-content:space-between;">
+                                    <div>
+                                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                            <h4 style="font-weight:700; font-size:14px; color:#374151;">Bài viết trong chuyên mục</h4>
+                                            <button type="button" id="modal-add-article-btn" style="background:#005696; color:white; border:none; padding:6px 12px; border-radius:6px; font-weight:600; cursor:pointer; font-size:12px; display:flex; align-items:center; gap:4px;">
+                                                <span class="material-symbols-outlined" style="font-size: 16px;">add</span> Thêm bài viết mới
+                                            </button>
+                                        </div>
+                                        <div id="modal-article-list" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; max-height:45vh; padding-right:4px;">
+                                            <!-- Render Articles list -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom controls -->
+                            <div style="display: flex; justify-content: flex-end; border-top: 1px solid #E5E7EB; padding-top: 16px; margin-top: 16px; gap:8px;">
+                                <button type="button" id="modal-cancel-btn" style="background:transparent; color:#6B7280; border:1px solid #D1D5DB; padding:8px 16px; border-radius:6px; cursor:pointer;">Hủy</button>
+                                <button type="button" id="modal-save-btn" style="background:#005696; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Lưu tin tức</button>
+                            </div>
+                        </div>
+                    `;
+
+                    // Bind Left Column
+                    const catList = modal.querySelector('#modal-cat-list');
+                    catList.innerHTML = news.map((cat, idx) => `
+                        <div class="modal-cat-item" data-idx="${idx}" style="display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:6px; background:${idx === activeCatIdx ? '#e9edff' : 'transparent'}; cursor:pointer; border: 1px solid ${idx === activeCatIdx ? '#005696' : 'transparent'};">
+                            <span style="font-weight:${idx === activeCatIdx ? '700' : '500'}; font-size:13px; color:${idx === activeCatIdx ? '#005696' : '#4b5563'}; truncate; max-width:140px;">
+                                ${cat.title} (${cat.articles.length})
+                            </span>
+                            <div style="display:flex; gap:2px;">
+                                <button type="button" class="cat-edit-btn" style="background:transparent; border:none; cursor:pointer; color:#4B5563; padding:2px; display:flex;" title="Sửa tên/ảnh đại diện">
+                                    <span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+                                </button>
+                                <button type="button" class="cat-delete-btn" style="background:transparent; border:none; cursor:pointer; color:#EF4444; padding:2px; display:flex;" title="Xóa chuyên mục">
+                                    <span class="material-symbols-outlined" style="font-size: 16px;">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // Bind Left Column Item click & buttons
+                    catList.querySelectorAll('.modal-cat-item').forEach(item => {
+                        const idx = parseInt(item.getAttribute('data-idx'));
+                        item.addEventListener('click', (e) => {
+                            if (e.target.closest('button')) return;
+                            activeCatIdx = idx;
+                            renderMainView();
+                        });
+
+                        item.querySelector('.cat-edit-btn').addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            renderEditCategoryView(idx);
+                        });
+
+                        item.querySelector('.cat-delete-btn').addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (confirm(`Bạn chắc chắn muốn xóa chuyên mục "${news[idx].title}"? Toàn bộ bài viết bên trong cũng sẽ bị xóa.`)) {
+                                news.splice(idx, 1);
+                                if (activeCatIdx >= news.length && news.length > 0) {
+                                    activeCatIdx = news.length - 1;
+                                }
+                                renderMainView();
+                            }
+                        });
+                    });
+
+                    // Add Category Button
+                    modal.querySelector('#modal-add-cat-btn').addEventListener('click', () => {
+                        renderEditCategoryView(-1);
+                    });
+
+                    // Bind Right Column (Articles)
+                    const articleList = modal.querySelector('#modal-article-list');
+                    const activeCat = news[activeCatIdx];
+                    
+                    if (!activeCat || !activeCat.articles || activeCat.articles.length === 0) {
+                        articleList.innerHTML = `<p style="text-align:center; color:#6B7280; padding:32px; font-size:13px;">Chưa có bài viết nào trong chuyên mục này.</p>`;
+                    } else {
+                        articleList.innerHTML = activeCat.articles.map((art, idx) => `
+                            <div class="modal-art-row" data-idx="${idx}" style="display:flex; align-items:center; gap:12px; border:1px solid #E5E7EB; padding:8px 12px; border-radius:8px; background:#F9FAFB;">
+                                <img src="${art.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" style="width: 50px; height: 35px; object-fit: cover; border: 1px solid #D1D5DB; border-radius:4px; background:white;">
+                                <div style="flex:1; overflow:hidden;">
+                                    <div style="font-weight:600; font-size:13px; color:#1F2937; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;" title="${art.title}">
+                                        ${art.title}
+                                    </div>
+                                    <div style="font-size:11px; color:#6B7280; margin-top:2px;">
+                                        Ngày đăng: ${art.date} | Tác giả: ${art.author}
+                                    </div>
+                                </div>
+                                <div style="display:flex; gap:2px; align-items:center;">
+                                    <button type="button" class="art-move-up" style="background:transparent; border:none; cursor:pointer; color:#4B5563; padding:2px; display:flex;" title="Di chuyển lên" ${idx === 0 ? 'disabled style="opacity:0.3; cursor:default;"' : ''}>
+                                        <span class="material-symbols-outlined" style="font-size:18px;">arrow_upward</span>
+                                    </button>
+                                    <button type="button" class="art-move-down" style="background:transparent; border:none; cursor:pointer; color:#4B5563; padding:2px; display:flex;" title="Di chuyển xuống" ${idx === activeCat.articles.length - 1 ? 'disabled style="opacity:0.3; cursor:default;"' : ''}>
+                                        <span class="material-symbols-outlined" style="font-size:18px;">arrow_downward</span>
+                                    </button>
+                                    <button type="button" class="art-edit-btn" style="background:transparent; border:none; cursor:pointer; color:#005696; padding:2px; display:flex;" title="Sửa bài viết">
+                                        <span class="material-symbols-outlined" style="font-size:18px;">edit</span>
+                                    </button>
+                                    <button type="button" class="art-delete-btn" style="background:transparent; border:none; cursor:pointer; color:#EF4444; padding:2px; display:flex;" title="Xóa bài viết">
+                                        <span class="material-symbols-outlined" style="font-size:18px;">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('');
+
+                        // Bind article action events
+                        articleList.querySelectorAll('.modal-art-row').forEach(row => {
+                            const idx = parseInt(row.getAttribute('data-idx'));
+                            
+                            row.querySelector('.art-move-up').addEventListener('click', () => {
+                                if (idx > 0) {
+                                    const temp = activeCat.articles[idx];
+                                    activeCat.articles[idx] = activeCat.articles[idx - 1];
+                                    activeCat.articles[idx - 1] = temp;
+                                    renderMainView();
+                                }
+                            });
+
+                            row.querySelector('.art-move-down').addEventListener('click', () => {
+                                if (idx < activeCat.articles.length - 1) {
+                                    const temp = activeCat.articles[idx];
+                                    activeCat.articles[idx] = activeCat.articles[idx + 1];
+                                    activeCat.articles[idx + 1] = temp;
+                                    renderMainView();
+                                }
+                            });
+
+                            row.querySelector('.art-edit-btn').addEventListener('click', () => {
+                                renderEditArticleView(activeCatIdx, idx);
+                            });
+
+                            row.querySelector('.art-delete-btn').addEventListener('click', () => {
+                                if (confirm(`Bạn chắc chắn muốn xóa bài viết "${activeCat.articles[idx].title}"?`)) {
+                                    activeCat.articles.splice(idx, 1);
+                                    renderMainView();
+                                }
+                            });
+                        });
+                    }
+
+                    // Add Article button click
+                    modal.querySelector('#modal-add-article-btn').addEventListener('click', () => {
+                        renderEditArticleView(activeCatIdx, -1);
+                    });
+
+                    // General Cancel & Save bindings
+                    modal.querySelector('#modal-cancel-btn').addEventListener('click', () => {
+                        modal.remove();
+                    });
+
+                    modal.querySelector('#modal-save-btn').addEventListener('click', () => {
+                        const saveBtn = modal.querySelector('#modal-save-btn');
+                        saveBtn.disabled = true;
+                        saveBtn.innerText = "Đang lưu...";
+
+                        fetch('/api/save-json', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                file: 'js/news.json',
+                                data: news
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(resData => {
+                            if (resData.status === 'success') {
+                                showToast("Đã lưu chuyên mục tin tức thành công!");
+                                loadNewsMegaMenu();
+                                modal.remove();
+                                if (window.location.pathname.includes('tin-tuc.html') || window.location.pathname.includes('chi-tiet-tin-tuc.html')) {
+                                    window.location.reload();
+                                }
+                            } else {
+                                alert("Lỗi ghi file tin tức: " + resData.message);
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("Lỗi kết nối máy chủ local!");
+                        })
+                        .finally(() => {
+                            saveBtn.disabled = false;
+                            saveBtn.innerText = "Lưu tin tức";
+                        });
+                    });
+                }
+
+                // Helper views inside Modal
+                function renderEditCategoryView(catIdx) {
+                    const isNew = catIdx === -1;
+                    const cat = isNew ? { id: '', title: '', image_url: '' } : news[catIdx];
+
+                    modal.innerHTML = `
+                        <div class="admin-modal-content" style="max-width: 500px; width: 90vw;">
+                            <h3 class="text-xl font-bold text-primary mb-4" style="font-size: 17px; margin-bottom: 16px; border-bottom: 1px solid #E5E7EB; padding-bottom: 8px;">
+                                ${isNew ? 'Thêm Chuyên Mục Tin Mới' : 'Sửa Chuyên Mục Tin'}
+                            </h3>
+                            
+                            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Tên chuyên mục *</label>
+                                    <input type="text" id="cat-title-input" value="${cat.title}" placeholder="Ví dụ: Tin Sản Phẩm" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Đường dẫn (ID) *</label>
+                                    <input type="text" id="cat-id-input" value="${cat.id}" placeholder="Ví dụ: tin-san-pham" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;" ${!isNew ? 'readonly style="background:#F3F4F6;"' : ''}>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Ảnh đại diện chuyên mục *</label>
+                                    <div style="display:flex; gap:12px; align-items:center;">
+                                        <img id="cat-img-preview" src="${cat.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" style="width: 100px; height: 60px; object-fit: cover; border: 1px solid #D1D5DB; border-radius:6px; background:white;">
+                                        <div>
+                                            <button type="button" id="cat-upload-btn" style="background:#E5E7EB; color:#374151; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;">Tải ảnh từ máy</button>
+                                            <input type="hidden" id="cat-img-url" value="${cat.image_url}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #E5E7EB; padding-top:16px;">
+                                <button type="button" id="cat-back-btn" style="background:transparent; color:#6B7280; border:1px solid #D1D5DB; padding:8px 16px; border-radius:6px; cursor:pointer;">Quay lại</button>
+                                <button type="button" id="cat-save-btn" style="background:#005696; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Đồng ý</button>
+                            </div>
+                        </div>
+                    `;
+
+                    // Bind image uploader
+                    modal.querySelector('#cat-upload-btn').addEventListener('click', () => {
+                        chooseAndUploadImage(url => {
+                            modal.querySelector('#cat-img-preview').src = url;
+                            modal.querySelector('#cat-img-url').value = url;
+                        });
+                    });
+
+                    // Auto slugify category ID on title input
+                    if (isNew) {
+                        const titleInput = modal.querySelector('#cat-title-input');
+                        const idInput = modal.querySelector('#cat-id-input');
+                        titleInput.addEventListener('input', () => {
+                            idInput.value = slugify(titleInput.value);
+                        });
+                    }
+
+                    // Back
+                    modal.querySelector('#cat-back-btn').addEventListener('click', renderMainView);
+
+                    // Save category in local memory
+                    modal.querySelector('#cat-save-btn').addEventListener('click', () => {
+                        const title = modal.querySelector('#cat-title-input').value.trim();
+                        const id = modal.querySelector('#cat-id-input').value.trim();
+                        const imgUrl = modal.querySelector('#cat-img-url').value;
+
+                        if (!title || !id) {
+                            alert("Vui lòng điền đầy đủ tên và đường dẫn!");
+                            return;
+                        }
+
+                        if (isNew) {
+                            if (news.some(c => c.id === id)) {
+                                alert("Đường dẫn này đã tồn tại! Vui lòng chọn đường dẫn khác.");
+                                return;
+                            }
+                            news.push({
+                                id,
+                                title,
+                                image_url: imgUrl,
+                                articles: []
+                            });
+                            activeCatIdx = news.length - 1;
+                        } else {
+                            cat.title = title;
+                            cat.image_url = imgUrl;
+                        }
+
+                        renderMainView();
+                    });
+                }
+
+                function renderEditArticleView(catIdx, artIdx) {
+                    const isNew = artIdx === -1;
+                    const cat = news[catIdx];
+                    const art = isNew ? {
+                        id: '',
+                        title: '',
+                        date: getFormattedDate(),
+                        author: 'Ocean Wood',
+                        image_url: '',
+                        excerpt: '',
+                        content: '',
+                        tags: []
+                    } : cat.articles[artIdx];
+
+                    modal.innerHTML = `
+                        <div class="admin-modal-content" style="max-width: 780px; width: 95vw; max-height: 90vh; overflow-y: auto;">
+                            <h3 class="text-xl font-bold text-primary mb-4" style="font-size: 17px; margin-bottom: 16px; border-bottom: 1px solid #E5E7EB; padding-bottom: 8px;">
+                                ${isNew ? 'Thêm Bài Viết Mới' : 'Sửa Bài Viết'}
+                            </h3>
+                            
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Tiêu đề bài viết *</label>
+                                    <input type="text" id="art-title-input" value="${art.title}" placeholder="Ví dụ: Ván ép chịu nước tốt" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Đường dẫn (Slug ID) *</label>
+                                    <input type="text" id="art-id-input" value="${art.id}" placeholder="Ví dụ: van-ep-chiu-nuoc-tot" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;" ${!isNew ? 'readonly style="background:#F3F4F6;"' : ''}>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Tác giả</label>
+                                    <input type="text" id="art-author-input" value="${art.author}" placeholder="Mặc định: Ocean Wood" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;">
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:4px;">
+                                    <label style="font-weight:600; font-size:12px; color:#4B5563;">Ngày đăng</label>
+                                    <input type="text" id="art-date-input" value="${art.date}" placeholder="Định dạng: 24 tháng 6, 2026" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;">
+                                </div>
+                            </div>
+                            
+                            <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
+                                <label style="font-weight:600; font-size:12px; color:#4B5563;">Ảnh đại diện bài viết (Thumbnail) *</label>
+                                <div style="display:flex; gap:12px; align-items:center;">
+                                    <img id="art-img-preview" src="${art.image_url || 'https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg'}" style="width: 100px; height: 60px; object-fit: cover; border: 1px solid #D1D5DB; border-radius:6px; background:white;">
+                                    <div>
+                                        <button type="button" id="art-upload-btn" style="background:#E5E7EB; color:#374151; border:none; padding:6px 12px; border-radius:4px; font-size:12px; font-weight:600; cursor:pointer;">Tải ảnh</button>
+                                        <input type="hidden" id="art-img-url" value="${art.image_url}">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
+                                <label style="font-weight:600; font-size:12px; color:#4B5563;">Tóm tắt ngắn (Excerpt) *</label>
+                                <textarea id="art-excerpt-input" rows="2" placeholder="Tóm tắt hiển thị trên danh sách bài viết..." style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none; resize:vertical; font-family:inherit;">${art.excerpt}</textarea>
+                            </div>
+                            
+                            <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
+                                <label style="font-weight:600; font-size:12px; color:#4B5563; display:flex; justify-content:space-between; align-items:center;">
+                                    <span>Nội dung bài viết (HTML) *</span>
+                                    <div style="display:flex; gap:4px;" class="formatting-toolbar">
+                                        <button type="button" id="format-b" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 8px; font-weight:700; cursor:pointer;" title="Chữ Đậm">B</button>
+                                        <button type="button" id="format-i" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 8px; font-style:italic; cursor:pointer;" title="Chữ Nghiêng">I</button>
+                                        <button type="button" id="format-h2" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; font-size:11px; cursor:pointer;" title="Tiêu đề H2">H2</button>
+                                        <button type="button" id="format-h3" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; font-size:11px; cursor:pointer;" title="Tiêu đề H3">H3</button>
+                                        <button type="button" id="format-list" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Tạo Danh Sách"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">format_list_bulleted</span></button>
+                                        <button type="button" id="format-img" class="format-btn" style="background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; padding:2px 6px; cursor:pointer;" title="Chèn Ảnh"><span class="material-symbols-outlined" style="font-size:14px; vertical-align:middle;">image</span></button>
+                                        <button type="button" id="format-preview-toggle" class="format-btn" style="background:#e9edff; border:1px solid #005696; color:#005696; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; cursor:pointer;" title="Bật/Tắt Xem Trước">Xem trước</button>
+                                    </div>
+                                </label>
+                                <textarea id="art-content-input" rows="8" placeholder="Soạn thảo nội dung bài viết bằng mã HTML hoặc văn bản thường..." style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none; resize:vertical; font-family:monospace; line-height:1.4;">${art.content}</textarea>
+                                <div id="art-content-preview" class="rich-content" style="display:none; border: 1px dashed #005696; padding: 12px; border-radius: 6px; background: #FAFBFD; max-height: 250px; overflow-y: auto; margin-top:8px;"></div>
+                            </div>
+                            
+                            <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:16px;">
+                                <label style="font-weight:600; font-size:12px; color:#4B5563;">Từ khóa (Tags) - Phân cách bằng dấu phẩy</label>
+                                <input type="text" id="art-tags-input" value="${(art.tags || []).join(', ')}" placeholder="Ví dụ: Plywood, Tủ bếp, Meranti" style="border:1px solid #c1c7d2; padding:8px; border-radius:6px; font-size:13px; outline:none;">
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #E5E7EB; padding-top:16px; margin-top:16px;">
+                                <button type="button" id="art-back-btn" style="background:transparent; color:#6B7280; border:1px solid #D1D5DB; padding:8px 16px; border-radius:6px; cursor:pointer;">Quay lại</button>
+                                <button type="button" id="art-save-btn" style="background:#005696; color:white; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Đồng ý</button>
+                            </div>
+                        </div>
+                    `;
+
+                    // DOM elements in view
+                    const titleInput = modal.querySelector('#art-title-input');
+                    const idInput = modal.querySelector('#art-id-input');
+                    const excerptInput = modal.querySelector('#art-excerpt-input');
+                    const contentInput = modal.querySelector('#art-content-input');
+                    const tagsInput = modal.querySelector('#art-tags-input');
+                    const authorInput = modal.querySelector('#art-author-input');
+                    const dateInput = modal.querySelector('#art-date-input');
+                    const imgUrlInput = modal.querySelector('#art-img-url');
+
+                    // Bind image uploader
+                    modal.querySelector('#art-upload-btn').addEventListener('click', () => {
+                        chooseAndUploadImage(url => {
+                            modal.querySelector('#art-img-preview').src = url;
+                            imgUrlInput.value = url;
+                        });
+                    });
+
+                    // Auto slugify article ID on title input
+                    if (isNew) {
+                        titleInput.addEventListener('input', () => {
+                            idInput.value = slugify(titleInput.value);
+                        });
+                    }
+
+                    // Formatting Text Selection Helper
+                    function applyFormatting(before, after) {
+                        const start = contentInput.selectionStart;
+                        const end = contentInput.selectionEnd;
+                        const text = contentInput.value;
+                        const selected = text.substring(start, end);
+                        const replacement = before + selected + after;
+                        contentInput.value = text.substring(0, start) + replacement + text.substring(end);
+                        contentInput.focus();
+                        contentInput.setSelectionRange(start + before.length, start + before.length + selected.length);
+                    }
+
+                    modal.querySelector('#format-b').addEventListener('click', () => applyFormatting('<strong>', '</strong>'));
+                    modal.querySelector('#format-i').addEventListener('click', () => applyFormatting('<em>', '</em>'));
+                    modal.querySelector('#format-h2').addEventListener('click', () => applyFormatting('<h2>', '</h2>'));
+                    modal.querySelector('#format-h3').addEventListener('click', () => applyFormatting('<h3>', '</h3>'));
+                    modal.querySelector('#format-list').addEventListener('click', () => applyFormatting('<ul>\n  <li>', '</li>\n  <li>Dòng 2</li>\n</ul>'));
+                    modal.querySelector('#format-img').addEventListener('click', () => {
+                        chooseAndUploadImage(url => {
+                            applyFormatting(`<img src="${url}" alt="Mô tả ảnh">`, '');
+                        });
+                    });
+
+                    // Live Preview Toggle
+                    const previewBox = modal.querySelector('#art-content-preview');
+                    const previewToggle = modal.querySelector('#format-preview-toggle');
+                    previewToggle.addEventListener('click', () => {
+                        const isHidden = previewBox.style.display === 'none';
+                        if (isHidden) {
+                            previewBox.innerHTML = contentInput.value;
+                            previewBox.style.display = 'block';
+                            previewToggle.innerText = "Ẩn xem trước";
+                        } else {
+                            previewBox.style.display = 'none';
+                            previewToggle.innerText = "Xem trước";
+                        }
+                    });
+
+                    // Back
+                    modal.querySelector('#art-back-btn').addEventListener('click', renderMainView);
+
+                    // Save local
+                    modal.querySelector('#art-save-btn').addEventListener('click', () => {
+                        const title = titleInput.value.trim();
+                        const id = idInput.value.trim();
+                        const excerpt = excerptInput.value.trim();
+                        const content = contentInput.value.trim();
+                        const tags = tagsInput.value.split(',').map(t => t.trim()).filter(t => t.length > 0);
+                        const date = dateInput.value.trim();
+                        const author = authorInput.value.trim();
+                        const imgUrl = imgUrlInput.value;
+
+                        if (!title || !id || !excerpt || !content || !imgUrl) {
+                            alert("Vui lòng nhập đầy đủ các trường đánh dấu dấu sao (*)");
+                            return;
+                        }
+
+                        const artObj = { id, title, date, author, image_url: imgUrl, excerpt, content, tags };
+
+                        if (isNew) {
+                            let isDuplicate = false;
+                            news.forEach(c => {
+                                if (c.articles.some(a => a.id === id)) {
+                                    isDuplicate = true;
+                                }
+                            });
+                            if (isDuplicate) {
+                                alert("Đường dẫn (Slug ID) này đã tồn tại! Vui lòng đặt đường dẫn khác.");
+                                return;
+                            }
+                            cat.articles.push(artObj);
+                        } else {
+                            cat.articles[artIdx] = artObj;
+                        }
+
+                        renderMainView();
+                    });
+                }
+
+                // Initial render call
+                renderMainView();
+            })
+            .catch(err => {
+                console.error("Lỗi nạp tin tức quản trị:", err);
+                alert("Lỗi tải cơ sở dữ liệu tin tức!");
+            });
     }
 })();

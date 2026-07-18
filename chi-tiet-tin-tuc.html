@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <title>Đang tải bài viết... - Ocean Wood</title>
+    <script src="js/admin.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Đọc bài viết chi tiết từ chuyên gia vật liệu gỗ công nghiệp Ocean Wood.">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "surface-container-high": "#e1e8fd",
+                            "tertiary-fixed": "#dfe3e9",
+                            "on-surface-variant": "#414750",
+                            "on-primary-container": "#a5cbff",
+                            "secondary-fixed-dim": "#c5c7c8",
+                            "on-primary": "#ffffff",
+                            "leaf-accent": "#82C341",
+                            "ocean-gradient-start": "#007BB8",
+                            "on-tertiary-fixed-variant": "#43474c",
+                            "tertiary-container": "#50555a",
+                            "inverse-surface": "#293040",
+                            "on-primary-fixed": "#001c37",
+                            "surface-variant": "#dce2f7",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-bright": "#f9f9ff",
+                            "on-tertiary-container": "#c5c9cf",
+                            "error": "#ba1a1a",
+                            "primary-container": "#005696",
+                            "on-secondary": "#ffffff",
+                            "on-error-container": "#93000a",
+                            "surface-dim": "#d3daef",
+                            "primary-fixed-dim": "#a1c9ff",
+                            "on-secondary-fixed-variant": "#454748",
+                            "on-error": "#ffffff",
+                            "surface-container-highest": "#dce2f7",
+                            "surface": "#f9f9ff",
+                            "secondary": "#5c5f60",
+                            "surface-white": "#FFFFFF",
+                            "primary-fixed": "#d2e4ff",
+                            "primary": "#005696",
+                            "surface-tint": "#005696",
+                            "tertiary": "#393e43",
+                            "surface-container": "#e9edff",
+                            "tertiary-fixed-dim": "#c3c7cd",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-container": "#626566",
+                            "on-primary-fixed-variant": "#004880",
+                            "on-secondary-fixed": "#191c1d",
+                            "error-container": "#ffdad6",
+                            "text-muted": "#4B5563",
+                            "on-background": "#141b2b",
+                            "outline": "#727781",
+                            "inverse-on-surface": "#edf0ff",
+                            "on-tertiary-fixed": "#171c20",
+                            "background": "#f9f9ff",
+                            "inverse-primary": "#a1c9ff",
+                            "on-surface": "#141b2b",
+                            "surface-container-low": "#f1f3ff",
+                            "secondary-container": "#e1e3e4",
+                            "secondary-fixed": "#e1e3e4",
+                            "outline-variant": "#c1c7d2",
+                            "ocean-gradient-end": "#003E6B"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                        },
+                        "spacing": {
+                            "section-gap-lg": "120px",
+                            "container-max": "1280px",
+                            "base": "8px",
+                            "gutter": "24px",
+                            "section-gap-md": "80px"
+                        },
+                        "fontFamily": {
+                            "headline-lg-mobile": ["Hanken Grotesk"],
+                            "body-md": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "headline-lg": ["Hanken Grotesk"],
+                            "label-sm": ["Inter"],
+                            "headline-md": ["Hanken Grotesk"],
+                            "display-lg": ["Hanken Grotesk"]
+                        },
+                        "fontSize": {
+                            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                        }
+                    },
+                },
+            }
+        } catch (_e) {}
+    </script>
+    <style>
+        /* Article body rich text content styles */
+        .rich-content p {
+            font-size: 16px;
+            line-height: 1.75;
+            color: #414750;
+            margin-bottom: 1.25rem;
+        }
+        .rich-content h2 {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #005696;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 86, 150, 0.1);
+            padding-bottom: 0.5rem;
+        }
+        .rich-content h3 {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #005696;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .rich-content ul, .rich-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .rich-content ul {
+            list-style-type: disc;
+        }
+        .rich-content ol {
+            list-style-type: decimal;
+        }
+        .rich-content li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #414750;
+            margin-bottom: 0.5rem;
+        }
+        .rich-content strong {
+            font-weight: 700;
+            color: #141b2b;
+        }
+        .rich-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            display: block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface-white/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300 ease-in-out">
+    <div class="flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed flex items-center hover:opacity-90 transition-opacity">
+                <img alt="Ocean Wood Logo" class="h-10 w-auto object-contain mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMO0cxgpNGnwDWlLBTfqCNboVj7MUBMVtsdmshCGXbD63rS9Np5M3Z_l0REv7nVAf2sspj_tUatBBPwNKycf1hE6NQCnY557tvcjD3IPHE5cM3vUuofJX_BvHp9H8NaLq80lMPkeBQble4jwYA4YniP0RjtPHyWWc2ul1hN8HZSl_SZC4smDT_eZei8-4laInYaI6mWAHXMzB2qgtIsw3BlEiMcS8t9ONr7yVTAjz2DA245vlM0CdukPRBWiQMttLXfO0">
+                <span class="hidden lg:inline text-primary">Ocean Wood</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-home" href="index.html">Trang Chủ</a>
+            
+            <!-- Sản Phẩm Dropdown -->
+            <div class="group relative">
+                <a id="nav-products" href="san-pham.html" class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors py-6 flex items-center gap-1">
+                    Sản Phẩm
+                    <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">keyboard_arrow_down</span>
+                </a>
+                <div class="absolute left-1/2 -translate-x-1/2 top-full w-[90vw] max-w-container-max bg-surface-white shadow-xl border border-outline-variant/30 rounded-xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div id="mega-menu-grid" class="grid gap-8 text-left">
+                        <!-- Loaded dynamically -->
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+                        <p class="text-sm text-on-surface-variant">Khám phá giải pháp vật liệu tối ưu cho mọi công trình.</p>
+                        <a href="san-pham.html" class="text-primary font-bold flex items-center gap-2 hover:underline">
+                            Xem toàn bộ sản phẩm <span class="material-symbols-outlined">arrow_right_alt</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-projects" href="du-an.html">Dự Án</a>
+            
+            <!-- Tin Tức Dropdown (Active in detail) -->
+            <div class="group relative">
+                <a id="nav-news" href="tin-tuc.html" class="font-body-md text-body-md text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary py-6 flex items-center gap-1">
+                    Tin Tức
+                    <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">keyboard_arrow_down</span>
+                </a>
+                <div class="absolute left-1/2 -translate-x-1/2 top-full w-[90vw] max-w-[800px] bg-surface-white shadow-xl border border-outline-variant/30 rounded-xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div id="news-mega-menu-grid" class="grid gap-8 text-left grid-cols-3">
+                        <!-- Loaded dynamically from news.json -->
+                    </div>
+                </div>
+            </div>
+
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-about" href="index.html#gioi-thieu">Giới Thiệu</a>
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-contact" href="index.html#footer">Liên Hệ</a>
+        </div>
+        <button class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-all">
+            Nhận Báo Giá
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-primary flex items-center">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-surface-white dark:bg-inverse-surface pt-24 px-gutter flex flex-col gap-6 shadow-xl">
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html">Trang Chủ</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="san-pham.html">Sản Phẩm</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="du-an.html">Dự Án</a>
+    <a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold border-b border-outline-variant/30 pb-4" href="tin-tuc.html">Tin Tức</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html#gioi-thieu">Giới Thiệu</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html#footer">Liên Hệ</a>
+    <button class="bg-primary text-on-primary w-full py-4 rounded-lg font-semibold hover:opacity-90 transition-all mt-4">
+        Nhận Báo Giá
+    </button>
+</div>
+
+<main class="pt-20">
+    <!-- Breadcrumbs Section -->
+    <section class="border-b border-outline-variant/20 bg-surface-container-low py-4">
+        <div class="max-w-container-max mx-auto px-gutter flex items-center justify-between">
+            <nav class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+                <a class="hover:text-primary transition-colors" href="index.html">Trang chủ</a>
+                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                <a class="hover:text-primary transition-colors" href="tin-tuc.html">Tin tức</a>
+                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                <span id="breadcrumb-article-title" class="text-primary font-bold truncate max-w-[200px] md:max-w-xs">Đang tải bài viết...</span>
+            </nav>
+            <a href="tin-tuc.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-leaf-accent transition-colors">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Quay lại tin tức
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <article class="py-12 max-w-[900px] mx-auto px-gutter">
+        <!-- Article Header -->
+        <header class="mb-8">
+            <span id="article-category-badge" class="inline-block bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
+                DANH MỤC
+            </span>
+            <h1 id="article-title" class="font-display-lg text-[28px] md:text-[36px] text-primary mb-4 leading-tight">
+                Đang tải tiêu đề bài viết...
+            </h1>
+            <div class="flex items-center gap-4 text-xs text-on-surface-variant font-medium border-b border-outline-variant/20 pb-6">
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-primary">calendar_month</span>
+                    <span id="article-date">--/--/----</span>
+                </span>
+                <span>•</span>
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-primary">person</span>
+                    <span>Tác giả: <strong id="article-author" class="text-on-surface">---</strong></span>
+                </span>
+            </div>
+        </header>
+
+        <!-- Big Banner Image -->
+        <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md mb-8 bg-gray-100">
+            <img id="article-banner-image" src="" alt="" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Excerpt -->
+        <p id="article-excerpt" class="text-lg text-primary font-semibold border-l-4 border-leaf-accent pl-4 mb-8 leading-relaxed italic">
+            Đang tải tóm tắt...
+        </p>
+
+        <!-- Rich Content Body -->
+        <div id="article-body-content" class="rich-content mb-12">
+            <!-- Dynamic HTML loaded here -->
+        </div>
+
+        <!-- Tags -->
+        <div class="border-t border-b border-outline-variant/20 py-4 mb-16 flex flex-wrap gap-2 items-center">
+            <span class="text-sm font-bold text-on-surface mr-2">Từ khóa:</span>
+            <div id="article-tags-container" class="flex flex-wrap gap-2">
+                <!-- Tags loaded here -->
+            </div>
+        </div>
+
+        <!-- Related Articles Section -->
+        <section class="border-t border-outline-variant/25 pt-12">
+            <h3 class="font-headline-md text-headline-md text-primary mb-8 uppercase">Tin tức liên quan</h3>
+            <div id="related-articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Loaded here -->
+            </div>
+        </section>
+    </article>
+</main>
+
+<footer class="bg-inverse-surface text-inverse-on-surface py-16 mt-20" id="footer">
+    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+            <h4 class="font-display-lg text-[24px] text-primary-fixed mb-6 flex items-center">
+                <img alt="Ocean Wood Logo" class="h-8 w-auto object-contain mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMO0cxgpNGnwDWlLBTfqCNboVj7MUBMVtsdmshCGXbD63rS9Np5M3Z_l0REv7nVAf2sspj_tUatBBPwNKycf1hE6NQCnY557tvcjD3IPHE5cM3vUuofJX_BvHp9H8NaLq80lMPkeBQble4jwYA4YniP0RjtPHyWWc2ul1hN8HZSl_SZC4smDT_eZei8-4laInYaI6mWAHXMzB2qgtIsw3BlEiMcS8t9ONr7yVTAjz2DA245vlM0CdukPRBWiQMttLXfO0">
+                Ocean Wood
+            </h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+                Nhà cung cấp vật liệu gỗ công nghiệp và ván ép hàng đầu Việt Nam, đạt chuẩn FSC và CARB P2 xuất khẩu quốc tế.
+            </p>
+        </div>
+        <div>
+            <h5 class="font-bold text-white mb-6 uppercase tracking-wider">Đường Dẫn</h5>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li><a href="index.html" class="hover:text-primary-fixed transition-colors">Trang Chủ</a></li>
+                <li><a href="san-pham.html" class="hover:text-primary-fixed transition-colors">Sản Phẩm</a></li>
+                <li><a href="du-an.html" class="hover:text-primary-fixed transition-colors">Dự Án</a></li>
+                <li><a href="tin-tuc.html" class="hover:text-primary-fixed transition-colors">Tin Tức</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-bold text-white mb-6 uppercase tracking-wider">Sản Phẩm</h5>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li>Ván Ép Plywood Marine</li>
+                <li>Plywood Phủ Veneer</li>
+                <li>Plywood Phủ Melamine</li>
+                <li>Gỗ Ghép Cao Su</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-bold text-white mb-6 uppercase tracking-wider">Liên Hệ</h5>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li>Hotline: +84 908 759 007</li>
+                <li>Email: info@oceanwood.com</li>
+                <li>Địa chỉ: P. Khánh Bình, TP. Tân Uyên, Bình Dương</li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-container-max mx-auto px-gutter mt-16 pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center text-sm text-on-surface-variant gap-4">
+        <div>© 2026 Ocean Wood. All rights reserved.</div>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-primary-fixed transition-colors">Chính sách bảo mật</a>
+            <a href="#" class="hover:text-primary-fixed transition-colors">Điều khoản dịch vụ</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const articleId = params.get('id');
+
+        if (!articleId) {
+            // No ID parameter, send back to list
+            window.location.href = 'tin-tuc.html';
+            return;
+        }
+
+        // DOM elements
+        const breadcrumbTitle = document.getElementById('breadcrumb-article-title');
+        const badge = document.getElementById('article-category-badge');
+        const title = document.getElementById('article-title');
+        const date = document.getElementById('article-date');
+        const author = document.getElementById('article-author');
+        const image = document.getElementById('article-banner-image');
+        const excerpt = document.getElementById('article-excerpt');
+        const content = document.getElementById('article-body-content');
+        const tagsContainer = document.getElementById('article-tags-container');
+        const relatedGrid = document.getElementById('related-articles-grid');
+
+        // Fetch news.json
+        fetch('js/news.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(categories => {
+                let targetArticle = null;
+                let targetCategory = null;
+
+                // Find article and category
+                categories.forEach(cat => {
+                    cat.articles.forEach(art => {
+                        if (art.id === articleId) {
+                            targetArticle = art;
+                            targetCategory = cat;
+                        }
+                    });
+                });
+
+                if (!targetArticle) {
+                    // Not found, redirect
+                    alert("Bài viết không tồn tại hoặc đã bị xóa!");
+                    window.location.href = 'tin-tuc.html';
+                    return;
+                }
+
+                // Render article details
+                document.title = targetArticle.title + " - Ocean Wood";
+                document.querySelector('meta[name="description"]').setAttribute('content', targetArticle.excerpt);
+
+                breadcrumbTitle.innerText = targetArticle.title;
+                badge.innerText = targetCategory.title;
+                title.innerText = targetArticle.title;
+                date.innerText = targetArticle.date;
+                author.innerText = targetArticle.author;
+                
+                image.src = targetArticle.image_url;
+                image.alt = targetArticle.title;
+                
+                excerpt.innerText = targetArticle.excerpt;
+                content.innerHTML = targetArticle.content;
+
+                // Render tags
+                if (targetArticle.tags && targetArticle.tags.length > 0) {
+                    tagsContainer.innerHTML = targetArticle.tags.map(tag => `
+                        <span class="bg-gray-100 hover:bg-gray-200 text-on-surface-variant px-3 py-1 rounded text-xs transition-colors cursor-pointer">
+                            #${tag}
+                        </span>
+                    `).join('');
+                } else {
+                    tagsContainer.innerHTML = '<span class="text-xs text-on-surface-variant">Không có từ khóa.</span>';
+                }
+
+                // Render related articles (same category, excluding current)
+                const related = targetCategory.articles.filter(art => art.id !== targetArticle.id).slice(0, 3);
+                if (related.length === 0) {
+                    relatedGrid.innerHTML = '<p class="text-sm text-on-surface-variant col-span-3">Không có bài viết liên quan nào khác.</p>';
+                    return;
+                }
+
+                relatedGrid.innerHTML = related.map(art => `
+                    <article class="group bg-surface-white border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full">
+                        <a href="chi-tiet-tin-tuc.html?id=${art.id}" class="aspect-[16/10] overflow-hidden relative block bg-gray-100">
+                            <img src="${art.image_url}" alt="${art.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        </a>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <time class="text-[11px] text-on-surface-variant font-semibold mb-2 block">${art.date}</time>
+                            <h4 class="font-bold text-primary group-hover:text-leaf-accent transition-colors text-sm mb-3 leading-snug line-clamp-2">
+                                <a href="chi-tiet-tin-tuc.html?id=${art.id}">${art.title}</a>
+                            </h4>
+                            <a href="chi-tiet-tin-tuc.html?id=${art.id}" class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:text-leaf-accent transition-colors mt-auto">
+                                Đọc bài viết <span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+            })
+            .catch(err => {
+                console.error("Lỗi nạp bài viết:", err);
+                alert("Lỗi tải bài viết chi tiết!");
+            });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+            }
+        });
+    }
+</script>
+</body>
+</html>

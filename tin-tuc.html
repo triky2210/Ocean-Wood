@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <title>Tin Tức & Kiến Thức - Ocean Wood</title>
+    <script src="js/admin.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "surface-container-high": "#e1e8fd",
+                            "tertiary-fixed": "#dfe3e9",
+                            "on-surface-variant": "#414750",
+                            "on-primary-container": "#a5cbff",
+                            "secondary-fixed-dim": "#c5c7c8",
+                            "on-primary": "#ffffff",
+                            "leaf-accent": "#82C341",
+                            "ocean-gradient-start": "#007BB8",
+                            "on-tertiary-fixed-variant": "#43474c",
+                            "tertiary-container": "#50555a",
+                            "inverse-surface": "#293040",
+                            "on-primary-fixed": "#001c37",
+                            "surface-variant": "#dce2f7",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-bright": "#f9f9ff",
+                            "on-tertiary-container": "#c5c9cf",
+                            "error": "#ba1a1a",
+                            "primary-container": "#005696",
+                            "on-secondary": "#ffffff",
+                            "on-error-container": "#93000a",
+                            "surface-dim": "#d3daef",
+                            "primary-fixed-dim": "#a1c9ff",
+                            "on-secondary-fixed-variant": "#454748",
+                            "on-error": "#ffffff",
+                            "surface-container-highest": "#dce2f7",
+                            "surface": "#f9f9ff",
+                            "secondary": "#5c5f60",
+                            "surface-white": "#FFFFFF",
+                            "primary-fixed": "#d2e4ff",
+                            "primary": "#005696",
+                            "surface-tint": "#005696",
+                            "tertiary": "#393e43",
+                            "surface-container": "#e9edff",
+                            "tertiary-fixed-dim": "#c3c7cd",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-container": "#626566",
+                            "on-primary-fixed-variant": "#004880",
+                            "on-secondary-fixed": "#191c1d",
+                            "error-container": "#ffdad6",
+                            "text-muted": "#4B5563",
+                            "on-background": "#141b2b",
+                            "outline": "#727781",
+                            "inverse-on-surface": "#edf0ff",
+                            "on-tertiary-fixed": "#171c20",
+                            "background": "#f9f9ff",
+                            "inverse-primary": "#a1c9ff",
+                            "on-surface": "#141b2b",
+                            "surface-container-low": "#f1f3ff",
+                            "secondary-container": "#e1e3e4",
+                            "secondary-fixed": "#e1e3e4",
+                            "outline-variant": "#c1c7d2",
+                            "ocean-gradient-end": "#003E6B"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                        },
+                        "spacing": {
+                            "section-gap-lg": "120px",
+                            "container-max": "1280px",
+                            "base": "8px",
+                            "gutter": "24px",
+                            "section-gap-md": "80px"
+                        },
+                        "fontFamily": {
+                            "headline-lg-mobile": ["Hanken Grotesk"],
+                            "body-md": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "headline-lg": ["Hanken Grotesk"],
+                            "label-sm": ["Inter"],
+                            "headline-md": ["Hanken Grotesk"],
+                            "display-lg": ["Hanken Grotesk"]
+                        },
+                        "fontSize": {
+                            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                        }
+                    },
+                },
+            }
+        } catch (_e) {}
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface-white/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300 ease-in-out">
+    <div class="flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed flex items-center hover:opacity-90 transition-opacity">
+                <img alt="Ocean Wood Logo" class="h-10 w-auto object-contain mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMO0cxgpNGnwDWlLBTfqCNboVj7MUBMVtsdmshCGXbD63rS9Np5M3Z_l0REv7nVAf2sspj_tUatBBPwNKycf1hE6NQCnY557tvcjD3IPHE5cM3vUuofJX_BvHp9H8NaLq80lMPkeBQble4jwYA4YniP0RjtPHyWWc2ul1hN8HZSl_SZC4smDT_eZei8-4laInYaI6mWAHXMzB2qgtIsw3BlEiMcS8t9ONr7yVTAjz2DA245vlM0CdukPRBWiQMttLXfO0">
+                <span class="hidden lg:inline text-primary">Ocean Wood</span>
+            </a>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-home" href="index.html">Trang Chủ</a>
+            
+            <!-- Sản Phẩm Dropdown -->
+            <div class="group relative">
+                <a id="nav-products" href="san-pham.html" class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors py-6 flex items-center gap-1">
+                    Sản Phẩm
+                    <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">keyboard_arrow_down</span>
+                </a>
+                <div class="absolute left-1/2 -translate-x-1/2 top-full w-[90vw] max-w-container-max bg-surface-white shadow-xl border border-outline-variant/30 rounded-xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div id="mega-menu-grid" class="grid gap-8 text-left">
+                        <!-- Loaded dynamically -->
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+                        <p class="text-sm text-on-surface-variant">Khám phá giải pháp vật liệu tối ưu cho mọi công trình.</p>
+                        <a href="san-pham.html" class="text-primary font-bold flex items-center gap-2 hover:underline">
+                            Xem toàn bộ sản phẩm <span class="material-symbols-outlined">arrow_right_alt</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-projects" href="du-an.html">Dự Án</a>
+            
+            <!-- Tin Tức Dropdown (Active) -->
+            <div class="group relative">
+                <a id="nav-news" href="tin-tuc.html" class="font-body-md text-body-md text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary py-6 flex items-center gap-1">
+                    Tin Tức
+                    <span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-180">keyboard_arrow_down</span>
+                </a>
+                <div class="absolute left-1/2 -translate-x-1/2 top-full w-[90vw] max-w-[800px] bg-surface-white shadow-xl border border-outline-variant/30 rounded-xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    <div id="news-mega-menu-grid" class="grid gap-8 text-left grid-cols-3">
+                        <!-- Loaded dynamically from news.json -->
+                    </div>
+                </div>
+            </div>
+
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-about" href="index.html#gioi-thieu">Giới Thiệu</a>
+            <a class="nav-link font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" id="nav-contact" href="index.html#footer">Liên Hệ</a>
+        </div>
+        <button class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-all">
+            Nhận Báo Giá
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-primary flex items-center">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-surface-white dark:bg-inverse-surface pt-24 px-gutter flex flex-col gap-6 shadow-xl">
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html">Trang Chủ</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="san-pham.html">Sản Phẩm</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="du-an.html">Dự Án</a>
+    <a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-bold border-b border-outline-variant/30 pb-4" href="tin-tuc.html">Tin Tức</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html#gioi-thieu">Giới Thiệu</a>
+    <a class="font-headline-md text-headline-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary border-b border-outline-variant/30 pb-4" href="index.html#footer">Liên Hệ</a>
+    <button class="bg-primary text-on-primary w-full py-4 rounded-lg font-semibold hover:opacity-90 transition-all mt-4">
+        Nhận Báo Giá
+    </button>
+</div>
+
+<main class="pt-20">
+    <!-- Hero Header -->
+    <section class="relative bg-surface-container-low py-16 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApKO15BTC6jGpGO4vUP1O9WSDqGGGO5njwOj0dOI4obLY7Ahh5oKniC3ndzx50dKZtk7rXTTQLEQr5MBn2XplJaqz0AiD6itmxi8ldRZ8R2ZGnRgD0bibzW-puYIPTC8VgD0tkZenWZCBhgGqrO_bEmq_b6aUaVGcyNj0I1cdTwDkv9C7Plt53acdFoinz-pn8pbCJL4w3UsGmX9v0sGWCuPDQgqQtakhvDv7d5lSSEZfbWeGNkXPFMA')"></div>
+        <div class="max-w-container-max mx-auto px-gutter relative z-10">
+            <nav class="flex items-center gap-2 mb-6 text-on-surface-variant font-label-sm">
+                <a class="hover:text-primary transition-colors" href="index.html">Trang chủ</a>
+                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                <span class="text-primary font-bold">Tin tức</span>
+            </nav>
+            <h1 class="font-display-lg text-display-lg text-primary mb-4 uppercase">TIN TỨC &amp; KIẾN THỨC</h1>
+            <p class="max-w-3xl font-body-lg text-body-lg text-on-surface-variant">
+                Cập nhật xu hướng vật liệu mới nhất, kiến thức chuyên ngành plywood và ứng dụng thực tế trong thiết kế nội ngoại thất từ chuyên gia Ocean Wood.
+            </p>
+        </div>
+    </section>
+
+    <!-- News Grid & Sidebar -->
+    <section class="py-section-gap-md max-w-container-max mx-auto px-gutter">
+        <div class="flex flex-col lg:flex-row gap-gutter">
+            <!-- Sidebar Filter -->
+            <aside class="w-full lg:w-72 shrink-0">
+                <div class="sticky top-28 space-y-8">
+                    <!-- Categories -->
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-primary mb-6 border-b-2 border-primary/20 pb-2">Danh mục</h3>
+                        <ul id="news-categories-list" class="space-y-1">
+                            <!-- JS will load categories here -->
+                        </ul>
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div class="bg-surface-white border border-outline-variant/30 rounded-xl p-6 shadow-sm">
+                        <h4 class="font-bold text-primary mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined">search</span> Tìm kiếm bài viết
+                        </h4>
+                        <div class="relative">
+                            <input type="text" id="news-search-input" placeholder="Nhập từ khóa..." class="w-full pl-4 pr-10 py-2 border border-outline-variant/40 rounded-lg outline-none focus:border-primary text-sm bg-surface">
+                            <span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Articles Grid -->
+            <div class="flex-1">
+                <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Dynamically loaded articles cards -->
+                </div>
+                <div id="no-articles-message" class="hidden text-center py-16 text-on-surface-variant">
+                    <span class="material-symbols-outlined text-5xl mb-4 text-outline-variant">find_in_page</span>
+                    <p class="font-medium text-lg">Không tìm thấy bài viết nào phù hợp.</p>
+                    <p class="text-sm mt-1">Vui lòng thử từ khóa khác hoặc chuyển danh mục.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-inverse-surface text-inverse-on-surface py-16 mt-20" id="footer">
+    <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+            <h4 class="font-display-lg text-[24px] text-primary-fixed mb-6 flex items-center">
+                <img alt="Ocean Wood Logo" class="h-8 w-auto object-contain mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMO0cxgpNGnwDWlLBTfqCNboVj7MUBMVtsdmshCGXbD63rS9Np5M3Z_l0REv7nVAf2sspj_tUatBBPwNKycf1hE6NQCnY557tvcjD3IPHE5cM3vUuofJX_BvHp9H8NaLq80lMPkeBQble4jwYA4YniP0RjtPHyWWc2ul1hN8HZSl_SZC4smDT_eZei8-4laInYaI6mWAHXMzB2qgtIsw3BlEiMcS8t9ONr7yVTAjz2DA245vlM0CdukPRBWiQMttLXfO0">
+                Ocean Wood
+            </h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+                Nhà cung cấp vật liệu gỗ công nghiệp và ván ép hàng đầu Việt Nam, đạt chuẩn FSC và CARB P2 xuất khẩu quốc tế.
+            </p>
+        </div>
+        <div>
+            <h5 class="font-bold text-white mb-6 uppercase tracking-wider">Đường Dẫn</h5>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li><a href="index.html" class="hover:text-primary-fixed transition-colors">Trang Chủ</a></li>
+                <li><a href="san-pham.html" class="hover:text-primary-fixed transition-colors">Sản Phẩm</a></li>
+                <li><a href="du-an.html" class="hover:text-primary-fixed transition-colors">Dự Án</a></li>
+                <li><a href="tin-tuc.html" class="hover:text-primary-fixed transition-colors">Tin Tức</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-bold text-white mb-6 uppercase tracking-wider">Sản Phẩm</h5>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li>Ván Ép Plywood Marine</li>
+                <li>Plywood Phủ Veneer</li>
+                <li>Plywood Phủ Melamine</li>
+                <li>Gỗ Ghép Cao Su</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-bold text-white mb-6 uppercase tracking-wider">Liên Hệ</h5>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li>Hotline: +84 908 759 007</li>
+                <li>Email: info@oceanwood.com</li>
+                <li>Địa chỉ: P. Khánh Bình, TP. Tân Uyên, Bình Dương</li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-container-max mx-auto px-gutter mt-16 pt-8 border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center text-sm text-on-surface-variant gap-4">
+        <div>© 2026 Ocean Wood. All rights reserved.</div>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-primary-fixed transition-colors">Chính sách bảo mật</a>
+            <a href="#" class="hover:text-primary-fixed transition-colors">Điều khoản dịch vụ</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Client-side list rendering and filtering
+    document.addEventListener('DOMContentLoaded', () => {
+        let allArticles = [];
+        let categories = [];
+        let activeCategoryId = 'all';
+        let searchKeyword = '';
+
+        const categoriesList = document.getElementById('news-categories-list');
+        const articlesGrid = document.getElementById('articles-grid');
+        const searchInput = document.getElementById('news-search-input');
+        const noArticlesMsg = document.getElementById('no-articles-message');
+
+        // Fetch news JSON
+        fetch('js/news.json?' + new Date().getTime())
+            .then(res => res.json())
+            .then(data => {
+                categories = data;
+                
+                // Flatten all articles
+                categories.forEach(cat => {
+                    cat.articles.forEach(art => {
+                        allArticles.push({
+                            ...art,
+                            category_id: cat.id,
+                            category_title: cat.title
+                        });
+                    });
+                });
+
+                renderCategories();
+                renderArticles();
+            })
+            .catch(err => console.error("Lỗi tải tin tức:", err));
+
+        // Render category tabs in sidebar
+        function renderCategories() {
+            let totalCount = allArticles.length;
+            
+            let html = `
+                <li>
+                    <button data-cat="all" class="w-full text-left px-4 py-3 rounded-lg font-semibold flex justify-between items-center group transition-all ${activeCategoryId === 'all' ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container-high font-medium'}">
+                        <span>Tất cả</span>
+                        <span class="bg-white/20 text-[11px] px-2 py-0.5 rounded-full ${activeCategoryId === 'all' ? 'text-white' : 'text-on-surface-variant bg-gray-200'}">${totalCount}</span>
+                    </button>
+                </li>
+            `;
+
+            categories.forEach(cat => {
+                const count = cat.articles.length;
+                const isActive = activeCategoryId === cat.id;
+                html += `
+                    <li>
+                        <button data-cat="${cat.id}" class="w-full text-left px-4 py-3 rounded-lg flex justify-between items-center group transition-all ${isActive ? 'bg-primary text-on-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-high font-medium'}">
+                            <span>${cat.title}</span>
+                            <span class="bg-white/20 text-[11px] px-2 py-0.5 rounded-full ${isActive ? 'text-white' : 'text-on-surface-variant bg-gray-200'}">${count}</span>
+                        </button>
+                    </li>
+                `;
+            });
+
+            categoriesList.innerHTML = html;
+
+            // Bind click handlers to buttons
+            categoriesList.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeCategoryId = btn.getAttribute('data-cat');
+                    renderCategories(); // Redraw menu to show active state
+                    renderArticles();   // Filter and draw cards
+                });
+            });
+        }
+
+        // Filter and render articles
+        function renderArticles() {
+            let filtered = allArticles;
+
+            // 1. Category Filter
+            if (activeCategoryId !== 'all') {
+                filtered = filtered.filter(art => art.category_id === activeCategoryId);
+            }
+
+            // 2. Keyword Search Filter
+            if (searchKeyword.trim() !== '') {
+                const kw = searchKeyword.toLowerCase().trim();
+                filtered = filtered.filter(art => 
+                    art.title.toLowerCase().includes(kw) || 
+                    art.excerpt.toLowerCase().includes(kw) ||
+                    art.content.toLowerCase().includes(kw) ||
+                    (art.tags && art.tags.some(tag => tag.toLowerCase().includes(kw)))
+                );
+            }
+
+            // Draw to grid
+            if (filtered.length === 0) {
+                articlesGrid.innerHTML = '';
+                noArticlesMsg.classList.remove('hidden');
+                return;
+            }
+
+            noArticlesMsg.classList.add('hidden');
+            
+            articlesGrid.innerHTML = filtered.map(art => `
+                <article class="group bg-surface-white border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full">
+                    <a href="chi-tiet-tin-tuc.html?id=${art.id}" class="aspect-video overflow-hidden relative block bg-gray-100">
+                        <img src="${art.image_url}" alt="${art.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute top-4 left-4 bg-primary text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded shadow-md z-10">
+                            ${art.category_title}
+                        </span>
+                    </a>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-on-surface-variant font-medium mb-3">
+                            <span class="material-symbols-outlined text-[16px] text-primary">calendar_month</span>
+                            <span>${art.date}</span>
+                            <span>•</span>
+                            <span>Tác giả: ${art.author}</span>
+                        </div>
+                        <h3 class="font-headline-md text-[18px] font-bold text-primary group-hover:text-leaf-accent transition-colors mb-3 leading-snug line-clamp-2">
+                            <a href="chi-tiet-tin-tuc.html?id=${art.id}">${art.title}</a>
+                        </h3>
+                        <p class="text-sm text-on-surface-variant line-clamp-3 mb-4 flex-1">
+                            ${art.excerpt}
+                        </p>
+                        <a href="chi-tiet-tin-tuc.html?id=${art.id}" class="inline-flex items-center gap-1 text-sm font-bold text-primary hover:text-leaf-accent transition-colors mt-auto">
+                            Đọc bài viết <span class="material-symbols-outlined text-[18px]">arrow_right_alt</span>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Live Search Input handler
+        searchInput.addEventListener('input', (e) => {
+            searchKeyword = e.target.value;
+            renderArticles();
+        });
+
+        // Handle URL parameter category redirect (?category=tin-san-pham)
+        const params = new URLSearchParams(window.location.search);
+        const catParam = params.get('category');
+        if (catParam) {
+            activeCategoryId = catParam;
+            // Wait for data load then set active category
+            setTimeout(() => {
+                renderCategories();
+                renderArticles();
+            }, 100);
+        }
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">close</span>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.innerHTML = '<span class="material-symbols-outlined text-3xl">menu</span>';
+            }
+        });
+    }
+</script>
+</body>
+</html>
