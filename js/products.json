@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
     "category": "plywood",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuL9CJeO6otkzbqbxihpL0RptxarMbDtKIzYyZ1M7qBCNtPqweA9Sm-YoU7_d84xG1QPO-_jtKkOKJm-rnRWW7qiRQTefKi5ROB3Ll0tJIn_SPYjPHDJgNT6Fx2xix3N6iW_6noUtbHDgZo0UkwO-7EVFKmOsLtl51_EAjfHXqGiFPackYtqEyuN4GUatbMMNOz907Y6CsAhuhiGgQxkBAV59HPsIexwVOI0h1ufCPZCZ56EVOo30LqM-Y",
+    "image_url": "images/plywood_poplar_marine.png",
     "description": "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
     "badge": "Bestseller",
     "specs": {
@@ -16,7 +16,7 @@
     "id": 2,
     "name": "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
     "category": "plywood",
-    "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuC7JcXy3eiyNT5RnorsToW5ysxk4QitJLaXV5e97I0VHYuerzxz-bfz6BdNuTPq4fwsG_R9M1vwHqOM-AKCmDo-aZ9kSfZeCb6VUCjWRbRo19WHUf-96iF7pr4uXg8iyiMq57Q_PnKb9AKvM8qFwP-PkYLfGgdLjo2KY8oDWPQywfDv3JTLCL-1EAX9qLZ-E2VDYDhuyNhg9Mku8Veeh5zqV6y9Vnpdk5RBLn-dxmqtDbIj6MF7_IojjA",
+    "image_url": "images/plywood_poplar_carb.png",
     "description": "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
     "badge": "CARB P2",
     "specs": {
@@ -68,7 +68,7 @@
     "id": 6,
     "name": "Plywood Veneer - Oak (Ván Ép Phủ Veneer Sồi)",
     "category": "veneer",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+    "image_url": "images/plywood_veneer_oak.png",
     "description": "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
     "badge": "Premium",
     "specs": {
@@ -94,7 +94,7 @@
     "id": 8,
     "name": "WL605EV - Natural Oak (Melamine Vân Gỗ Sồi Tự Nhiên)",
     "category": "melamine",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+    "image_url": "images/melamine_natural_oak.png",
     "description": "Bề mặt Melamine vân gỗ Sồi chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
     "badge": "Bestseller",
     "specs": {
