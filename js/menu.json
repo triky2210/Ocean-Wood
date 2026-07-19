@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Ván Ép / Plywood",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLsaeLCQeeMw62NicAAC1shsCyT9zIZQ-X2Vq1Hjq69zs9PXgDYLgdyRkoQe9aKj2--IxBr7gIqDrMoPHXyiYTcTayKd9WSwNDhGflo-ldmUifM7aA5fW5NDf8u5AVX7HaseHtnd3EGdfDhxF6-GQ-QnkJ4I_WIVp1RjiVk7Wi8XtZwlfUXcNksoWHZGB4EgJbVawAqTOIO8yJc2h9Pmfg9e5UcsitLfksLcqMsAgQVveTfbeO9_RgZanU0z",
+    "image_url": "images/menu_plywood.png",
     "links": [
       {
         "name": "Plywood Poplar Marine",
@@ -25,7 +25,7 @@
   {
     "id": 2,
     "title": "Plywood Phủ Veneer",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLvTl7JpsUAr9WgeZfVlekxjjz2y8_nYoHLxNpj0nb-0VrEmBfkMQfneYSj_NmB5R63lluv7Ar3YZVnpXn-PrrroojJY5spk63BpeLj8fgPXf28Q293ZjRdTD10QY0ZDBvGWlNSG65odckV3qtkKhC9r7jzcD0P3xzvoHJin1LqFpPENCIkQBB5-EOdtlnRKbh0WgW_14wvhdZdp1BSbqgZlf6E-xP8-QKIBYncZF9U58dW_tOdSEs1CEihT",
+    "image_url": "images/menu_veneer.png",
     "links": [
       {
         "name": "Plywood Veneer - Ash",
@@ -44,7 +44,7 @@
   {
     "id": 3,
     "title": "Plywood Phủ Melamine",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuNYOqHdGcwzlBvi2AQNnIFQDQvdFg2EwTljOBM43K2OhBzGKAiNzY-KphGAEePMcDpHPLvkHbTV6RyzrP4WXXlVQ7fkahNu7t2q3PBsqL-W0k7L0iETIMLoK7NoNM3uPW3iIecLR0cJAvslTNYlaPz8mlb9hbbYonp4WBzHGuCsiFQ0-Bl0WRy1DetBa3Pw2uqrB_74kOThguDMzVV3pMO6pJdQXzE_zSesHpyu-yqGgUeigEr05jJ7c09",
+    "image_url": "images/menu_melamine.png",
     "links": [
       {
         "name": "WL605EV - Natural Oak",
