@@ -180,31 +180,5 @@
       "Kháng UV": "Chống phai màu vượt trội",
       "Ứng dụng": "Ốp mặt tiền, ban công, resort"
     }
-  },
-  {
-    "id": 15,
-    "name": "Gỗ Cao Su Ghép Finger Joint",
-    "category": "rubber",
-    "image_url": "https://lh3.googleusercontent.com/aida/AP1WRLuDNGAVuDZk0MnECzhgYyTy2sPNlexYASaG4QcfI6MbUxy0D3U-8aOcE_h0yt641JDDP85tx9-6tnhJkUQ6UGrIcnyKRzqlF1ZKTeJ3yniMn-iiZO7KBvQ1idnzHmXm9chA-GdOEBRWMNUJPVdRMLqzcLPOXBQCVwwGbyIERh6iYA2hcOd93KpABSL2_GITV-KcVXSEHBkq1VlsqSb-ei7BZ4Lk2k-rg0-Ql3GZ5Yg576LjA274iWYoSJ1D",
-    "description": "Gỗ cao su tự nhiên ghép mộng răng lược, chịu lực tốt, thân thiện với môi trường.",
-    "badge": "Eco-Friendly",
-    "specs": {
-      "Kiểu ghép": "Mộng nổi (Finger joint)",
-      "Độ ẩm": "10% - 12%",
-      "Keo ghép": "D4 chống nước"
-    }
-  },
-  {
-    "id": 16,
-    "name": "Ván MDF Chống Ẩm HMR (High Moisture Resistance)",
-    "category": "mdf",
-    "image_url": "https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg",
-    "description": "Cốt gỗ sợi công nghiệp chịu ẩm cao, bề mặt siêu mịn hoàn hảo để dán phủ Veneer, Melamine hoặc sơn bệt.",
-    "badge": "Standard",
-    "specs": {
-      "Cốt gỗ": "Sợi gỗ và keo chống ẩm (màu xanh lá)",
-      "Độ dày": "3mm - 25mm",
-      "Tiêu chuẩn": "CARB P2 / E2"
-    }
   }
 ]
