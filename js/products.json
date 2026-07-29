@@ -55,7 +55,7 @@
     "id": 5,
     "name": "Ván ép phủ veneer xoan đào",
     "category": "veneer",
-    "image_url": "images/curved_plywood_raw.png",
+    "image_url": "images/veneer_cherry.jpg",
     "description": "Bề mặt phủ Veneer Xoan Đào tự nhiên màu hồng đào trầm ấm, đường vân đều đặn tôn lên sự sang trọng phong cách Á Đông.",
     "badge": "Classic",
     "specs": {
@@ -94,7 +94,7 @@
     "id": 8,
     "name": "Ván ép phủ veneer độc bản",
     "category": "veneer",
-    "image_url": "images/curved_plywood_furniture.png",
+    "image_url": "images/veneer_custom.jpg",
     "description": "Dòng ván ép ghép Veneer nghệ thuật theo yêu cầu thiết kế riêng, ghép vân đối xứng (Book-matched) hoặc uốn cong độc bản.",
     "badge": "Exclusive",
     "specs": {
@@ -120,7 +120,7 @@
     "id": 10,
     "name": "Ván ép phủ phim Logo Trâu Vàng",
     "category": "film",
-    "image_url": "images/ván_phủ_phim_1784345348.png",
+    "image_url": "images/film_trau_vang.jpg",
     "description": "Ván ép cốp pha phủ phim thương hiệu Trâu Vàng chịu nước tuyệt đối, sử dụng màng phim chống bám dính bê tông cho bề mặt bê tông láng mịn.",
     "badge": "Chịu Nước",
     "specs": {
@@ -133,7 +133,7 @@
     "id": 11,
     "name": "Ván ép phủ phim Logo Southern Wood",
     "category": "film",
-    "image_url": "images/ván_phủ_phim_1784353580.png",
+    "image_url": "images/film_southern_wood.jpg",
     "description": "Dòng ván cốp pha phủ phim tiêu chuẩn xuất khẩu Southern Wood, chịu đun sôi liên tục trên 15 giờ không tách lớp.",
     "badge": "Xuất Khẩu",
     "specs": {
@@ -146,7 +146,7 @@
     "id": 12,
     "name": "Ván ép phủ phim Logo Ocean Wood",
     "category": "film",
-    "image_url": "images/c5842047-44b7-4cfb-b0d5-69ab42fa273b_1784355587.jfif",
+    "image_url": "images/film_ocean_wood.jpg",
     "description": "Sản phẩm cốp pha đính tem chìm thương hiệu Ocean Wood cao cấp nhất, kết cấu cốt gỗ cứng chọn lọc cho các công trình cao tầng trọng điểm.",
     "badge": "High Quality",
     "specs": {
@@ -159,7 +159,7 @@
     "id": 13,
     "name": "Cửa đi 1 cánh",
     "category": "door",
-    "image_url": "images/Cửa_gỗ_1784345509.png",
+    "image_url": "images/door_single.jpg",
     "description": "Cửa gỗ công nghiệp 1 cánh phong cách hiện đại, cách âm tốt, kháng nước 100%, thích hợp làm cửa phòng ngủ và phòng làm việc.",
     "badge": "Modern",
     "specs": {
@@ -172,7 +172,7 @@
     "id": 14,
     "name": "Cửa đi 2 cánh",
     "category": "door",
-    "image_url": "images/Expand_image_highlighting_door_202607181049_1784346630.jpeg",
+    "image_url": "images/door_double.jpg",
     "description": "Bộ cửa gỗ 2 cánh sang trọng cho lối vào chính hoặc sảnh lớn, đường nét chắt lọc tinh tế, chống cong vênh mối mọt.",
     "badge": "Main Entry",
     "specs": {
@@ -185,7 +185,7 @@
     "id": 15,
     "name": "Cửa thông phòng",
     "category": "door",
-    "image_url": "images/Expand_image_highlighting_door_202607181049_1784353569.jpeg",
+    "image_url": "images/door_room.jpg",
     "description": "Dòng cửa gỗ thông phòng phẳng mịn kết hợp chỉ kim loại hoặc pano gỗ, đóng mở êm ái, phù hợp với kiến trúc căn hộ và biệt thự.",
     "badge": "Popular",
     "specs": {
@@ -198,7 +198,7 @@
     "id": 16,
     "name": "Cửa nhà vệ sinh",
     "category": "door",
-    "image_url": "images/Cửa_gỗ_1784345509.png",
+    "image_url": "images/door_bathroom.jpg",
     "description": "Cửa gỗ chịu nước tuyệt đối chuyên dụng cho khu vực nhà vệ sinh, phòng tắm, hoàn toàn không ẩm mốc hay bong tróc.",
     "badge": "Waterproof",
     "specs": {
@@ -211,7 +211,7 @@
     "id": 17,
     "name": "Cửa cao thông tầng",
     "category": "door",
-    "image_url": "images/screen_1784346154.png",
+    "image_url": "images/door_tall.jpg",
     "description": "Giải pháp cửa gỗ kích thước siêu cao vượt khổ (đến 3m - 3.5m) dành cho giếng trời, penthouse và biệt thự cao cấp.",
     "badge": "Custom Height",
     "specs": {
@@ -250,7 +250,7 @@
     "id": 20,
     "name": "Phòng ngủ",
     "category": "interior",
-    "image_url": "images/nội_thất_1784345664.png",
+    "image_url": "images/interior_bedroom.jpg",
     "description": "Bộ giường ngủ, tủ quần áo âm tường và bàn trang điểm từ ván ép an toàn chuẩn CARB P2 không mùi độc hại cho giấc ngủ ngon.",
     "badge": "Bedroom",
     "specs": {
