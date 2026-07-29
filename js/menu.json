@@ -5,20 +5,16 @@
     "image_url": "images/menu_plywood.png",
     "links": [
       {
-        "name": "Plywood Poplar Marine",
-        "url": "san-pham.html"
+        "name": "Ván ép phủ mặt Pitago",
+        "url": "san-pham.html?cat=plywood"
       },
       {
-        "name": "Plywood Poplar Carb P2",
-        "url": "san-pham.html"
+        "name": "Ván ép phủ mặt Ekume",
+        "url": "san-pham.html?cat=plywood"
       },
       {
-        "name": "Plywood Full Birch",
-        "url": "san-pham.html"
-      },
-      {
-        "name": "Pawlownia Flexible",
-        "url": "san-pham.html"
+        "name": "Ván ép làm bao bì",
+        "url": "san-pham.html?cat=plywood"
       }
     ]
   },
@@ -28,16 +24,24 @@
     "image_url": "images/menu_veneer.png",
     "links": [
       {
-        "name": "Plywood Veneer - Ash",
-        "url": "san-pham.html"
+        "name": "Ván ép phủ veneer Tần bì",
+        "url": "san-pham.html?cat=veneer"
       },
       {
-        "name": "Plywood Veneer - Oak",
-        "url": "san-pham.html"
+        "name": "Ván ép phủ veneer xoan đào",
+        "url": "san-pham.html?cat=veneer"
       },
       {
-        "name": "Plywood Veneer - Walnut",
-        "url": "san-pham.html"
+        "name": "Ván ép phủ veneer óc chó",
+        "url": "san-pham.html?cat=veneer"
+      },
+      {
+        "name": "Ván ép phủ veneer sồi",
+        "url": "san-pham.html?cat=veneer"
+      },
+      {
+        "name": "Ván ép phủ veneer độc bản",
+        "url": "san-pham.html?cat=veneer"
       }
     ]
   },
@@ -47,16 +51,8 @@
     "image_url": "images/menu_melamine.png",
     "links": [
       {
-        "name": "WL605EV - Natural Oak",
-        "url": "san-pham.html"
-      },
-      {
-        "name": "WL007T - Xám Đậm",
-        "url": "san-pham.html"
-      },
-      {
-        "name": "WL088T - Trắng",
-        "url": "san-pham.html"
+        "name": "Plywood phủ melamine",
+        "url": "san-pham.html?cat=melamine"
       }
     ]
   },
@@ -64,24 +60,96 @@
     "id": 4,
     "title": "Ván Ép Phủ Phim",
     "image_url": "images/ván_phủ_phim_1784345348.png",
-    "links": []
+    "links": [
+      {
+        "name": "Logo Trâu Vàng",
+        "url": "san-pham.html?cat=film"
+      },
+      {
+        "name": "Logo Southern Wood",
+        "url": "san-pham.html?cat=film"
+      },
+      {
+        "name": "Logo Ocean Wood",
+        "url": "san-pham.html?cat=film"
+      }
+    ]
   },
   {
     "id": 5,
     "title": "Cửa Gỗ",
     "image_url": "images/Expand_image_highlighting_door_202607181049_1784346630.jpeg",
-    "links": []
+    "links": [
+      {
+        "name": "Cửa đi 1 cánh",
+        "url": "san-pham.html?cat=door"
+      },
+      {
+        "name": "Cửa đi 2 cánh",
+        "url": "san-pham.html?cat=door"
+      },
+      {
+        "name": "Cửa thông phòng",
+        "url": "san-pham.html?cat=door"
+      },
+      {
+        "name": "Cửa nhà vệ sinh",
+        "url": "san-pham.html?cat=door"
+      },
+      {
+        "name": "Cửa cao thông tầng",
+        "url": "san-pham.html?cat=door"
+      }
+    ]
   },
   {
     "id": 6,
     "title": "Nội thất",
     "image_url": "images/nội_thất_1784345664.png",
-    "links": []
+    "links": [
+      {
+        "name": "Phòng khách",
+        "url": "san-pham.html?cat=interior"
+      },
+      {
+        "name": "Phòng bếp",
+        "url": "san-pham.html?cat=interior"
+      },
+      {
+        "name": "Phòng ngủ",
+        "url": "san-pham.html?cat=interior"
+      },
+      {
+        "name": "Phòng tắm",
+        "url": "san-pham.html?cat=interior"
+      },
+      {
+        "name": "Phòng thay đồ",
+        "url": "san-pham.html?cat=interior"
+      },
+      {
+        "name": "Đồ decor",
+        "url": "san-pham.html?cat=interior"
+      }
+    ]
   },
   {
     "id": 7,
     "title": "Ngoại thất",
     "image_url": "images/ngoại_thất_1784346623.png",
-    "links": []
+    "links": [
+      {
+        "name": "Cửa ngoài trời",
+        "url": "san-pham.html?cat=exterior"
+      },
+      {
+        "name": "Hàng rào",
+        "url": "san-pham.html?cat=exterior"
+      },
+      {
+        "name": "Trang trí ốp cảnh quan",
+        "url": "san-pham.html?cat=exterior"
+      }
+    ]
   }
 ]

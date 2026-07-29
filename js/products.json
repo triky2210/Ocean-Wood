@@ -1,184 +1,340 @@
 [
   {
     "id": 1,
-    "name": "Plywood Poplar Marine (Ván Ép Bạch Dương Kháng Nước)",
+    "name": "Ván ép phủ mặt Pitago",
     "category": "plywood",
     "image_url": "images/plywood_poplar_marine.png",
-    "description": "Dòng ván ép chất lượng cao kháng nước tuyệt đối, lý tưởng cho đóng tàu, tủ bếp và khu vực ẩm ướt.",
+    "description": "Ván ép chất lượng cao phủ mặt gỗ Pitago tự nhiên, chịu lực uốn tốt, bề mặt nhẵn mịn thích hợp cho làm nội thất và đóng gói cao cấp.",
     "badge": "Bestseller",
     "specs": {
-      "Chất liệu": "Gỗ Poplar tự nhiên",
-      "Tiêu chuẩn": "CARB P2 / FSC",
-      "Keo dán": "WBP Phenolic"
+      "Mặt ván": "Gỗ Pitago tự nhiên",
+      "Cốt gỗ": "Bạch Dương / Keo / Gỗ cứng",
+      "Tiêu chuẩn": "CARB P2 / FSC"
     }
   },
   {
     "id": 2,
-    "name": "Plywood Poplar Carb P2 (Ván Ép Tiêu Chuẩn Xuất Khẩu Mỹ)",
+    "name": "Ván ép phủ mặt Ekume (Okoume)",
     "category": "plywood",
-    "image_url": "images/plywood_poplar_carb.png",
-    "description": "Đạt chuẩn an toàn nồng độ khí thải Carb P2 xuất khẩu trực tiếp sang thị trường Hoa Kỳ và Châu Âu.",
-    "badge": "CARB P2",
+    "image_url": "images/okume_plywood_cover.png",
+    "description": "Ván ép cốt gỗ phủ bề mặt Okoume nhập khẩu màu hồng nhạt đặc trưng, kháng ẩm cao, lý tưởng cho sản xuất nội thất và du thuyền.",
+    "badge": "Marine Grade",
     "specs": {
-      "Nồng độ Formaldehyde": "< 0.05 ppm",
-      "Tiêu chuẩn": "EPA TSCA Title VI",
-      "Cốt gỗ": "Bạch Dương dẻo dai"
+      "Mặt ván": "Okoume (Ekume) nhập khẩu",
+      "Keo dán": "Keo chống nước WBP Phenolic",
+      "Độ dày": "3mm - 25mm"
     }
   },
   {
     "id": 3,
-    "name": "Plywood Full Birch (Ván Ép Bạch Dương Toàn Phần)",
+    "name": "Ván ép làm bao bì",
     "category": "plywood",
-    "image_url": "images/plywood_full_birch.png",
-    "description": "Ván ép chất lượng cao nhất với 100% nguyên liệu từ gỗ bạch dương, chịu lực uốn cực cao và bề mặt tuyệt mỹ.",
-    "badge": "Premium",
+    "image_url": "images/plywood_vs_mdf_cross.png",
+    "description": "Ván ép chuyên dụng cho đóng kiện hàng, thùng gỗ bao bì xuất khẩu, khả năng chịu lực nén và va đập vượt trội với chi phí tối ưu.",
+    "badge": "Packaging",
     "specs": {
-      "Chất liệu": "100% Gỗ Birch",
-      "Ứng dụng": "Nội thất cao cấp, loa âm thanh",
-      "Tiêu chuẩn": "FSC / CARB P2"
+      "Chất liệu": "Gỗ rừng trồng (Gỗ mỡ, keo, cao su)",
+      "Ứng dụng": "Đóng kiện hàng xuất khẩu, bao bì",
+      "Tiêu chuẩn": "ISPM 15 Compliant"
     }
   },
   {
     "id": 4,
-    "name": "Pawlownia Flexible (Ván Ép Paulownia Uốn Dẻo)",
-    "category": "plywood",
-    "image_url": "images/curved_plywood_furniture.png",
-    "description": "Ván ép siêu dẻo chuyên dụng để uốn cong các chi tiết thiết kế bo tròn, góc lượn trong kiến trúc nội thất.",
-    "badge": "Flexible",
+    "name": "Ván ép phủ veneer Tần bì (Ash)",
+    "category": "veneer",
+    "image_url": "images/plywood_veneer_ash.png",
+    "description": "Ván ép dán lớp Veneer gỗ Tần Bì (Ash) tự nhiên với vân gỗ sáng màu lượn sóng thanh lịch, bề mặt được chà nhám siêu mịn.",
+    "badge": "Popular",
     "specs": {
-      "Chất liệu": "Gỗ Paulownia đàn hồi",
-      "Bán kính uốn tối thiểu": "15cm",
-      "Độ dày": "4mm - 8mm"
+      "Bề mặt": "Veneer Tần Bì 0.6mm",
+      "Lõi ván": "Plywood kháng ẩm cao cấp",
+      "Độ dày": "12mm - 18mm"
     }
   },
   {
     "id": 5,
-    "name": "Plywood Veneer - Ash (Ván Ép Phủ Veneer Tần Bì)",
+    "name": "Ván ép phủ veneer xoan đào",
     "category": "veneer",
-    "image_url": "images/plywood_veneer_ash.png",
-    "description": "Ván ép phủ lớp Veneer gỗ Tần Bì tự nhiên, vân gỗ sáng màu, lượn sóng mềm mại thanh lịch.",
-    "badge": "New",
+    "image_url": "images/curved_plywood_raw.png",
+    "description": "Bề mặt phủ Veneer Xoan Đào tự nhiên màu hồng đào trầm ấm, đường vân đều đặn tôn lên sự sang trọng phong cách Á Đông.",
+    "badge": "Classic",
     "specs": {
-      "Bề mặt": "Veneer Tần Bì (Ash) 0.6mm",
-      "Độ dày": "12mm - 18mm",
-      "Lõi ván": "Gỗ cứng hỗn hợp"
+      "Bề mặt": "Veneer Xoan Đào tự nhiên",
+      "Chà nhám": "Hai mặt láng mịn",
+      "Ứng dụng": "Tủ, kệ, bàn ghế nội thất"
     }
   },
   {
     "id": 6,
-    "name": "Plywood Veneer - Oak (Ván Ép Phủ Veneer Sồi)",
+    "name": "Ván ép phủ veneer óc chó (Walnut)",
     "category": "veneer",
-    "image_url": "images/plywood_veneer_oak.png",
-    "description": "Sự kết hợp hoàn hảo giữa độ bền cơ lý của ván ép và nét thẩm mỹ tự nhiên của Veneer gỗ Sồi Mỹ nhập khẩu.",
-    "badge": "Premium",
+    "image_url": "images/plywood_veneer_walnut.png",
+    "description": "Phủ Veneer gỗ Óc Chó (Walnut) tự nhiên cao cấp, tông màu nâu sẫm ấm áp cùng các đường vân uốn lượn tinh tế cho công trình sang trọng.",
+    "badge": "Luxury",
     "specs": {
-      "Bề mặt": "Sồi Sọc 0.6mm",
-      "Độ dày": "12mm - 18mm",
-      "Chà nhám": "Hai mặt mịn"
+      "Bề mặt": "Veneer Óc Chó Mỹ tự nhiên",
+      "Tiêu chuẩn": "CARB P2 / EPA TSCA Title VI",
+      "Lõi ván": "Hardwood Plywood"
     }
   },
   {
     "id": 7,
-    "name": "Plywood Veneer - Walnut (Ván Ép Phủ Veneer Óc Chó)",
+    "name": "Ván ép phủ veneer sồi (Oak)",
     "category": "veneer",
-    "image_url": "images/plywood_veneer_walnut.png",
-    "description": "Phủ lớp Veneer gỗ Óc Chó (Walnut) cao cấp nhập khẩu, mang lại màu nâu đậm sang trọng và vân gỗ độc bản.",
+    "image_url": "images/plywood_veneer_oak.png",
+    "description": "Sự kết hợp giữa kết cấu chắc chắn của Plywood và vân gỗ Sồi Đỏ/Sồi Trắng nhập khẩu, mang tới vẻ đẹp kiến trúc hiện đại Châu Âu.",
     "badge": "Premium",
     "specs": {
-      "Bề mặt": "Veneer Óc Chó tự nhiên",
-      "Độ dày": "12mm - 18mm",
-      "Lõi ván": "Hardwood cao cấp"
+      "Bề mặt": "Veneer Sồi (Oak) 0.6mm",
+      "Độ ẩm": "8% - 12%",
+      "Keo ghép": "Keo E0 an toàn sức khỏe"
     }
   },
   {
     "id": 8,
-    "name": "WL605EV - Natural Oak (Melamine Vân Gỗ Sồi Tự Nhiên)",
-    "category": "melamine",
-    "image_url": "images/melamine_natural_oak.png",
-    "description": "Bề mặt Melamine vân gỗ Sồi chống trầy xước cao, đa dạng lựa chọn màu sắc cho kiến trúc hiện đại.",
-    "badge": "Bestseller",
+    "name": "Ván ép phủ veneer độc bản",
+    "category": "veneer",
+    "image_url": "images/curved_plywood_furniture.png",
+    "description": "Dòng ván ép ghép Veneer nghệ thuật theo yêu cầu thiết kế riêng, ghép vân đối xứng (Book-matched) hoặc uốn cong độc bản.",
+    "badge": "Exclusive",
     "specs": {
-      "Mã màu": "WL605EV - Natural Oak",
-      "Chống xước": "Đạt chuẩn AC3",
-      "Ứng dụng": "Tủ quần áo, thùng tủ"
+      "Kỹ thuật": "Ghép vân nghệ thuật / Uốn cong",
+      "Thiết kế": "Tùy chỉnh theo bản vẽ",
+      "Ứng dụng": "Biệt thự, không gian nghệ thuật"
     }
   },
   {
     "id": 9,
-    "name": "WL007T - Xám Đậm (Melamine Màu Xám Đậm Hiện Đại)",
+    "name": "Plywood phủ melamine",
     "category": "melamine",
-    "image_url": "images/melamine_grey.png",
-    "description": "Màu xám đậm trung tính hiện đại, lớp phủ Melamine chống bám vân tay và chống trầy xước vượt trội.",
-    "badge": "Trend 2026",
+    "image_url": "images/melamine_natural_oak.png",
+    "description": "Bề mặt phủ Melamine cao cấp chống trầy xước, đa dạng bảng màu vân gỗ Sồi, Vân Xám, Trắng Pure cho thùng tủ và nội thất hiện đại.",
+    "badge": "Bestseller",
     "specs": {
-      "Mã màu": "WL007T - Dark Grey",
-      "Chống xước": "Đạt chuẩn AC3",
-      "Độ bóng": "Bề mặt Matte mịn"
+      "Mã màu": "Sồi Tự Nhiên / Xám Đậm / Trắng",
+      "Độ bền": "Chống xước chuẩn AC3",
+      "Cốt ván": "Plywood chống nước"
     }
   },
   {
     "id": 10,
-    "name": "WL088T - Trắng (Melamine Màu Trắng Thanh Lịch)",
-    "category": "melamine",
-    "image_url": "images/melamine_white.png",
-    "description": "Lớp phủ Melamine màu trắng tinh khôi, tạo không gian sáng sủa rộng rãi, dễ dàng kết hợp màu sắc khác.",
-    "badge": "Basic",
+    "name": "Ván ép phủ phim Logo Trâu Vàng",
+    "category": "film",
+    "image_url": "images/ván_phủ_phim_1784345348.png",
+    "description": "Ván ép cốp pha phủ phim thương hiệu Trâu Vàng chịu nước tuyệt đối, sử dụng màng phim chống bám dính bê tông cho bề mặt bê tông láng mịn.",
+    "badge": "Chịu Nước",
     "specs": {
-      "Mã màu": "WL088T - Pure White",
-      "Ứng dụng": "Thùng tủ bếp, vách ngăn",
-      "Chống xước": "Đạt chuẩn AC3"
+      "Phim phủ": "Phim Dynea Logo Trâu Vàng",
+      "Keo dán": "100% WBP Phenolic",
+      "Số lần luân chuyển": "8 - 12 lần"
     }
   },
   {
     "id": 11,
-    "name": "Ván Ép Phủ Phim Cốp Pha (Film Faced Plywood)",
+    "name": "Ván ép phủ phim Logo Southern Wood",
     "category": "film",
-    "image_url": "images/ván_phủ_phim_1784345348.png",
-    "description": "Ván cốp pha phủ phim chống nước cao cấp phục vụ các công trình xây dựng, tái sử dụng được nhiều lần.",
-    "badge": "Construction",
+    "image_url": "images/ván_phủ_phim_1784353580.png",
+    "description": "Dòng ván cốp pha phủ phim tiêu chuẩn xuất khẩu Southern Wood, chịu đun sôi liên tục trên 15 giờ không tách lớp.",
+    "badge": "Xuất Khẩu",
     "specs": {
-      "Loại phim": "Phim Dynea đen/nâu",
-      "Keo dán": "Keo chống nước WBP Melamine",
-      "Số lần tái sử dụng": "8 - 12 lần"
+      "Thương hiệu": "Southern Wood",
+      "Độ dày": "12mm, 15mm, 18mm",
+      "Tái sử dụng": "10 - 15 lần"
     }
   },
   {
     "id": 12,
-    "name": "Cửa Gỗ Công Nghiệp Composite (Composite Wood Door)",
-    "category": "door",
-    "image_url": "images/Expand_image_highlighting_door_202607181049_1784346630.jpeg",
-    "description": "Cửa gỗ chịu nước 100%, chống cong vênh mối mọt, thiết kế hiện đại cách âm tốt cho phòng ngủ và nhà vệ sinh.",
-    "badge": "Waterproof",
+    "name": "Ván ép phủ phim Logo Ocean Wood",
+    "category": "film",
+    "image_url": "images/c5842047-44b7-4cfb-b0d5-69ab42fa273b_1784355587.jfif",
+    "description": "Sản phẩm cốp pha đính tem chìm thương hiệu Ocean Wood cao cấp nhất, kết cấu cốt gỗ cứng chọn lọc cho các công trình cao tầng trọng điểm.",
+    "badge": "High Quality",
     "specs": {
-      "Chất liệu": "Bột gỗ và nhựa Composite",
-      "Bề mặt": "Phủ phim PVC vân gỗ",
-      "Độ dày cánh": "40mm"
+      "Cốt ván": "Gỗ cứng nhiệt đới tuyển chọn",
+      "Màng phim": "Phim phủ 120g/m2 cao cấp",
+      "Chống ẩm": "Đạt chuẩn 100% WBP"
     }
   },
   {
     "id": 13,
-    "name": "Tủ Bếp Gỗ Công Nghiệp Cao Cấp (Premium Kitchen Cabinets)",
-    "category": "interior",
-    "image_url": "images/nội_thất_1784345664.png",
-    "description": "Thiết kế và thi công tủ bếp cao cấp bằng cốt gỗ Plywood Melamine chống nước kết hợp cánh MDF chống ẩm sơn bệt mịn.",
-    "badge": "Interior",
+    "name": "Cửa đi 1 cánh",
+    "category": "door",
+    "image_url": "images/Cửa_gỗ_1784345509.png",
+    "description": "Cửa gỗ công nghiệp 1 cánh phong cách hiện đại, cách âm tốt, kháng nước 100%, thích hợp làm cửa phòng ngủ và phòng làm việc.",
+    "badge": "Modern",
     "specs": {
-      "Cốt gỗ": "Plywood dán Melamine + MDF HMR",
-      "Phụ kiện": "Bản lề giảm chấn Blum",
-      "Bảo hành": "5 năm"
+      "Loại cửa": "Cửa đơn 1 cánh",
+      "Chất liệu": "Cốt Plywood / Composite chống nước",
+      "Phụ kiện": "Khoá cơ / Khoá từ cao cấp"
     }
   },
   {
     "id": 14,
-    "name": "Vách Gỗ Nhựa Ngoài Trời (Outdoor WPC Wall Cladding)",
+    "name": "Cửa đi 2 cánh",
+    "category": "door",
+    "image_url": "images/Expand_image_highlighting_door_202607181049_1784346630.jpeg",
+    "description": "Bộ cửa gỗ 2 cánh sang trọng cho lối vào chính hoặc sảnh lớn, đường nét chắt lọc tinh tế, chống cong vênh mối mọt.",
+    "badge": "Main Entry",
+    "specs": {
+      "Cấu trúc": "Cửa 2 cánh cân / lệch",
+      "Bề mặt": "Phủ Veneer Sồi / Óc chó / Melamine",
+      "Bảo hành": "5 năm"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Cửa thông phòng",
+    "category": "door",
+    "image_url": "images/Expand_image_highlighting_door_202607181049_1784353569.jpeg",
+    "description": "Dòng cửa gỗ thông phòng phẳng mịn kết hợp chỉ kim loại hoặc pano gỗ, đóng mở êm ái, phù hợp với kiến trúc căn hộ và biệt thự.",
+    "badge": "Popular",
+    "specs": {
+      "Độ dày cánh": "40mm",
+      "Tính năng": "Cách âm, giảm chấn va đập",
+      "Màu sắc": "Đa dạng màu vân gỗ"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Cửa nhà vệ sinh",
+    "category": "door",
+    "image_url": "images/Cửa_gỗ_1784345509.png",
+    "description": "Cửa gỗ chịu nước tuyệt đối chuyên dụng cho khu vực nhà vệ sinh, phòng tắm, hoàn toàn không ẩm mốc hay bong tróc.",
+    "badge": "Waterproof",
+    "specs": {
+      "Kháng nước": "100% Waterproof",
+      "Khung bao": "Gỗ nhựa phủ phim PVC",
+      "Nẹp chỉ": "Nẹp thông minh che khuyết điểm"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Cửa cao thông tầng",
+    "category": "door",
+    "image_url": "images/screen_1784346154.png",
+    "description": "Giải pháp cửa gỗ kích thước siêu cao vượt khổ (đến 3m - 3.5m) dành cho giếng trời, penthouse và biệt thự cao cấp.",
+    "badge": "Custom Height",
+    "specs": {
+      "Chiều cao": "Tối đa 3500mm",
+      "Gia cường": "Lõi thép chống uốn dọc cánh",
+      "Phong cách": "Đẳng cấp kiến trúc mở"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Phòng khách",
+    "category": "interior",
+    "image_url": "images/Gemini_Generated_Image_6l1mn76l1mn76l1m_Custom_1784349923.png",
+    "description": "Hệ sản phẩm nội thất phòng khách đồng bộ: Vách ốp TV, kệ trang trí, bàn trà gia công từ ván ép phủ Veneer/Melamine cao cấp.",
+    "badge": "Living Room",
+    "specs": {
+      "Hạng mục": "Kệ TV, Vách ốp gỗ, Bàn trà",
+      "Chất liệu": "Plywood dán Veneer Óc Chó",
+      "Thi công": "May đo theo diện tích"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Phòng bếp",
+    "category": "interior",
+    "image_url": "images/kitchen_cabinet_plywood.png",
+    "description": "Tủ bếp Plywood kháng nước tuyệt đối kết hợp đảo bếp sang trọng, bề mặt chống bám dầu mỡ và dễ vệ sinh lau chùi.",
+    "badge": "Kitchen",
+    "specs": {
+      "Thùng tủ": "Plywood dán Melamine chống ẩm",
+      "Cánh tủ": "MDF chống ẩm sơn bệt / Veneer",
+      "Phụ kiện": "Ray giảm chấn Blum/Hafele"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Phòng ngủ",
+    "category": "interior",
+    "image_url": "images/nội_thất_1784345664.png",
+    "description": "Bộ giường ngủ, tủ quần áo âm tường và bàn trang điểm từ ván ép an toàn chuẩn CARB P2 không mùi độc hại cho giấc ngủ ngon.",
+    "badge": "Bedroom",
+    "specs": {
+      "An toàn": "Chuẩn CARB P2 an toàn sức khỏe",
+      "Hạng mục": "Giường, Tủ áo, Bàn trang điểm",
+      "Màu sắc": "Tone màu gỗ tự nhiên ấm áp"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Phòng tắm",
+    "category": "interior",
+    "image_url": "images/nội_thất_1784353575.png",
+    "description": "Tủ Lavabo gỗ công nghiệp chống nước chuyên dụng cho phòng tắm, kết hợp mặt đá và gương đèn LED sang trọng.",
+    "badge": "Bathroom",
+    "specs": {
+      "Cốt gỗ": "Plywood Marine chống nước 100%",
+      "Bề mặt": "Sơn PU 5 lớp chống ẩm",
+      "Kiểu dáng": "Tủ treo tường hiện đại"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Phòng thay đồ",
+    "category": "interior",
+    "image_url": "images/screen_1784346666.png",
+    "description": "Hệ tủ quần áo mở cánh kính (Walk-in Closet) cao kịch trần tinh tế, phân chia khoang chứa đồ thông minh tích hợp đèn LED cảm ứng.",
+    "badge": "Closet",
+    "specs": {
+      "Cấu trúc": "Hệ tủ mở / Cánh kính khung nhôm",
+      "Đèn chiếu sáng": "LED cảm ứng thanh nhôm định hình",
+      "Chất liệu": "Plywood Melamine vân gỗ Sồi"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Đồ decor",
+    "category": "interior",
+    "image_url": "images/okume_painted_furniture.png",
+    "description": "Các món đồ trang trí gỗ nhỏ: Đèn gỗ nghệ thuật, kệ treo tường bo cong, khay gỗ decor tỉ mỉ cho điểm nhấn không gian sống.",
+    "badge": "Decor",
+    "specs": {
+      "Chất liệu": "Plywood uốn dẻo / Veneer tự nhiên",
+      "Gia công": "Cắt CNC và chà nhám thủ công",
+      "Ứng dụng": "Trang trí nhà ở, cafe, studio"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Cửa ngoài trời",
     "category": "exterior",
     "image_url": "images/ngoại_thất_1784346623.png",
-    "description": "Tấm ốp vách ngoài trời bằng gỗ nhựa chịu thời tiết tốt, không phai màu, không cong vênh dưới ánh nắng.",
-    "badge": "Exterior",
+    "description": "Cửa gỗ cổng và cửa ban công ngoài trời sử dụng thanh gỗ nhựa/gỗ biến tính (Thermo Wood) chịu nắng mưa, không mục nát.",
+    "badge": "Outdoor",
     "specs": {
-      "Chất liệu": "Gỗ Nhựa Composite (WPC)",
-      "Kháng UV": "Chống phai màu vượt trội",
-      "Ứng dụng": "Ốp mặt tiền, ban công, resort"
+      "Chất liệu": "Gỗ biến tính Thermo / WPC",
+      "Kháng UV": "Sơn ngoại thất chống phai màu",
+      "Độ bền": "Trên 15 năm ngoài trời"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Hàng rào",
+    "category": "exterior",
+    "image_url": "images/Hàng_rào_gỗ_1784345757.png",
+    "description": "Hàng rào gỗ trang trí khuôn viên biệt thự và nhà phố, thiết kế hiện đại, chống mối mọt và chịu thời tiết khắc nghiệt.",
+    "badge": "Fence",
+    "specs": {
+      "Cấu tạo": "Thanh gỗ nhựa Composite khung thép",
+      "Màu sắc": "Gỗ Teak, Óc Chó, Cafe",
+      "Bảo trì": "Dễ dàng xịt rửa vệ sinh"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Trang trí ốp cảnh quan",
+    "category": "exterior",
+    "image_url": "images/ngoại_thất_1784353586.png",
+    "description": "Giải pháp ốp trần hiên, ốp vách trang trí sân vườn, chòi nghỉ và lối đi ngoài trời kiến tạo không gian sống gần gũi thiên nhiên.",
+    "badge": "Landscape",
+    "specs": {
+      "Hạng mục": "Ốp trần hiên, vách cảnh quan",
+      "Đặc tính": "Chống nước, chống mối mọt",
+      "Ứng dụng": "Resort, Biệt thự, Cafe sân vườn"
     }
   }
 ]
