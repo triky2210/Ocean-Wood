@@ -172,13 +172,13 @@
     "id": 14,
     "name": "Cửa đi 2 cánh",
     "category": "door",
-    "image_url": "images/door_double.jpg",
-    "description": "Bộ cửa gỗ 2 cánh sang trọng cho lối vào chính hoặc sảnh lớn, đường nét chắt lọc tinh tế, chống cong vênh mối mọt.",
-    "badge": "Main Entry",
+    "image_url": "images/door_double_plywood.jpg",
+    "description": "Bộ cửa đi 2 cánh sản xuất từ cốt gỗ ép Plywood phủ Veneer Óc Chó/Sồi cao cấp, cấu trúc nhiều lớp chịu lực uốn, chống cong vênh mối mọt tuyệt đối cho sảnh chính.",
+    "badge": "Plywood Door",
     "specs": {
-      "Cấu trúc": "Cửa 2 cánh cân / lệch",
-      "Bề mặt": "Phủ Veneer Sồi / Óc chó / Melamine",
-      "Bảo hành": "5 năm"
+      "Cấu trúc": "Cốt Plywood ép nhiều lớp",
+      "Bề mặt": "Phủ Veneer gỗ tự nhiên 0.6mm",
+      "Tính năng": "Chống cong vênh, chịu lực nén cao"
     }
   },
   {
@@ -224,13 +224,13 @@
     "id": 18,
     "name": "Phòng khách",
     "category": "interior",
-    "image_url": "images/Gemini_Generated_Image_6l1mn76l1mn76l1m_Custom_1784349923.png",
-    "description": "Hệ sản phẩm nội thất phòng khách đồng bộ: Vách ốp TV, kệ trang trí, bàn trà gia công từ ván ép phủ Veneer/Melamine cao cấp.",
-    "badge": "Living Room",
+    "image_url": "images/interior_living.png",
+    "description": "Hệ thống nội thất phòng khách nổi bật chất liệu gỗ ép Plywood cao cấp: Vách ván ép phủ Melamine/Veneer TV, bàn trà và hệ tủ trang trí hiện đại sang trọng.",
+    "badge": "Plywood Interior",
     "specs": {
-      "Hạng mục": "Kệ TV, Vách ốp gỗ, Bàn trà",
-      "Chất liệu": "Plywood dán Veneer Óc Chó",
-      "Thi công": "May đo theo diện tích"
+      "Chất liệu chủ đạo": "Plywood dán Veneer Óc Chó",
+      "Hạng mục": "Vách ván ép TV, kệ tủ trang trí",
+      "Ưu điểm": "Chịu ẩm tốt, không biến dạng"
     }
   },
   {
@@ -276,13 +276,13 @@
     "id": 22,
     "name": "Phòng thay đồ",
     "category": "interior",
-    "image_url": "images/screen_1784346666.png",
-    "description": "Hệ tủ quần áo mở cánh kính (Walk-in Closet) cao kịch trần tinh tế, phân chia khoang chứa đồ thông minh tích hợp đèn LED cảm ứng.",
-    "badge": "Closet",
+    "image_url": "images/interior_closet.png",
+    "description": "Hệ tủ quần áo phòng thay đồ (Walk-in Closet) thi công từ ván ép Plywood Melamine chống ẩm kết hợp hệ đèn LED cảm ứng sang trọng đẳng cấp.",
+    "badge": "Plywood Closet",
     "specs": {
-      "Cấu trúc": "Hệ tủ mở / Cánh kính khung nhôm",
-      "Đèn chiếu sáng": "LED cảm ứng thanh nhôm định hình",
-      "Chất liệu": "Plywood Melamine vân gỗ Sồi"
+      "Cốt ván": "Plywood kháng ẩm cao cấp",
+      "Bề mặt": "Phủ Melamine vân gỗ Sồi",
+      "Kết cấu": "Hệ tủ gỗ ép chia khoang thông minh"
     }
   },
   {
@@ -302,13 +302,13 @@
     "id": 24,
     "name": "Cửa ngoài trời",
     "category": "exterior",
-    "image_url": "images/ngoại_thất_1784346623.png",
-    "description": "Cửa gỗ cổng và cửa ban công ngoài trời sử dụng thanh gỗ nhựa/gỗ biến tính (Thermo Wood) chịu nắng mưa, không mục nát.",
-    "badge": "Outdoor",
+    "image_url": "images/exterior_door.png",
+    "description": "Cửa ngoài trời và cửa ban công sử dụng ván ép ngoại thất phủ nhựa Composite / Thermo Wood chuyên dụng, chịu nắng mưa khắc nghiệt không mục nát.",
+    "badge": "Exterior Door",
     "specs": {
-      "Chất liệu": "Gỗ biến tính Thermo / WPC",
-      "Kháng UV": "Sơn ngoại thất chống phai màu",
-      "Độ bền": "Trên 15 năm ngoài trời"
+      "Chất liệu": "Gỗ ép nhựa WPC / Thermo Plywood",
+      "Bề mặt": "Sơn ngoại thất kháng tia UV",
+      "Độ bền": "Không mục nát ngoài trời"
     }
   },
   {
