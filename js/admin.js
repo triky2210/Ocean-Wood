@@ -668,11 +668,13 @@
                             <div>
                                 <label style="display:block; font-weight: 600; margin-bottom: 4px; font-size: 14px;">Danh mục *</label>
                                 <select id="prod-category" style="width:100%; border: 1px solid #c1c7d2; padding: 8px; border-radius: 4px; background:white;">
-                                    <option value="plywood" ${product.category === 'plywood' ? 'selected' : ''}>Plywood</option>
-                                    <option value="veneer" ${product.category === 'veneer' ? 'selected' : ''}>Veneer</option>
-                                    <option value="melamine" ${product.category === 'melamine' ? 'selected' : ''}>Melamine</option>
-                                    <option value="rubber" ${product.category === 'rubber' ? 'selected' : ''}>Gỗ Cao Su Ghép</option>
-                                    <option value="mdf" ${product.category === 'mdf' ? 'selected' : ''}>Ván MDF - PB</option>
+                                    <option value="plywood" ${product.category === 'plywood' ? 'selected' : ''}>Ván Ép / Plywood</option>
+                                    <option value="veneer" ${product.category === 'veneer' ? 'selected' : ''}>Plywood Phủ Veneer</option>
+                                    <option value="melamine" ${product.category === 'melamine' ? 'selected' : ''}>Plywood Phủ Melamine</option>
+                                    <option value="film" ${product.category === 'film' ? 'selected' : ''}>Ván Ép Phủ Phim</option>
+                                    <option value="door" ${product.category === 'door' ? 'selected' : ''}>Cửa Gỗ</option>
+                                    <option value="interior" ${product.category === 'interior' ? 'selected' : ''}>Nội Thất</option>
+                                    <option value="exterior" ${product.category === 'exterior' ? 'selected' : ''}>Ngoại Thất</option>
                                 </select>
                             </div>
                             <div>
@@ -780,15 +782,22 @@
                         // Check if we are on the products page and reload products
                         if (typeof loadProducts === 'function') {
                             // Fetch active category filtering from current UI state
-                            const activeBtn = document.querySelector('aside button.bg-primary');
+                            const activeBtn = document.querySelector('#sidebar-category-list button.bg-primary') || document.querySelector('aside button.bg-primary');
                             let activeCat = null;
                             if (activeBtn) {
-                                const catText = activeBtn.textContent.trim().toLowerCase();
-                                if (catText.includes('ván ép') || catText.includes('plywood')) activeCat = 'plywood';
-                                else if (catText.includes('veneer')) activeCat = 'veneer';
-                                else if (catText.includes('melamine')) activeCat = 'melamine';
-                                else if (catText.includes('cao su')) activeCat = 'rubber';
-                                else if (catText.includes('mdf')) activeCat = 'mdf';
+                                const catAttr = activeBtn.getAttribute('data-category');
+                                if (catAttr && catAttr !== 'all') {
+                                    activeCat = catAttr;
+                                } else {
+                                    const catText = activeBtn.textContent.trim().toLowerCase();
+                                    if (catText.includes('phủ phim')) activeCat = 'film';
+                                    else if (catText.includes('cửa gỗ')) activeCat = 'door';
+                                    else if (catText.includes('nội thất')) activeCat = 'interior';
+                                    else if (catText.includes('ngoại thất')) activeCat = 'exterior';
+                                    else if (catText.includes('veneer')) activeCat = 'veneer';
+                                    else if (catText.includes('melamine')) activeCat = 'melamine';
+                                    else if (catText.includes('ván ép') || catText.includes('plywood')) activeCat = 'plywood';
+                                }
                             }
                             loadProducts(activeCat);
                         }

@@ -172,7 +172,7 @@
     "id": 14,
     "name": "Cửa đi 2 cánh",
     "category": "door",
-    "image_url": "images/door_double_plywood.jpg",
+    "image_url": "images/door_double_plywood.jpeg",
     "description": "Bộ cửa đi 2 cánh sản xuất từ cốt gỗ ép Plywood phủ Veneer Óc Chó/Sồi cao cấp, cấu trúc nhiều lớp chịu lực uốn, chống cong vênh mối mọt tuyệt đối cho sảnh chính.",
     "badge": "Plywood Door",
     "specs": {
@@ -224,7 +224,7 @@
     "id": 18,
     "name": "Phòng khách",
     "category": "interior",
-    "image_url": "images/interior_living.png",
+    "image_url": "images/living_room_1785297771.jpg",
     "description": "Hệ thống nội thất phòng khách nổi bật chất liệu gỗ ép Plywood cao cấp: Vách ván ép phủ Melamine/Veneer TV, bàn trà và hệ tủ trang trí hiện đại sang trọng.",
     "badge": "Plywood Interior",
     "specs": {
@@ -260,23 +260,10 @@
     }
   },
   {
-    "id": 21,
-    "name": "Phòng tắm",
-    "category": "interior",
-    "image_url": "images/nội_thất_1784353575.png",
-    "description": "Tủ Lavabo gỗ công nghiệp chống nước chuyên dụng cho phòng tắm, kết hợp mặt đá và gương đèn LED sang trọng.",
-    "badge": "Bathroom",
-    "specs": {
-      "Cốt gỗ": "Plywood Marine chống nước 100%",
-      "Bề mặt": "Sơn PU 5 lớp chống ẩm",
-      "Kiểu dáng": "Tủ treo tường hiện đại"
-    }
-  },
-  {
     "id": 22,
     "name": "Phòng thay đồ",
     "category": "interior",
-    "image_url": "images/interior_closet.png",
+    "image_url": "images/This_may_contain__a_large_walk_in_closet_with_lots_of_drawers_and_clothes_hanging_on_the_walls_along_with_a_stool_1785298043.jpg",
     "description": "Hệ tủ quần áo phòng thay đồ (Walk-in Closet) thi công từ ván ép Plywood Melamine chống ẩm kết hợp hệ đèn LED cảm ứng sang trọng đẳng cấp.",
     "badge": "Plywood Closet",
     "specs": {
@@ -302,7 +289,7 @@
     "id": 24,
     "name": "Cửa ngoài trời",
     "category": "exterior",
-    "image_url": "images/exterior_door.png",
+    "image_url": "images/exterior_door_plywood.png",
     "description": "Cửa ngoài trời và cửa ban công sử dụng ván ép ngoại thất phủ nhựa Composite / Thermo Wood chuyên dụng, chịu nắng mưa khắc nghiệt không mục nát.",
     "badge": "Exterior Door",
     "specs": {
