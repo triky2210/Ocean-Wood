@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Ván ép phủ mặt Pitago",
     "category": "plywood",
-    "image_url": "images/plywood_poplar_marine.png",
+    "image_url": "images/plywood_pitago.jpg",
     "description": "Ván ép chất lượng cao phủ mặt gỗ Pitago tự nhiên, chịu lực uốn tốt, bề mặt nhẵn mịn thích hợp cho làm nội thất và đóng gói cao cấp.",
     "badge": "Bestseller",
     "specs": {
@@ -16,7 +16,7 @@
     "id": 2,
     "name": "Ván ép phủ mặt Ekume (Okoume)",
     "category": "plywood",
-    "image_url": "images/okume_plywood_cover.png",
+    "image_url": "images/plywood_okoume.jpg",
     "description": "Ván ép cốt gỗ phủ bề mặt Okoume nhập khẩu màu hồng nhạt đặc trưng, kháng ẩm cao, lý tưởng cho sản xuất nội thất và du thuyền.",
     "badge": "Marine Grade",
     "specs": {
@@ -29,7 +29,7 @@
     "id": 3,
     "name": "Ván ép làm bao bì",
     "category": "plywood",
-    "image_url": "images/plywood_vs_mdf_cross.png",
+    "image_url": "images/plywood_packaging.jpg",
     "description": "Ván ép chuyên dụng cho đóng kiện hàng, thùng gỗ bao bì xuất khẩu, khả năng chịu lực nén và va đập vượt trội với chi phí tối ưu.",
     "badge": "Packaging",
     "specs": {
