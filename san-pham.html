@@ -623,6 +623,15 @@
                 const category = (catAttr === 'all' || !catAttr) ? null : catAttr;
                 setActiveSidebarButton(catAttr === 'all' ? null : catAttr);
                 loadProducts(category);
+
+                // Update URL parameter without reload
+                const newUrl = new URL(window.location);
+                if (category) {
+                    newUrl.searchParams.set('cat', category);
+                } else {
+                    newUrl.searchParams.delete('cat');
+                }
+                window.history.replaceState({}, '', newUrl);
             });
         });
     }
